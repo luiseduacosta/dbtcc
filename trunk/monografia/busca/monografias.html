@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<script src="dmsAutoComplete.js"></script>
+<title>Busca monografias</title>
+<style type="text/css">
+<!--
+/* Definição de Estilos do Exemplo */
+/* CSS for example */
+BODY{ margin:0; padding:0; font-family:Verdana, Arial, Helvetica, sans-serif; background-image:url(img/page-bg.gif);}
+
+#mainTable{ width: 780px; border: 1px solid #3e5c7c;}
+#mainTable #topBar{ background-color:#3e5c7c; text-align:right; color:#FFFFFF; font-size:9px; padding: 3px; }
+#mainTable #topMain{ height: 77px; background-image:url(img/top-bg.gif); background-repeat:repeat-x; }
+#mainTable #headerTable{ height: 77px; width: 100%;}
+#mainTable #headerTable .text{ vertical-align:bottom; padding: 5px;}
+#mainTable #headerTable .logo{ vertical-align:middle; width:200px; text-align:right; padding: 5px;}
+#mainTable #headerTable .titulo{ font-size:18px; color:#FFFFFF; font-weight:bold;}
+#mainTable #headerTable .subtitulo{ font-size:10px; color:#FFFFFF; }
+#mainTable #content{ background-color:#FFFFFF; padding: 5px;}
+
+#exTable{ width: 100%; padding: 5px;}
+#exTable INPUT{ width:97%; border: 1px solid #3e5c7c; color:#666666; padding: 0 0 0px 4px;}
+#exTable #texto{ font-size:10px; color: #000000; text-align:justify; padding: 10px;}
+#exTable #label{ font-size:10px; font-weight:bold; color:#3e5c7c; padding-left: 10px; text-align:left;}
+#exTable #label.lateral{ width: 20%; text-align:right; padding: 0 5px 0 0;}
+
+#changelogTable{ width: 100%;}
+#changelog{ border: 1px dashed #3e5c7c; background-color:#EEEEEE; padding: 5px; font-size:10px; width: 50%; vertical-align:top;}
+
+#footnotes{ color:#000000; font-size:10px; }
+#footnotes A{ color: #3e5c7c;}
+
+.footer{ font-size:9px; text-align:center;}
+
+/* Definição dos estilos do DIV */
+/* CSS for the DIV */
+#acDiv{ border: 1px solid #9F9F9F; background-color:#F3F3F3; padding: 3px; font-size:10px; font-family:Verdana, Arial, Helvetica, sans-serif; color:#000000; display:none; position:absolute; z-index:999;}
+#acDiv UL{ list-style:none; margin: 0; padding: 0; } 
+#acDiv UL LI{ display:block;}
+#acDiv A{ color:#000000; text-decoration:none; }
+#acDiv A:hover{ color:#000000; }
+#acDiv LI.selected{ background-color:#7d95ae; color:#000000; }
+
+-->
+</style>
+</head>
+
+<body>
+
+<table border="2" align="center" cellpadding="0" cellspacing="0" id="mainTable">
+<form action="cadastra.php" method="post">
+    <tr>
+        <td class="lateral" id="label">Titulo:</td>
+	<td>
+	<input name="string" type="text" size="45" id="string" />
+	<div id="acDiv"></div>
+	</td>
+    </tr>
+    
+    <tr>
+	<td colspan="2">
+	<select name="select" id="select" style="width:100%">
+	</select>
+	</td>
+    </tr>
+    
+    <tr>
+	<td colspan="2" class="lateral" id="label">&nbsp;</td>
+    </tr>
+
+</form>
+</table>
+
+<script>
+//Instanciar objeto AutoComplete
+var AC = new dmsAutoComplete('string','acDiv');
+AC.ajaxTarget = 'monografias.php';
+AC.minLength = 5;
+
+//Definir função de retorno
+//Esta função será executada ao se escolher a palavra
+AC.chooseFunc = function(id,label) {
+	alert(id+' - '+label);
+	// var id_supervisor = document.getElementById("id_supervisor");
+	// var id_super = document.getElementById("id_super").value;
+	// id_super = id;
+	// alert(id_super);
+	// id_supervisor.innerHTML = id; 
+}
+</script>
+
+</body>
+</html>

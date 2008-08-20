@@ -1,0 +1,145 @@
+/*
+* Folha de estilos
+* corpo do texto
+*/
+
+body {
+	color: #000000;
+	background-color: #b0fffb;
+	font-size: small;
+	}
+
+h1 {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: large;
+	color: #000000;
+	text-align: center;
+	}
+
+p {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: small;
+	color: #000000;
+	text-align: justify;
+	}
+
+.titulo {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-weight: bold;
+	font-size: medium;
+	color: #000000;
+	text-align: center;
+	}
+
+.titulo_monografia {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-weight: bold;
+	font-size: medium;
+	color: #000000;
+	text-align: center;
+	background-color: #E7E1AE;
+	}
+
+.subtitulo {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-weight: bold;
+	font-size: small;
+	color: #ff0000;
+	text-align: center;
+	}
+
+.botao {
+	background-color: #b0fffb;
+	text-align: center;
+	}
+
+.total {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-weight: bold;
+	font-size: medium;
+	color: #000000;
+	background-color: #E7E1AE;
+	text-align: center;
+	}
+
+.coluna_centralizada {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: small;
+	color: #000000;
+	text-align: center;
+	}
+
+table {
+	background-color: #D0EFFF;
+	text-align: left;
+	}
+
+caption {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-weight: bold;
+	font-size: medium;
+	color: #000000;
+	text-align: center;
+	}
+
+th {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-weight: bold;
+	font-size: small;
+	color: #000000;
+	background-color: #E7E1AE;
+	text-align: center;
+	}
+
+tr {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: small;
+	color: #000000;
+	text-align: left;
+	}
+
+td {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: small;
+	color: #000000;
+	text-align: left;
+	}
+
+tr.alt td {
+	background-color: #dddddd;
+}
+
+tr.over td {
+	background-color: #ddefff;
+}
+
+#resaltado {
+	background-color: #DDDDDD;
+}
+
+#natural {
+	background-color: #D0EFFF;
+}
+
+#tab_titulo {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: small;
+	color: #000000;
+	text-align: justify;
+}
+
+a:link {
+	color: #ff0000;
+	}
+
+#botao_confirma_area {
+    position: absolute; width: 250px; top: 5px; left: 10px;
+    } 
+    
+#botao_confirma_professor {
+    position: absolute; width: 250px; top: 5px; left: 200px;
+    } 
+
+#tabela_ver_cada_professor {
+    position: absolute; width: 650px; top: 50px; left: 10px;
+    } 

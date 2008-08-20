@@ -1,0 +1,10 @@
+/*
+Configurações das tabelas para o programa TCC
+*/
+
+<body bgcolor='#B0FFFB'>;
+
+<table border='1' bgcolor='#C7FFB3'>
+
+<tr bgcolor='#E7E1AE'> <- Primeira linha das tabelas
+

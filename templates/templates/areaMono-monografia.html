@@ -1,0 +1,146 @@
+<html>
+<head>
+<link href='../../tcc.css' rel='stylesheet' type='text/css'>
+</head>
+<body>
+
+<div align='center'>
+<form name='actualizar' action='../../monografia/atualizar/atualiza_mono.php' method='POST'>
+
+<table border='1' bgcolor='#C7FFB3f'>
+<tr>
+<th bgcolor='#E7E1AE'>Monografia</th>
+</tr>
+
+<tr>
+<td>
+<input type='hidden' name='codigo' size='5' value='{$codigo}'>
+</td>
+</tr>
+
+<tr>
+<td>
+Titulo:
+</td>
+</tr>
+
+<tr>
+<td>
+<textarea rows='2' cols='80' name='titulo'>{$titulo}</textarea>
+</td>
+</tr>
+
+<tr>
+<td>Cat&aacute;logo:
+<input type='text' name='catalogo' size='4' value='{$catalogo}'>
+</td>
+</tr>
+
+<tr>
+<td>Professor(a):
+<select name="num_prof" id="num_prof">
+<option value={$id_professor}>{$professor}</option>
+{section name=i loop=$professores}
+<option value={$professores[i].id}>{$professores[i].nome}</option>
+{/section}
+</select>
+</td>
+</tr>
+
+<tr>
+<td>Co-orientador:
+<select name="num_co_orientador" id="num_co_orientador">
+<option value={$num_co__professor}>{$co_orientador}</option>
+{section name=i loop=$professores}
+<option value={$professores[i].id}>{$professores[i].nome}</option>
+{/section}
+</select>
+</td>
+</tr>
+
+<tr>
+<td><b>Aluno:</b>
+<select name="id_aluno1" id="id_aluno1">
+<option value={$id_aluno1}>{$aluno1}</option>
+{section name=i loop=$alunosTotal}
+<option value={$alunosTotal[i].id}>{$alunosTotal[i].nome}</option>
+{/section}
+</select>
+<a href="../../alunos/atualizar/atualiza.php?numero_aluno={$id_aluno1}">Excluir</a>
+</td>
+</tr>
+
+<tr>
+<td><b>Aluno:</b>
+<select name="id_aluno2" id="id_aluno2">
+<option value={$id_aluno2}>{$aluno2}</option>
+{section name=i loop=$alunosTotal}
+<option value={$alunosTotal[i].id}>{$alunosTotal[i].nome}</option>
+{/section}
+</select>
+<a href="../../alunos/atualizar/atualiza.php?numero_aluno={$id_aluno2}">Excluir</a>
+</td>
+</tr>
+
+<tr>
+<td><b>Aluno:</b>
+<select name="id_aluno3" id="id_aluno3">
+<option value={$id_aluno3}>{$aluno3}</option>
+{section name=i loop=$alunosTotal}
+<option value={$alunosTotal[i].id}>{$alunosTotal[i].nome}</option>
+{/section}
+</select>
+<a href="../../alunos/atualizar/atualiza.php?numero_aluno={$id_aluno3}">Excluir</a>
+</td>
+</tr>
+
+<tr>
+<td>
+Resumo: <input type='text' name='resumo' size='55' value='{$resumo}'>
+</td>
+</tr>
+
+<tr>
+<td><b>�rea do professor:</b>
+<select name="num_area" id="num_area" size="1">
+<option value={$id_areaProfessor}>{$areaProfessor}</option>
+{section name=i loop=$areasDosProfessores}
+<option value={$areasDosProfessores[i].id}>{$areasDosProfessores[i].area}</option>
+{/section}
+</select>
+</td>
+</tr>
+
+<tr>
+<td><b>Área da monografia:</b>
+<select name="id_areamonografia" id="id_areamonografia" size="1">
+<option value={$id_areamonografia}>{$areamonografia}</option>
+{section name=j loop=$areasmonografias}
+<option value={$areasmonografias[j].id}>{$areasmonografias[j].areamonografia}</option>
+{/section}
+</select>
+</td>
+</tr>
+
+<tr>
+<td>
+Periodo: <input type='text' name='periodo' size='6' value='{$periodo}'>
+Data:    <input type='text' name='data' size='10' value='{$data}'>
+</td>
+</tr>
+
+<input type='hidden' name='fazer' value='atualiza'>
+
+<tr>
+<td><p class='coluna_centralizada'>
+<input type='submit' name='submit' value='Atualizar'>
+</td>
+</tr>
+
+</table>
+
+</form>
+</div>
+
+</body>
+</html>

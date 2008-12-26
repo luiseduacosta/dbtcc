@@ -9,7 +9,7 @@ Add your content here.
 
 === Tabelas ===
 
-Ao tudo são 7 tabelas:
+Ao tudo são 10 tabelas:
 
   * monografias
   * areasmonografia
@@ -19,3 +19,5 @@ Ao tudo são 7 tabelas:
   * alunos (esta tabela faz parte do projeto estagio: são os alunos que cursaram estágio)
   * tcc_alunos (sub-conjunto da anterior)
   * sexo (somente para poder imprimir a declaração no gênero correto)
+  * inscricao (inscrição na disciplina Orientação de TCC)
+  * usuarios (usuarios do sistema)

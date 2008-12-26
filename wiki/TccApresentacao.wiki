@@ -11,11 +11,11 @@ Add your content here.
 
 Ao tudo são 7 tabelas:
 
-* monografias
-* areasmonografia
-* professores (muitos campos porque faz parte de outro projeto)
-* areas (área do professor)
-* prof_area (relaciona professores com areas)
-* alunos (esta tabela faz parte do projeto estagio: são os alunos que cursaram estágio)
-* tcc_alunos (sub-conjunto da anterior)
-* sexo (somente para poder imprimir a declaração no gênero correto)
+  * monografias
+  * areasmonografia
+  * professores (muitos campos porque faz parte de outro projeto)
+  * areas (área do professor)
+  * prof_area (relaciona professores com areas)
+  * alunos (esta tabela faz parte do projeto estagio: são os alunos que cursaram estágio)
+  * tcc_alunos (sub-conjunto da anterior)
+  * sexo (somente para poder imprimir a declaração no gênero correto)

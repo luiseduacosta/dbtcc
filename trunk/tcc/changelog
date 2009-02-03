@@ -1,0 +1,55 @@
+14/07/2004
+
+Finalmente já consegui passar todo o programa para a classe ADODB. Também já instalei o programa completo no site da escola.
+Fiz algumas melhoras em vários lugares.
+
+	26/06/2004
+
+	Infelizmente a classe database não trabalhou bem com o
+	postgresql. Agoro estou començando a migrar para a classe
+	ADODB. Por enquanto consegui criar o banco de dados e passar todas
+	as informações. Também mudei toda a árbore da monografia para este
+	novo sistema e está funcionando. Ainda tenho muito trabalho pela
+	frente.
+
+	18/10/2003 
+
+	Crie a tabela situacoes para descrever as situações dos
+	professores (afastado para qualificação, aposentado, trasladado,
+	etc.). Com esta tabela e outra que ainda não crie poder-se-ia ter
+	uma pequena historia laboral do professor. A outra tabela teria
+	que ter um campo para o professor, outro para a situação, e outros
+	dois com a data de inicio e de finalização dessa situação.  Mudei
+	alguns arquivos do módulo professor para trabalhar com este nova
+	tabela (atualizar, inserir, visualizar: todos os professores).
+	Aprovechei para mudar a conexão com o banco de datdos para poder
+	utilizar a classe database.  
+
+	04/05/2003 
+
+	Mudei o módulo inscricao (todos os arquivos) para trabalhar com a
+	classe database.  Mudei no módulo area a pasta classifica. O resto
+	ainda não fiz.  A classificação ainda está com problemas. Os
+	botões estão embaixo e deveriam ficar encima, mas não sei como
+	fazer isso. No arquivo seleciona_monografia.php que é chamado a
+	cada clique do botão, volta a contar a quantidade de monografias o
+	que desnecessário (com uma única vez alcanza).  Mudei também o
+	arquivo aluno.inc que ficou melhor e agora é o mesmo que é
+	utilizado no módulo alunos. Depois teria que colocar esse arquivo
+	num lugar para que seja accesado por estes dois programas e também
+	outros.
+
+
+	02/05/2003 
+
+	Començei a utlizar a classe database que possibilita
+	mudar da banco de dados.  Já mudei o módulo de alunos
+	(todos os arquivos).  
+
+	26-04-2003 
+
+	Corregi no módulo professores o campo sexo (agora é possível
+	atualizar).  No módulo monografias resolvi o problema no campo da
+	exclussão das áreas.  No módulo impressão culminei a transição
+	para arquivos PDF.  Agora é possivel imprimir declarações
+	individuais em formato PDF.

@@ -1,0 +1,50 @@
+function PS_begin_page(file, page)
+=> New Page
+
+function PS_close(file)
+=> Close PS File
+
+function PS_end_page(file)
+=> Ends a page
+
+function PS_line(file, xcoord_from, ycoord_from, xcoord_to, ycoord_to, linewidth)
+=> draws a line
+
+function PS_moveto(file, xcoord, ycoord)
+=> move to position
+
+function PS_moveto_font(file, xcoord, ycoord, font_name, font_size)
+=> moveto position, changing the font
+
+function PS_open(file, author, title, orientation)
+=> Starts a new PS file
+
+function PS_open_ps(file, ps_file)
+=> Inserts a PS file/image (remember to delete the information in the top of the file (source))
+
+function PS_rect(file, xcoord_from, ycoord_from, xcoord_to, ycoord_to, linewidth)
+=> draws a rectangle
+
+function PS_rect_fill(file, xcoord_from, ycoord_from, xcoord_to, ycoord_to, linewidth, darkness)
+=> draws a rectangle, filling it
+
+function PS_rotate(file, degrees)
+=> set rotation, use 0 or 360 to end rotation 
+
+function PS_set_font(file, font_name, font_size)
+=> changes the font
+
+function PS_show(file, text)
+=> show a text at the current position (use PS_moveto to set position)
+
+function PS_show_eval(file, text)
+=> shows a text, evaluating the text (vars...)
+
+function PS_show_xy(file, text, xcoord, ycoord)
+=> show a text at the position x,y
+
+function PS_show_xy_font(file, text, xcoord, ycoord, font_name, font_size)
+=> shows a text at the x,y with the font especified by font_name and font_size
+
+function PS_set_acent(file)
+=> not used 

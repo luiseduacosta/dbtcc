@@ -1,0 +1,97 @@
+<?php
+
+include("../../autentica.inc");
+
+echo "
+<html>
+<head>
+<link href='../../tcc.css' rel='stylesheet' type='text/css'>
+<script language='JavaScript' type='text/javascript'>
+<!--
+function elimina()
+{
+    var confirma;
+    confirma==confirm('Tem certeza?');
+    if(confirma=true)
+	return true;
+    else
+	return false;
+}
+//-->
+</script>
+</head>
+<body>
+";
+
+// Recebo o valor da variável
+$num_area = $_POST['num_area'];
+
+// Consulto a tabela prof_area para saber que professores estão associados a esta área
+$sql = "select * from prof_area where num_area='$num_area'";
+include("../../include_db.inc");
+$resultado = $db->Execute($sql);
+if($resultado == false) die ("Não foi possível consultar a tabela prof_area");
+while(!$resultado->EOF)
+{
+	$num_professor = $resultado->fields['num_prof'];
+	$num_area      = $resultado->fields['num_area'];
+	$sql_prof_area = "select * from prof_area where num_prof='$num_professor'";
+	$resultado_prof_area = $db->Execute($sql_prof_area);
+	if($resultado_prof_area == false) die ("Não foi possível consultar a tabela prof_area");
+	$nrows = $resultado_prof_area->RecordCount();
+		
+	// Si a área a ser eliminada é a única área de um professor então não pode ser eliminada
+	if($nrows == '1')
+	{
+		$sql_professores = "select nome from professores where numero='$num_professor'";
+		$resultado_professores = $db->Execute($sql_professores);
+		if($resultado_professores == false) die ("Não foi possível consultar a tabela professores");
+		while(!$resultado_professores->EOF)
+		{
+			$nome = $resultado_professores->fields['nome'];
+			$resultado_professores->MoveNext();
+		}
+		echo "Esta area e a unica area do professor <b>$nome</b> <br>";
+		echo "Primeiro acrescente uma outra area para o professor, para logo eliminar esta.<br>";
+		exit;
+
+	}
+	$resultado->MoveNext();		
+}
+
+// Agora passo a consultar a tabela monografias para saber
+// si alguma delas está associada a esta area
+$sql_monografia = "select num_area from monografia where num_area='$num_area'";
+$resultado_monografia = $db->Execute($sql_monografia);
+if($resultado_monografia == false) die ("Nao foi possivel consultar a tabela monografia");
+$nrows = $resultado_monografia->RecordCount();
+
+// Não excluir a área Não corresponde e sem/dados
+if ($num_area == '99' || $num_area == '91') {
+    echo "<p>Área(s) 'Não corresponde' e 's/d' não podem ser excluídas</p>";
+    exit;
+}
+// Si existe uma monografia associada a esta area não pode ser eliminada
+if($nrows != 0)
+{
+	echo "<p>Nao é possível eliminar esta area por estar associada a uma monografia. <br>";
+	exit;
+}
+// Em caso contrário si posso eliminar a area da tabela
+else 
+{
+	$sql = "delete from areas where numero='$num_area'";
+	$resultado = $db->Execute($sql);
+	if($resultado == false) die ("Não foi possível eliminar o registro da tabela areas");
+
+	echo "<p>Registro eliminado <br>";
+}
+	
+$db->Close();
+
+echo "
+</body>
+</html>
+";
+
+?>

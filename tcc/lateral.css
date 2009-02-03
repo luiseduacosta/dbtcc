@@ -1,0 +1,75 @@
+/*
+* Folha de estilos
+* background-color: #DAA6A6;
+*/
+
+body {
+	color: #000000;
+	background-color: #dddddd;
+	font-size: small;
+	}
+
+p {
+	color: #000000;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: small;
+	text-align: justify;
+	}
+
+#small {
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: x-small;
+	text-align: justify;
+	color: #000000;
+	}
+
+table {
+	background-color: #FFFFFF;
+	border-style: solid;
+	border-color: #000000;
+	border-width: 1;
+	}
+
+td {
+	color: #000000;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: small;
+	font-weight: bold;
+	text-align: left;
+	border-style: outset;
+	border-color: #000000;
+	border-width: 2;
+	}
+
+hr {
+	background-color: #FF0000;
+	width: 150;
+	height: 5;
+	}
+
+.coluna_centralizada {
+	color: #000000;
+	font-family: verdana, arial, helvetica, sans-serif;
+	font-size: small;
+	text-align: center;
+	}
+
+a:link {
+	color: #001CFF;
+	}
+	
+a:visited {
+	color: #1AAB0D;
+	}
+
+a:active {
+	color: #010101;
+	}
+
+#lateral {
+	text-align: center;
+	}
+
+*/
+* Fim da folha de estilos
+/*

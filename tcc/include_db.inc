@@ -13,9 +13,9 @@ $bancodados = "tcc";
 
 $tipo       = "mysql";
 $host       = "localhost";
-$usuario    = "tcc";
-$senha      = "tcc";
-$bancodados = "tcc";
+$usuario    = "ess";
+$senha      = "ess123";
+$bancodados = "ess";
 
 $db = NewADOConnection($tipo);
 $db->Connect($host,$usuario,$senha,$bancodados);

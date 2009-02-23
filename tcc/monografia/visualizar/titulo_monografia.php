@@ -13,21 +13,21 @@
         </style>
         <script type="text/javascript" src="../../lib/jquery.js">
         </script>
+
         <script type="text/javascript" src="../../lib/tablesorter/jquery.tablesorter.min.js">
         </script>
-        <script type="text/javascript" src="../../lib/tablesorter/jquery.tablesorter.js">
-        </script>
+
         <script type="text/javascript" src="../../lib/tablesorter/addons/pager/jquery.tablesorter.pager.js">
         </script>
+
         <script type="text/javascript" src="../../lib/jquery.quicksearch.js">
         </script>
-        <!--
+
         <script language="JavaScript" type="text/javascript" src="../../lib/jquery.tablehover.js"></script>
-        //-->
         <script type="text/javascript">
             $(document).ready(function(){
             
-                /* $("#monografias").tableHover(); */
+                $("#monografias").tableHover();
                 
                 $("#monografias").tablesorter({
                     widthFixed: true,
@@ -43,11 +43,11 @@
                     loaderText: 'Aguarde...',
                     labelText: 'Pesquise pelo orientador:'
                 });
-                /*
-                 $("#monografias").tablesorterPager({
-                 container: $("#pager")
+
+                $("#monografias").tablesorterPager({
+                    container: $("#pager")
                  });
-                 */
+                 
                 $(".alterna_cores tr").mouseover(function(){
                     $(this).addClass("over");
                 });
@@ -78,6 +78,7 @@ function matriz($ordem) {
 		$arquivo  = $resultado->fields['url'];
 		$num_prof = $resultado->fields['num_prof'];
 		$periodo  = $resultado->fields['periodo'];
+
 		$resultado->MoveNext();
 
 		// Para ordenar
@@ -138,7 +139,7 @@ echo "
 <th><a href='?ordem=url'>PDF</a></th>
 <th><a href='?ordem=aluno'>Aluno(s)</a></th>
 <th width='25%'><a href='?ordem=professor'>Professor</a></th>
-<th><a href='?ordem=periodo'>Período</a></th>
+<th><a href='?ordem=periodo'>Periodo</a></th>
 //-->
 <th>ID</th>
 <th>Cat&aacute;logo</th>
@@ -146,7 +147,7 @@ echo "
 <th>PDF</th>
 <th>Aluno(s)</th>
 <th>Professor</th>
-<th>Período</th>
+<th>Perï¿½odo</th>
 </thead>
 <tbody>
 ";
@@ -185,7 +186,7 @@ for($i=0; $i<sizeof($matriz); $i++) {
 	<td class='tab_titulo'><a href='ver_monografia.php?codigo=$codigo'>$titulo</a></td>
 	";
 	if(empty($artigo)) {
-		echo "<td></td>";
+		echo "<td>&nbsp;</td>";
 		} else {
 		echo "<td><a href='http://$servidor/monografias/$artigo'>PDF</a></td>";
 	}

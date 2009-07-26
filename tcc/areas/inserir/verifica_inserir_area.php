@@ -5,6 +5,7 @@ include("../../autentica.inc");
 include("../../include_db.inc");
 
 $sql = "insert into areas(area) values('$area')";
+// echo $sql . "<br>";
 
 $resposta = $db->Execute($sql);
 if($resposta == false) die ("Nao foi possivel inserir o registro na tabela areas");

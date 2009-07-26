@@ -1,5 +1,7 @@
 <?php
 
+include("../../include_db.inc");
+
 $submit        = $_POST['submit'];
 $id_prof       = $_POST['id_prof'];
 $nome          = $_POST['nome'];
@@ -18,7 +20,7 @@ $sql .= " motivoegresso='$motivoegresso', ";
 $sql .= " departamento='$departamento' ";
 $sql .= "where id='$id_prof'";
 // echo $sql . "<br>";
-include("../../include_db.inc");
+
 $resultado = $db->Execute($sql);
 if($resultado == false) die ("Não foi possível atualizar a tabela professores (acrescentar área)");
 

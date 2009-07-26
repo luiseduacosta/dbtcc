@@ -21,7 +21,7 @@ echo"
 if($departamento === "metodos")
     $departamento = "metodos e tecnicas";
 elseif($departamento === "sem")
-    $departamento = "sem informação";
+    $departamento = "sem informaï¿½ï¿½o";
 
 if($opcao)
 	{
@@ -46,14 +46,14 @@ else
 	
 require_once("../../include_db.inc");
 $resposta = $db->Execute($sql);
-if($resposta == false) die ("NÃo foi possível consultar a tabela professores");
+if($resposta == false) die ("Nï¿½o foi possï¿½vel consultar a tabela professores");
 
 echo "
 <tr>
 <th><a href=?ordem=nome&opcao=$opcao&departamento=$departamento>Nome</a></th>
 <th><a href=?ordem=departamento&opcao=$opcao&departamento=$departamento>Departamento</a></th>
-<th><a href=?ordem=tipocargo&opcao=$opcao&departamento=$departamento>Condição</a></th>
-<th><a href=?ordem=situacao&opcao=$opcao&departamento=$departamento>Situação</a></th>
+<th><a href=?ordem=tipocargo&opcao=$opcao&departamento=$departamento>Condiï¿½ï¿½o</a></th>
+<th><a href=?ordem=situacao&opcao=$opcao&departamento=$departamento>Situaï¿½ï¿½o</a></th>
 <th><a href=?ordem=email&opcao=$opcao&departamento=$departamento>E-mail</a></th>
 </tr>
 </thead>

@@ -182,8 +182,9 @@ while(!$resposta_sql->EOF) {
 
 $db->Close();
 
-$smarty = new templateTcc;
+$smarty = new template_tcc;
 $smarty->assign("codigo",$codigo);
+$smarty->assign("catalogo",$catalogo);
 $smarty->assign("titulo",$titulo);
 $smarty->assign("id_professor",$num_prof);
 $smarty->assign("professor",$nome);

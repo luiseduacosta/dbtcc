@@ -1,9 +1,10 @@
 <?php
 
+include("../../include_db.inc");
+
 $ordem = $_REQUEST['ordem'];
 
 $sql = "select * from areas order by area"; 
-include("../../include_db.inc");
 $resultado = $db->Execute($sql);
 if($resultado == false) die ("Não foi possível consultar a tabela areas");
 
@@ -61,6 +62,7 @@ while(!$resultado->EOF)	{
 
 reset($matriz);
 sort($matriz);
+
 for($i=0;$i<sizeof($matriz);$i++)
 {
     $num_area = $matriz[$i]['num_area'];

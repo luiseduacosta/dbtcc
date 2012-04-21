@@ -3,12 +3,12 @@ require("../../autentica.inc");
 ?>
 <html>
 <head>
-<link href="../../tcc.css" rel="stylesheet" type="text/css">
+<link href="../../css/tcc.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
 <form name='seleciona_area' method='post' action='seleciona_area.php'>
-<div align="center">
+<div>
 <table>
 <!-- Nome do profressor -->
 <tr><td>Nome: <input type='text' name='nome' size='50'></td></tr>
@@ -108,7 +108,7 @@ while(!$resultado_areas->EOF) {
 <!-- Enviar -->
 <input type='hidden' name='inserir' value='1'>
 <tr><td>
-    <div align="center">
+    <div>
     <table>
     <tr><td>
     <input type='submit' name='submit' value='Enviar'>

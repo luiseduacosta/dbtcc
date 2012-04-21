@@ -1,6 +1,6 @@
 <html>
 <head>
-<link href="../../tcc.css" rel="stylesheet" type="text/css">
+<link href="../../css/tcc.css" rel="stylesheet" type="text/css">
 </head>
 
 <?php $opcao = $_REQUEST['opcao']; ?>
@@ -9,11 +9,11 @@
 <form name="select_departamentos" method="POST" action="ver_todos_professores.php">
 
 <select name="departamento" size="1">
-	<option value="sem informação">Selecione o departamento</option>
+	<option value="sem informaÃ§Ã£o">Selecione o departamento</option>
 	<option value="fundamentos">Fundamentos</option>
-	<option value="metodos e tecnicas">Métodos e técnicas</option>
-	<option value="politica social">Políticas</option>
-	<option value="sem informação">Sem informação</option>
+	<option value="metodos e tecnicas">MÃ©todos e tÃ©cnicas</option>
+	<option value="politica social">PolÃ­ticas</option>
+	<option value="sem informaÃ§Ã£o">Sem informaÃ§Ã£o</option>
 </select>
 
 <input type="hidden" name="escolha" value="nome">

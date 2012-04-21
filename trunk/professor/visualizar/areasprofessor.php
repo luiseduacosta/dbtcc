@@ -1,6 +1,6 @@
 <html>
 <head>
-<link href="../../tcc.css" rel="stylesheet" type="text/css">
+<link href="../../css/tcc.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -17,18 +17,18 @@ if (empty($num_area))
 
 include("../../include_db.inc");
 
-// Obtengo o nome da área para o cabecalho
+// Obtengo o nome da ï¿½rea para o cabecalho
 $sql_areas = "select area from areas where numero='$num_area'";
 $resposta = $db->Execute($sql_areas);
-if($resposta === false) die ("Não foi possível consultar a tabela areas");
-while(!$resposta->EOF)
+if ($resposta === false) die ("Nao foi possivel consultar a tabela areas");
+while (!$resposta->EOF)
 {
 	$area = $resposta->fields['area'];
 	$resposta->MoveNext();
 }
 
 echo "
-<div align='center'>
+<div>
 <table>
 <thead>
 <caption>Professores da area: $area</caption>
@@ -45,13 +45,13 @@ echo "
 <tbody>
 ";
 
-// Si a área é não corresponde
+// Si a ï¿½rea ï¿½ nï¿½o corresponde
 if($num_area === '99')
 {
     echo "
-    <div align='center'>
+    <div>
     <table>
-    <caption>Monografias classificadas como área: não corresponde</caption>
+    <caption>Monografias classificadas como Ã¡rea: nÃ£o corresponde</caption>
     <tr>
     <th>Titulo</th>
     <th>Professor</td>
@@ -61,7 +61,7 @@ if($num_area === '99')
     $sql_sem_dados = "select * from monografia where num_area = '99'";
     $resultado_sem_dados = $db->Execute($sql_sem_dados);
 
-    while(!$resultado_sem_dados->EOF) {
+    while (!$resultado_sem_dados->EOF) {
 
 	$numero_area = $resultado_sem_dados->fields['num_area'];
 	$titulo      = $resultado_sem_dados->fields['titulo'];
@@ -70,8 +70,8 @@ if($num_area === '99')
 	$resultado_sem_dados->MoveNext();
 	$sql_nome_professor = "select * from professores where id = '$professor'";
 	$resultado_nome_professor = $db->Execute($sql_nome_professor);
-	if($resultado_nome_professor === false) die ("Não foi possível consultar a tabela professores");
-	while(!$resultado_nome_professor->EOF) {
+	if ($resultado_nome_professor === false) die ("NÃ£o foi possÃ­vel consultar a tabela professores");
+	while (!$resultado_nome_professor->EOF) {
 	
 	    $nome_professor = $resultado_nome_professor->fields['nome'];
 	    $resultado_nome_professor->MoveNext();
@@ -87,23 +87,23 @@ if($num_area === '99')
     }
     exit;
 }
-// Si a área é sem dados
-elseif($num_area === '91')
+// Si a ï¿½rea ï¿½ sem dados
+elseif ($num_area === '91')
 {
     echo "
-    <div align='center'>
+    <div>
     <table>
-    <caption>Monografias classificadas como área: sem dados</caption>
+    <caption>Monografias classificadas como Ã¡rea: sem dados</caption>
     <tr>
     <th>Titulo</th>
     <th>Professor</td>
-    <th>Periodo</th>
+    <th>PerÃ­odo</th>
     </tr>
     ";
     $sql_sem_dados = "select * from monografia where num_area='91'";
     $resultado_sem_dados = $db->Execute($sql_sem_dados);
 
-    while(!$resultado_sem_dados->EOF) {
+    while (!$resultado_sem_dados->EOF) {
 	$numero_area = $resultado_sem_dados->fields['num_area'];
 	$titulo      = $resultado_sem_dados->fields['titulo'];
 	$periodo     = $resultado_sem_dados->fields['periodo'];
@@ -111,8 +111,8 @@ elseif($num_area === '91')
 	$resultado_sem_dados->MoveNext();
 	$sql_nome_professor = "select * from professores where id = '$professor'";
 	$resultado_nome_professor = $db->Execute($sql_nome_professor);
-	if($resultado_nome_professor === false) die ("Não foi possível consultar a tabela professores");
-	while(!$resultado_nome_professor->EOF) {
+	if ($resultado_nome_professor === false) die ("NÃ£o foi possivel consultar a tabela professores");
+	while (!$resultado_nome_professor->EOF) {
 	    $nome_professor = $resultado_nome_professor->fields['nome'];
 	    $resultado_nome_professor->MoveNext();
 	}
@@ -132,16 +132,16 @@ elseif($num_area === '91')
 // Armazendo os resultado em uma matriz que contem os numeros dos professores
 $sql = "select * from prof_area where num_area='$num_area'";
 $resposta_prof_area = $db->Execute($sql);
-if($resposta_prof_area == false) die ("Não foi possivel consultar a tabela prof_area");
+if ($resposta_prof_area == false) die ("Nao foi possivel consultar a tabela prof_area");
 $j = 0;
-while(!$resposta_prof_area->EOF) {
+while (!$resposta_prof_area->EOF) {
 	$professores[$j] = $resposta_prof_area->fields['num_prof'];
 	
 	$sql = "select * from professores where id='$professores[$j]' order by nome";
 	$resposta_professores = $db->Execute($sql);
-	if($resposta_professores == false) die ("Não foi possivel consultar a tabela professores");
+	if ($resposta_professores == false) die ("Nao foi possivel consultar a tabela professores");
 
-	while(!$resposta_professores->EOF) {
+	while (!$resposta_professores->EOF) {
 		$nome         = $resposta_professores->fields['nome'];
 		$departamento = $resposta_professores->fields['departamento'];
 		$condicao     = $resposta_professores->fields['condicao'];
@@ -178,27 +178,27 @@ echo "
 /*************************************************************
  Verfico se existem monografias orientadas pelos professores *
 **************************************************************/
-for($i=0;$i<sizeof($professores);$i++)
+for ($i=0;$i<sizeof($professores);$i++)
 	{
 	$sql = "select * from monografia where num_prof='$professores[$i]'";
 	$resposta_monografia = $db->Execute($sql);
-	if($resposta_monografia == false) die ("Não foi possivel consultar a tabela monografia");
+	if ($resposta_monografia == false) die ("NÃ£o foi possivel consultar a tabela monografia");
 	$quantidade = $resposta_monografia->RecordCount();
 	$total += $quantidade;
 	}
 
-if($total == 0)
+if ($total == 0)
 	{
-	echo "<p>Não existem monografias orientadas pelos professores da area $area<br>";
+	echo "<p>NÃ£o existem monografias orientadas pelos professores da Ã¡rea $area<br>";
 	exit;
 	}
 
 echo "
 <br>
-<div align='center'>
+<div>
 <table>
 <thead>
-<caption>Monografias orientadas pelos professores da area: $area
+<caption>Monografias orientadas pelos professores da Ã¡rea: $area
 </caption>
 <tr>
 <th>Id</th>
@@ -215,16 +215,16 @@ echo "
 ";
 
 $j = 0;
-for($i=0;$i<sizeof($professores);$i++)
+for ($i=0;$i<sizeof($professores);$i++)
 	{
 	$sql = "select * from monografia where num_prof='$professores[$i]' order by titulo";
 	$resultado_monografia = $db->Execute($sql);
-	if($resultado_monografia == false) die ("Não foi possivel consultar a tabela monografia");
+	if ($resultado_monografia == false) die ("NÃ£o foi possivel consultar a tabela monografia");
 	$quantidade = $resultado_monografia->RecordCount();
 	/**************************************************************************
 	 Si existem monografias orientadas pelos professores entao $quantidade=1  *
 	**************************************************************************/
-	while(!$resultado_monografia->EOF)
+	while (!$resultado_monografia->EOF)
 		{
 		$titulo   = $resultado_monografia->fields['titulo'];
 		$periodo  = $resultado_monografia->fields['periodo'];
@@ -234,14 +234,14 @@ for($i=0;$i<sizeof($professores);$i++)
 		// Busco a area a partir do num_area
 		$sql_areas = "select * from areas where numero='$num_area'";
 		$resultado_areas = $db->Execute($sql_areas);
-		if($resultado_areas == false) die ("Não foi possível consultar a tabela areas");
-		while(!$resultado_areas->EOF)
+		if ($resultado_areas == false) die ("Nao foi possivel consultar a tabela areas");
+		while (!$resultado_areas->EOF)
 		{
 		    $areas = $resultado_areas->fields['area'];
 		    $resultado_areas->MoveNext();
 		}
 		
-		// Agora si faço as lineas da tabela		
+		// Agora si faco as lineas da tabela		
 		
 		// Para alternar as cores das linhas
 		if($color === '1')

@@ -1,6 +1,6 @@
 <html>
 <head>
-<link href="../../tcc.css" rel="stylesheet" type="text/css">
+<link href="../../css/tcc.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -16,7 +16,7 @@ elseif($fazer == "professor")
 $sql = "select * from professores order by nome";
 include("../../include_db.inc");
 $resultado = $db->Execute($sql);
-if($resultado == false) die ("Não foi possível consultar a tabela professores");
+if ($resultado == false) die ("Nao foi possivel consultar a tabela professores");
 
 echo "
 <body>

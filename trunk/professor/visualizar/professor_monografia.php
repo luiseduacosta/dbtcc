@@ -5,21 +5,21 @@ $ordem = $_REQUEST['ordem'];
 
 include("../../include_db.inc");
 
-if(empty($ordem)) $ordem = 'titulo';
+if (empty($ordem)) $ordem = 'titulo';
 
 $sql = "select nome from professores where id='$num_prof'";
 $resultado = $db->Execute($sql);
-if($resultado == false) die ("Nao foi possivel consultar a tabela professores");
+if ($resultado == false) die ("Nao foi possivel consultar a tabela professores");
 $nome = $resultado->fields['nome'];
 
 echo "
 <html>
 <head>
-<link href='../../tcc.css' rel='stylesheet' type='text/css'>
+<link href='../../css/tcc.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
-<div align='center'>
+<div>
 
 <table>
 
@@ -51,10 +51,10 @@ order by $ordem";
 // echo $sql . "<br>";
 
 $resposta = $db->Execute($sql);
-if($resposta == false) die ("Não foi possível consultar a tabela professores");
+if ($resposta == false) die ("Nao foi possivel consultar a tabela professores");
 $j = 1; // Contador
 //$i = 0;
-while(!$resposta->EOF) {
+while (!$resposta->EOF) {
 	$codigo   = $resposta->fields['codigo'];
 	$catalogo = $resposta->fields['catalogo'];
 	$titulo   = $resposta->fields['titulo'];

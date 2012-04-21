@@ -7,9 +7,9 @@ $inicio = $_REQUEST['inicio'];
 
 $sql_monografia = "select * from monografia";
 $resultado_monografia = $db->Execute($sql_monografia);
-if($resultado_monografia === false) die ("Não foi possível consultar a tabela monografia");
+if ($resultado_monografia === false) die ("NÃ£o foi possÃ­vel consultar a tabela monografia");
 $i = 0;
-while(!$resultado_monografia->EOF) {
+while (!$resultado_monografia->EOF) {
 
 	$titulo    = $resultado_monografia->fields['titulo'];
 	$periodo   = $resultado_monografia->fields['periodo'];
@@ -20,16 +20,16 @@ while(!$resultado_monografia->EOF) {
 	// Com o numero de codigo obtenho os nomes dos alunos
 	include("alunos.inc");
 
-	// Agora é a vez dos professores
+	// Agora ï¿½ a vez dos professores
 	$sql_professores = "select * from professores where id = '$professor'";
 	$resultado_professores = $db->Execute($sql_professores);
-	if($resultado_professores === false) die ("Não foi possível consultar a tabela professores");
-	while(!$resultado_professores->EOF) {
+	if ($resultado_professores === false) die ("NÃ£o foi possÃ­vel consultar a tabela professores");
+	while (!$resultado_professores->EOF) {
 	    $nome_professor = $resultado_professores->fields['nome'];
 	    $resultado_professores->MoveNext();
 	}
 	
-	if(empty($ordem))
+	if (empty($ordem))
 	    $ordem = "titulo";
 	else
 	    $indice = $ordem;
@@ -50,14 +50,14 @@ sort($matriz);
 echo "
 <html>
 <head>
-<link href='../../tcc.css' rel='stylesheet' type='text/css'>
+<link href='../../css/tcc.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
 ";
 
 /*
 echo "
-<div align='center'>
+<div>
 <table>
 <caption>Tabela de monografias por $ordem</caption>
 <tr>
@@ -92,20 +92,20 @@ echo "
 */
 
 echo "
-<div align='center'>
+<div>
 <table>
 <caption>Tabela de monografias por $ordem</caption>
 <tr>
 <th><a href='$_SERVER[PHP_SELF]?ordem=aluno'>Aluno(s)</a></th>
-<th><a href='$_SERVER[PHP_SELF]?ordem=titulo'>Título</a></th>
+<th><a href='$_SERVER[PHP_SELF]?ordem=titulo'>TÃ­tulo</a></th>
 <th><a href='$_SERVER[PHP_SELF]?ordem=nome_professor'>Professor</a></th>
-<th><a href='$_SERVER[PHP_SELF]?ordem=periodo'>Período</a></th>
+<th><a href='$_SERVER[PHP_SELF]?ordem=periodo'>PerÃ­odo</a></th>
 </tr>
 ";
 
 // $i=$inicio;
 // for($i=$inicio;$i<$inicio_pagina;$i++)
-for($i=0;$i<sizeof($matriz);$i++)
+for ($i=0;$i<sizeof($matriz);$i++)
 {
     $aluno     = $matriz[$i]['aluno'];
     $titulo    = $matriz[$i]['titulo'];

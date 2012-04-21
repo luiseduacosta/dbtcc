@@ -5,18 +5,18 @@ $ordem = $_REQUEST['ordem'];
 $sql = "select * from areas order by area"; 
 include("../../include_db.inc");
 $resultado = $db->Execute($sql);
-if($resultado == false) die ("Não foi possível consultar a tabela areas");
+if ($resultado == false) die ("NÃ£o foi possÃ­vel consultar a tabela areas");
 
-while(!$resultado->EOF)
+while (!$resultado->EOF)
 	{
 	$area     = $resultado->fields['area'];
 	$num_area = $resultado->fields['numero'];
 	$sql_prof_area = "select * from prof_area where num_area='$num_area'";
 	$resultado_prof_area = $db->Execute($sql_prof_area);
-	if($resultado_prof_area == false) die ("Não foi possível consultar a tabela prof_area");
+	if ($resultado_prof_area == false) die ("Nao foi possivel consultar a tabela prof_area");
 	
 	$contador = 0;
-	while(!$resultado_prof_area->EOF)
+	while (!$resultado_prof_area->EOF)
 		{
 		$num_prof = $resultado_prof_area->fields['num_prof'];	
 		$contador++;
@@ -49,11 +49,11 @@ while(!$resultado->EOF)
 echo "
 <html>
 <head>
-<link href='../../tcc.css' rel='stylesheet' type='text/css'>
+<link href='../../css/tcc.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
-<div align='center'>
+<div>
 <table>
 <thead>
 <caption>Quantidade de professores por area</caption>
@@ -71,7 +71,7 @@ echo "
 
 reset($matriz);
 sort($matriz);
-for($i=0;$i<sizeof($matriz);$i++)
+for ($i=0;$i<sizeof($matriz);$i++)
 {
     $num_area   = $matriz[$i]['num_area'];
     $area       = $matriz[$i]['area'];

@@ -1,6 +1,6 @@
 <html>
 <head>
-<link href="../../tcc.css" rel="stylesheet" type="text/css">
+<link href="../../css/tcc.css" rel="stylesheet" type="text/css">
 <title><?php echo $SERVER['PHP_SELF']; ?></title>
 </head>
 
@@ -14,14 +14,14 @@ $opcao        = $_REQUEST['opcao'];
 $escolha      = $_REQUEST['escolha'];
 
 echo"
-<div align='center'>
+<div>
 <table>
 ";
 
 if($departamento === "metodos")
     $departamento = "metodos e tecnicas";
 elseif($departamento === "sem")
-    $departamento = "sem informa��o";
+    $departamento = "sem informação";
 
 if($opcao)
 	{
@@ -46,14 +46,14 @@ else
 	
 require_once("../../include_db.inc");
 $resposta = $db->Execute($sql);
-if($resposta == false) die ("N�o foi poss�vel consultar a tabela professores");
+if ($resposta == false) die ("Nao foi possivel consultar a tabela professores");
 
 echo "
 <tr>
 <th><a href=?ordem=nome&opcao=$opcao&departamento=$departamento>Nome</a></th>
 <th><a href=?ordem=departamento&opcao=$opcao&departamento=$departamento>Departamento</a></th>
-<th><a href=?ordem=tipocargo&opcao=$opcao&departamento=$departamento>Condi��o</a></th>
-<th><a href=?ordem=situacao&opcao=$opcao&departamento=$departamento>Situa��o</a></th>
+<th><a href=?ordem=tipocargo&opcao=$opcao&departamento=$departamento>Condição</a></th>
+<th><a href=?ordem=situacao&opcao=$opcao&departamento=$departamento>Situação</a></th>
 <th><a href=?ordem=email&opcao=$opcao&departamento=$departamento>E-mail</a></th>
 </tr>
 </thead>

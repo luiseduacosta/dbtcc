@@ -4,10 +4,10 @@
 $sql = "select * from professores order by nome";
 include("../../include_db.inc");
 $resposta = $db->Execute($sql);
-if($resposta == false) die ("Não foi possível consultar a tabela professores");
+if ($resposta == false) die ("Nao foi possivel consultar a tabela professores");
 
 $j = 0;
-while(!$resposta->EOF) {
+while (!$resposta->EOF) {
 	$nome     = $resposta->fields['nome'];
 	$num_prof = $resposta->fields['id'];
 	$resposta->MoveNext();
@@ -15,9 +15,9 @@ while(!$resposta->EOF) {
 	// Seleciono as monografias orientadas por cada professor
 	$sql = "select * from monografia where num_prof='$num_prof'";
 	$resposta_monografia = $db->Execute($sql);
-	if($resposta_monografia == false) die ("Não foi possivel consultar a tabela monografia");
+	if ($resposta_monografia == false) die ("Nao foi possivel consultar a tabela monografia");
 	$contador = 0;
-	while(!$resposta_monografia->EOF) {
+	while (!$resposta_monografia->EOF) {
 		$codigo = $resposta_monografia->fields['codigo'];
 		$resposta_monografia->MoveNext();
 		$contador++;
@@ -35,7 +35,7 @@ sort($resumo);
 $j = 1;
 $variavel = 0;
 $indicador = 1;
-for($i=0;$i<sizeof($resumo);$i++)
+for ($i=0;$i<sizeof($resumo);$i++)
 	{
 	if($resumo[$i] != $resumo[$j])
 		{
@@ -50,11 +50,11 @@ for($i=0;$i<sizeof($resumo);$i++)
 echo "
 <html>
 <head>
-<link href='../../tcc.css' rel='stylesheet' type='text/css'>
+<link href='../../css/tcc.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
-<div align='center'>
+<div>
 <table>
 <thead>
 <caption>
@@ -71,7 +71,7 @@ Quantidade de professores por quantidade de monografias orientadas
 <tbody>
 ";
 
-for($i=0;$i<sizeof($valores);$i++)
+for ($i=0;$i<sizeof($valores);$i++)
 	{
 	$contador = 0;
 	for($j=0;$j<sizeof($resumo);$j++)

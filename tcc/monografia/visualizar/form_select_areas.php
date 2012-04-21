@@ -12,14 +12,14 @@ include("../../include_db.inc");
 
 $sql = "select * from areas order by area";
 $resultado = $db->Execute($sql);
-if($resultado === false) die ("Nao foi possivel consultar a tabela areas");
+if ($resultado === false) die ("Nao foi possivel consultar a tabela areas");
 
 echo "
 <form name='seleciona_area' action='areasprofessor.php' method='POST'>
 <select name='num_area' size='1'>
 <option value='0'>Selecione uma area</option>
 ";
-while(!$resultado->EOF) {
+while (!$resultado->EOF) {
 	$num_area = $resultado->fields['numero'];
 	$area     = $resultado->fields['area'];
 	echo "

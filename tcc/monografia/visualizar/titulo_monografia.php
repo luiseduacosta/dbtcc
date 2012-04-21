@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>Tabela de Monografias</title>
+        <link href='../../css/tcc.css' rel='stylesheet' type='text/css'/>
         <script language="JavaScript" type="text/javascript">
             function janela(numero){
                 var controle = window.open("../../professor/visualizar/ver_professor.php?id_prof=" + numero, "janela1", "width=500,height=250,screenX=150,screenY=200,scrollbars=yes,resizable=yes,dependent=yes");
@@ -13,21 +14,21 @@
         </style>
         <script type="text/javascript" src="../../lib/jquery.js">
         </script>
-
         <script type="text/javascript" src="../../lib/tablesorter/jquery.tablesorter.min.js">
         </script>
-
+        <script type="text/javascript" src="../../lib/tablesorter/jquery.tablesorter.js">
+        </script>
         <script type="text/javascript" src="../../lib/tablesorter/addons/pager/jquery.tablesorter.pager.js">
         </script>
-
         <script type="text/javascript" src="../../lib/jquery.quicksearch.js">
         </script>
-
+        <!--
         <script language="JavaScript" type="text/javascript" src="../../lib/jquery.tablehover.js"></script>
+        //-->
         <script type="text/javascript">
             $(document).ready(function(){
             
-                $("#monografias").tableHover();
+                /* $("#monografias").tableHover(); */
                 
                 $("#monografias").tablesorter({
                     widthFixed: true,
@@ -43,11 +44,11 @@
                     loaderText: 'Aguarde...',
                     labelText: 'Pesquise pelo orientador:'
                 });
-
-                $("#monografias").tablesorterPager({
-                    container: $("#pager")
+                /*
+                 $("#monografias").tablesorterPager({
+                 container: $("#pager")
                  });
-                 
+                 */
                 $(".alterna_cores tr").mouseover(function(){
                     $(this).addClass("over");
                 });
@@ -59,7 +60,6 @@
                 
             });
         </script>
-        <link href='../../tcc.css' rel='stylesheet' type='text/css'>
     </head>
     <body>
         <?php
@@ -69,34 +69,33 @@ function matriz($ordem) {
 	$sql = "select * from monografia order by titulo";
 	include("../../include_db.inc");
 	$resultado = $db->Execute($sql);
-	if($resultado === false) die ("Nos foi possivel consultar a tabela monografia");
+	if ($resultado === false) die ("Não foi possivel consultar a tabela monografia");
 
-	while(!$resultado->EOF) {
+	while (!$resultado->EOF) {
 		$codigo   = $resultado->fields['codigo'];
 		$catalogo = $resultado->fields['catalogo'];
 		$titulo   = $resultado->fields['titulo'];
 		$arquivo  = $resultado->fields['url'];
 		$num_prof = $resultado->fields['num_prof'];
 		$periodo  = $resultado->fields['periodo'];
-
 		$resultado->MoveNext();
 
 		// Para ordenar
-		if(empty($ordem))
+		if (empty($ordem))
 		    $ordem = "titulo";
 		else
 		    $indice = $ordem;
 
 		$matriz[$i][$ordem] = $$indice;
-		// Fim da ordena��o
+		// Fim da ordenação
 
 		include("alunos.inc");
 		$matriz[$i]['aluno'] = $aluno;
 
 		$sql_professores = "select * from professores where id='$num_prof'";
 		$resultado_professores = $db->Execute($sql_professores);
-		if($resultado_professores === false) die ("N�o foi possivel consultar a tabela professores");
-		while(!$resultado_professores->EOF) {
+		if ($resultado_professores === false) die ("N�o foi possivel consultar a tabela professores");
+		while (!$resultado_professores->EOF) {
 			$professor = $resultado_professores->fields['nome'];
 			$resultado_professores->MoveNext();
 		}
@@ -106,7 +105,7 @@ function matriz($ordem) {
 		$resultado_alunos = $db->Execute($sql_alunos);
 		$id_aluno = $resultado_alunos->fields['numero'];
 
-		$matriz[$i]['id_aluno']		 = $id_aluno;
+		$matriz[$i]['id_aluno']	     = $id_aluno;
 		$matriz[$i]['codigo']	     = $codigo;
 		$matriz[$i]['catalogo']      = $catalogo;
 		$matriz[$i]['titulo']        = $titulo;
@@ -128,18 +127,18 @@ echo "
 
 <div id='busca'></div>
 
-<div align='center'>
+<div>
 <table id='monografias' class='alterna_cores'>
-<caption>Tabela de monografias por alunos, professores e periodos</caption>
+<caption>Tabela de monografias por alunos, professores e períodos</caption>
 <thead>
 <!--
 <th>ID</th>
 <th><a href='?ordem=catalogo'>Cat&aacute;logo</a></th>
-<th><a href='?ordem=titulo'>Titulo</a></th>
+<th><a href='?ordem=titulo'>Título</a></th>
 <th><a href='?ordem=url'>PDF</a></th>
 <th><a href='?ordem=aluno'>Aluno(s)</a></th>
 <th width='25%'><a href='?ordem=professor'>Professor</a></th>
-<th><a href='?ordem=periodo'>Periodo</a></th>
+<th><a href='?ordem=periodo'>Período</a></th>
 //-->
 <th>ID</th>
 <th>Cat&aacute;logo</th>
@@ -147,7 +146,7 @@ echo "
 <th>PDF</th>
 <th>Aluno(s)</th>
 <th>Professor</th>
-<th>Per�odo</th>
+<th>Período</th>
 </thead>
 <tbody>
 ";
@@ -158,8 +157,8 @@ reset($matriz);
 sort($matriz);
 
 $j = 1;
-for($i=0; $i<sizeof($matriz); $i++) {
-	$id_aluno	   = $matriz[$i]['id_aluno'];
+for ($i=0; $i<sizeof($matriz); $i++) {
+	$id_aluno      = $matriz[$i]['id_aluno'];
 	$codigo        = $matriz[$i]['codigo'];
 	$catalogo      = $matriz[$i]['catalogo'];
 	$titulo        = $matriz[$i]['titulo'];
@@ -171,7 +170,7 @@ for($i=0; $i<sizeof($matriz); $i++) {
 
     // Para alternar as cores das linhas
 	/*
-    if($color === '1') {
+    if ($color === '1') {
 		echo "<tr class='resaltado' id='resaltado'>";
 		$color = '0';
     } else {
@@ -181,12 +180,12 @@ for($i=0; $i<sizeof($matriz); $i++) {
 	*/
 
 	echo "
-	<td style='text-align:right'>$j</td>
-	<td style='text-align:right'>$catalogo</td>
+	<td>$j</td>
+	<td>$catalogo</td>
 	<td class='tab_titulo'><a href='ver_monografia.php?codigo=$codigo'>$titulo</a></td>
 	";
-	if(empty($artigo)) {
-		echo "<td>&nbsp;</td>";
+	if (empty($artigo)) {
+		echo "<td></td>";
 		} else {
 		echo "<td><a href='http://$servidor/monografias/$artigo'>PDF</a></td>";
 	}

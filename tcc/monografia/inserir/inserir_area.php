@@ -10,7 +10,7 @@ if(!(empty($n_area)))
 	$sql = "update monografia set num_area='$n_area' where num_prof='$num_professor'";
 	require_once("../../include_db.inc");
 	$resposta = $db->Execute($sql);
-	if($resposta === false) die ("N„o foi possÌvel atualizar a tabela monografia");
+	if ($resposta === false) die ("N√£o foi poss√≠vel atualizar a tabela monografia");
 	$db->Close();
 	
 	// Retorno para o lar
@@ -18,6 +18,6 @@ if(!(empty($n_area)))
 
 	}
 else
-	echo "¡rea sem dados <br>";
+	echo "√Årea sem dados <br>";
 
 ?>

@@ -13,9 +13,9 @@ $sql = "select codigo, titulo, periodo, "
 . " where areamonografia = $id_areamonografia";
 // echo $sql . "<br>";
 $resultado = $db->Execute($sql);
-if($resultado === false) die ("Não foi possível consultar a tabela mongrafia");
+if ($resultado === false) die ("NÃ£o foi possÃ­vel consultar a tabela mongrafia");
 $i = 0;
-while(!$resultado->EOF) {
+while (!$resultado->EOF) {
 		$monografia[$i]['codigo'] = $resultado->fields['codigo'];
 		$monografia[$i]['titulo'] = $resultado->fields['titulo'];
 		$monografia[$i]['periodo'] = $resultado->fields['periodo'];

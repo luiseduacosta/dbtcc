@@ -5,7 +5,7 @@ $id_aluno = $_REQUEST['id_aluno'];
 echo "
 <html>
 <head>
-<link href='../../tcc.css' rel='stylesheet' type='text/css'>
+<link href='../../css/tcc.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
 ";
@@ -15,8 +15,8 @@ $sql = "select registro, num_monografia from tcc_alunos where numero='$id_aluno'
 // echo $sql . "<br>";
 include("../../include_db.inc");
 $resultado = $db->Execute($sql);
-if($resultado === false) die ("N„o foi possÌvel consultar a tabela alunos");
-while(!$resultado->EOF) {
+if ($resultado === false) die ("N√£o foi poss√≠vel consultar a tabela alunos");
+while (!$resultado->EOF) {
 	$registro = $resultado->fields['registro'];
 	$codigo = $resultado->fields['num_monografia'];
 	$resultado->MoveNext();
@@ -26,18 +26,18 @@ while(!$resultado->EOF) {
 include("alunos.inc");
 
 echo "
-<div align='center'>
-<table border='1'>
+<div>
+<table>
 <form name='atualiza' id='atualiza' action='../atualizar/atualiza.php' method='post'>
 <tr>
-<th colspan='2'>Trabalho de Conclus„o de Curso do(s) aluno(s): $aluno</th>
+<th colspan='2'>Trabalho de Conclus√£o de Curso do(s) aluno(s): $aluno</th>
 </tr>
 ";
 
 $sql_monografia = "select * from monografia where codigo='$codigo'";
 $resultado_monografia = $db->Execute($sql_monografia);
-if($resultado_monografia === false) die ("N„o foi possÌvel consultar a tabela monografia");
-while(!$resultado_monografia->EOF) {
+if ($resultado_monografia === false) die ("N√£o foi poss√≠vel consultar a tabela monografia");
+while (!$resultado_monografia->EOF) {
 	$codigo   = $resultado_monografia->fields['codigo'];
 	$titulo   = $resultado_monografia->fields['titulo'];
 	$periodo  = $resultado_monografia->fields['periodo'];
@@ -46,8 +46,8 @@ while(!$resultado_monografia->EOF) {
 
 	$sql_professores = "select * from professores where id='$num_prof'";
 	$resultado_professores = $db->Execute($sql_professores);
-	if($resultado_professores == false) die ("N„o foi possÌvel consultar a tabela professores");
-	while(!$resultado_professores->EOF) {
+	if ($resultado_professores == false) die ("N√£o foi poss√≠vel consultar a tabela professores");
+	while (!$resultado_professores->EOF) {
 		$professor = $resultado_professores->fields['nome'];
 		$resultado_professores->MoveNext();
 	}

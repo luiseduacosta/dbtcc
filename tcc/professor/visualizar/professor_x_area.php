@@ -1,6 +1,6 @@
 <html>
 <head>
-<link href="../../tcc.css" rel="stylesheet" type="text/css">
+<link href="../../css/tcc.css" rel="stylesheet" type="text/css">
 
 <script language="JavaScript" type="text/javascript">
 function janela(numero)
@@ -20,7 +20,7 @@ $ordem = $_REQUEST['ordem'];
 $sql = "select * from professores order by nome";
 include("../../include_db.inc");
 $resposta = $db->Execute($sql);
-if($resposta == false) die ("N„o foi possÌvel consultar a tabela professores");
+if ($resposta == false) die ("N√£o foi poss√≠vel consultar a tabela professores");
 
 $j = 0;
 while (!$resposta->EOF) {
@@ -36,26 +36,26 @@ while (!$resposta->EOF) {
 	// Busco a situacao do professor
 	$sql_situacao = "select * from situacoes where codigo='$situacao'";
 	$resposta_situacao = $db->Execute($sql_situacao);
-	if($resposta_situacao == false) die ("N„o foi possÌvel consultar a tabela situacoes");
+	if($resposta_situacao == false) die ("N√£o foi possivel consultar a tabela situacoes");
 	while(!$resposta_situacao->EOF) {
 	    $descreve_situacao = $resposta_situacao->fields['situacao'];
 	    $resposta_situacao->MoveNext();
 	}
 */
-	// Busco as areas de orientaÁ„o dos professores
+	// Busco as areas de orienta√ß√£o dos professores
 	$sql_prof_area = "select * from prof_area where num_prof='$numero'";
 	$resposta_prof_area = $db->Execute($sql_prof_area);
-	if($resposta_prof_area == false) die ("N„o foi possÌvel consultar a tabela prof_area");
+	if ($resposta_prof_area == false) die ("N√£o foi poss√≠vel consultar a tabela prof_area");
         $i = 0;
-	while(!$resposta_prof_area->EOF) {
+	while (!$resposta_prof_area->EOF) {
 	    $num_area = $resposta_prof_area->fields['num_area'];
 	    $resposta_prof_area->MoveNext();
 
     	$sql_area = "select * from areas where numero='$num_area'";
 	    $resposta_area = $db->Execute($sql_area);
-	    if($resposta_area == false) die ("N„o foi possivel consultar a tabela area");
+	    if ($resposta_area == false) die ("N√£o foi possivel consultar a tabela area");
 
-	    while(!$resposta_area->EOF) {
+	    while (!$resposta_area->EOF) {
 		$principal_area = $resposta_area->fields['area'];
 		$area[$i] = $resposta_area->fields['area'];
 		$resposta_area->MoveNext();
@@ -64,7 +64,7 @@ while (!$resposta->EOF) {
 
 	}
 
-	if(empty($ordem))
+	if (empty($ordem))
 	    $ordem = 'nome';
 	else
 	    $ordem = $ordem;
@@ -85,18 +85,18 @@ while (!$resposta->EOF) {
 $db->Close();
 
 echo "
-<div align='center'>
-<table width='700'>
+<div>
+<table>
 <thead>
 <caption>
-¡rea principal de orientaÁ„o dos professores da ESS (ordenados por $ordem)
+√Årea principal de orienta√ß√£o dos professores da ESS (ordenados por $ordem)
 </caption>
 
 <tr>
 <th width='35%'><a href=$_SERVER[PHP_SELF]?ordem=nome>Nome</a></th>
 <th width='10%'><a href=$_SERVER[PHP_SELF]?ordem=departamento>Departamento</a></th>
 <th width='10%'><a href=$_SERVER[PHP_SELF]?ordem=situacao>Situacao</a></th>
-<th width='15%'><a href=$_SERVER[PHP_SELF]?ordem=area>Area principal</a></th>
+<th width='15%'><a href=$_SERVER[PHP_SELF]?ordem=area>√Årea principal</a></th>
 <th width='20%'><a href=$_SERVER[PHP_SELF]?ordem=email>E-mail</a></th>
 </tr>
 </thead>
@@ -108,7 +108,7 @@ echo "
 reset($matriz);
 sort($matriz);
 
-for($i=0;$i<sizeof($matriz);$i++)
+for ($i=0;$i<sizeof($matriz);$i++)
 {
 	$numero       = $matriz[$i]['numero'];
 	$nome         = $matriz[$i]['nome'];

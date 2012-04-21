@@ -1,12 +1,12 @@
 <html>
 <head>
 <title>Lista lateral - Modulo monografias</title>
-<link href="../lateral.css" rel="stylesheet" type="text/css">
+<link href="../css/lateral.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
 
-<div align="center">
+<div>
 
 <table>
 <tr><td><a href="inserir/formulario.php" target="_dereita">
@@ -24,12 +24,12 @@ Excluir monografias </a></td></tr>
 <tr>
 <td>
 <a href="../imprime_pdf/form_periodo.php?acao=declaracao.php" target="_dereita">
-Imprimir declaraÁıes para professores por periodo</a>
+Imprimir declara√ß√µes para professores por per√≠odo</a>
 </td></tr>
 
 <tr><td>
 <a href="../imprime_pdf/form_periodo.php?acao=biblioteca.php" target="_dereita">
-Imprimir relatorio para biblioteca por periodo</a>
+Imprimir relatorio para biblioteca por per√≠odo</a>
 </td>
 </tr>
 
@@ -39,16 +39,24 @@ Imprimir relatorio para biblioteca por periodo</a>
 
 <table>
 
-<tr><td>
+<tr>
+<td><a href="visualizar/busca.php" target="_dereita">
+Busca monografia</a>
+</td>
+</tr>
+<tr>
+<td>
 <a href="visualizar/periodo.php" target="_dereita">
-Tabela de monografias por periodo</a>
-</td></tr>
+Tabela de monografias por per√≠odo</a>
+</td>
+</tr>
 <tr><td><a href="visualizar/titulo_monografia.php" target="_dereita">
-Monografias por titulo</a></td></tr>
+Monografias por t√≠tulo</a></td></tr>
 <tr><td><a href="visualizar/form_departamentos.php" target="_dereita">
 Monografias por departamento</a></td></tr>
 <tr><td><a href="visualizar/form_select_areas.php" target="_dereita">
-Monografias por ·rea</a></td></tr>
+Monografias por √°rea</a></td>
+</tr>
 
 </table>
 
@@ -57,11 +65,11 @@ Monografias por ·rea</a></td></tr>
 <table>
 <tr>
 <td><a href="../areas/tabela_clasifica.php" target="_dereita">
-Monografias por ·rea do professor</a></td>
+Monografias por √°rea do professor</a></td>
 </tr>
 <tr>
 <td><a href="../areas/resumo_classifica.php" target="_dereita">
-Tabela resumo das monografias por ·rea do professor</a></td>
+Tabela resumo das monografias por √°rea do professor</a></td>
 </tr>
 </table>
 
@@ -84,8 +92,8 @@ Tabela de quantidade de alunos por monografia</a>
 //-->
 <tr><td><a href="../professor/professores.html" target="_top">Professores</a></td></tr>
 <tr><td><a href="../alunos/alunos.html" target="_top">Alunos</a></td></tr>
-<tr><td><a href="../areas/areas.html" target="_top">¡reas dos professores</a></td></tr>
-<tr><td><a href="../areaMonografia/areas.html" target="_top">¡reas das monografias</a></td></tr>
+<tr><td><a href="../areas/areas.html" target="_top">√Åreas dos professores</a></td></tr>
+<tr><td><a href="../areaMonografia/areas.html" target="_top">√Åreas das monografias</a></td></tr>
 <tr><td><a href="../index.html" target="_top">Inicio</a></td></tr>
 </table>
 

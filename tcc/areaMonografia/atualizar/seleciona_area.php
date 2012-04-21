@@ -3,18 +3,18 @@
 require_once("../../include_db.inc");
 $sql = "select * from areasmonografia order by areamonografia";
 $resultado = $db->Execute($sql);
-if($resultado == false) die ("Não foi possível consultar a tabela areasmonografia");
+if ($resultado == false) die ("NÃ£o foi possÃ­vel consultar a tabela areasmonografia");
 
 echo "
 <html>
 <head>
-<link href='../../tcc.css' rel='stylesheet' type='text/css'>
+<link href='../../css/tcc.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
 <form name='seleciona_area' action='atualiza_area.php' method='post'>
 <select name='id_area' size='1'>
-<option value='0'>Selecione área</option>
+<option value='0'>Selecione Ã¡rea</option>
 ";
 while(!$resultado->EOF)
 	{

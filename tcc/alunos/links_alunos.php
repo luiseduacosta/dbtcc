@@ -1,12 +1,12 @@
 <html>
 <head>
 <title>Lista lateral - Modulo alunos</title>
-<link href="../lateral.css" rel="stylesheet" type="text/css">
+<link href="../css/lateral.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
 
-<div align="center">
+<div>
 
 <table>
 <tr><td><a href=atualizar/seleciona.php?opcao=atualiza.php target="_dereita">Atualiza alunos</a></td></tr>
@@ -29,11 +29,11 @@
 <!--
 <tr><td align='center'><a href="../inscricao/inscricao.html" target="_top">InscriÔøΩÔøΩo</a> </td></tr>
 //-->
-<tr><td align='center'><a href="../monografia/monografia.html" target="_top">Monografias</a> </td></tr>
-<tr><td align='center'><a href="../professor/professores.html" target="_top">Professores</a></td></tr>
-<tr><td align='center'><a href="../areas/areas.html" target="_top">¡reas dos professores</a></td></tr>
-<tr><td align='center'><a href="../areaMonografia/areas.html" target="_top">¡reas das monografias</a></td></tr>
-<tr><td align='center'><a href="../index.html" target="_top">Inicio</a></td></tr>
+<tr><td><a href="../monografia/monografia.html" target="_top">Monografias</a> </td></tr>
+<tr><td><a href="../professor/professores.html" target="_top">Professores</a></td></tr>
+<tr><td><a href="../areas/areas.html" target="_top">√Åreas dos professores</a></td></tr>
+<tr><td><a href="../areaMonografia/areas.html" target="_top">√Åreas das monografias</a></td></tr>
+<tr><td><a href="../index.html" target="_top">Inicio</a></td></tr>
 </table>
 
 </div>

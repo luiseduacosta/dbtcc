@@ -1,7 +1,7 @@
 <html>
 <head>
 <title><?php echo $_SERVER[PHP_SELF]; ?></title>
-<link href="../../tcc.css" rel="stylesheet" type="text/css">
+<link href="../../css/tcc.css" rel="stylesheet" type="text/css">
 <script language="JavaScript" type="text/javascript">
 <!--
 function elimina()

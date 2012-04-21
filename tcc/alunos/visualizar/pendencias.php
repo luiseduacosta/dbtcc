@@ -4,9 +4,9 @@ require_once("../../setup.php");
 
 $sql_aluno = "SELECT registro, nome, nivel, periodo FROM alunos inner join estagiarios using (registro) where estagiarios.nivel = 4 order by nome";
 $resposta_aluno = $db->Execute($sql_aluno);
-if($resposta_aluno == false) die ("Nao foi possi­vel consultar a tabela alunos");
+if ($resposta_aluno == false) die ("Nao foi possivel consultar a tabela alunos");
 $j = 0;
-while(!$resposta_aluno->EOF) {
+while (!$resposta_aluno->EOF) {
 	$registro = $resposta_aluno->fields['registro'];
 	$nome = $resposta_aluno->fields['nome'];
 	$nivel = $resposta_aluno->fields['nivel'];

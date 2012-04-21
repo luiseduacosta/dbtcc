@@ -1,6 +1,6 @@
 <?php
 
-echo "<link href='../tcc.css' rel='stylesheet' type='text/css'>";
+echo "<link href='../css/tcc.css' rel='stylesheet' type='text/css'>";
 echo "<body>";
 
 $sql = "select distinct periodo from monografia order by periodo";

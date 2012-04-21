@@ -5,9 +5,12 @@ $minerva  ="<img src='../configura/Minerva.png' width='150' border='1'>";
 $logo_ess ="<img src='../configura/LogoESS.png' width='150' border='1'>";
 
 echo "
-<body bgcolor='#B0FFFB'>
+<head>
+<link href='../css/tcc.css' rel='stylesheet' type='text/css'/>
+</head>
+<body class='body'>
 
-<div align='center'>
+<div>
 
 <strong><font size='+1'>UNIVERSIDADE FEDERAL DO RIO DE JANEIRO</font></strong>
 <p>

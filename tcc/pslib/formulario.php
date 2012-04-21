@@ -9,7 +9,10 @@ $sql = "select * from professores order by nome";
 include("../conexao.inc");
 
 echo "
-<body bgcolor='#B0FFFB'>
+<head>
+<link href='../css/tcc.css' rel='stylesheet' type='text/css'/>
+</head>
+<body class='body'>
 <form action='formulario1.php' name='professor' method='POST'>
 <select name='num_prof' size='1'>
 <option value='0'>Selecione professor</option>

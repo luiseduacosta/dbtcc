@@ -5,10 +5,10 @@ $ordem = $_REQUEST['ordem'];
 $sql = "select * from professores order by nome";
 include("../../include_db.inc");
 $resultado = $db->Execute($sql);
-if($resultado == false) die ("Não foi possível consultar a tabela professores");
+if ($resultado == false) die ("NÃ£o foi possÃ­vel consultar a tabela professores");
 
 $j = 0;
-while(!$resultado->EOF)	{
+while (!$resultado->EOF)	{
 	$nome     = $resultado->fields['nome'];
 	$num_prof = $resultado->fields['id'];
 	$tipocargo = $resultado->fields['tipocargo'];
@@ -17,9 +17,9 @@ while(!$resultado->EOF)	{
 	
 	$sql = "select * from monografia where num_prof='$num_prof'";
 	$resultado_monografia = $db->Execute($sql);
-	if($resultado_monografia == false) die ("Não foi possivel consultar a tabela monografia");
+	if ($resultado_monografia == false) die ("NÃ£o foi possivel consultar a tabela monografia");
 	$contador = 0;
-	while(!$resultado_monografia->EOF) {
+	while (!$resultado_monografia->EOF) {
 		$codigo = $resultado_monografia->fields['codigo'];
 		$resultado_monografia->MoveNext();
 		$contador++;
@@ -30,15 +30,15 @@ while(!$resultado->EOF)	{
 	// Pego a situacao do professor
 	$sql_situacao = "select * from situacoes where codigo='$situacao'";
 	$resposta_situacao = $db->Execute($sql_situacao);
-	if($resposta_situacao == false) die ("Não foi possível consultar a tabela situacoes");
-	while(!$resposta_situacao->EOF) {
+	if ($resposta_situacao == false) die ("Nao foi possivel consultar a tabela situacoes");
+	while (!$resposta_situacao->EOF) {
 	    $descreve_situacao = $resposta_situacao->fields['situacao'];
 	    $resposta_situacao->MoveNext();
 	}
 */	
 	// Transformo o contador em quantidade
 	$quantidade = $contador;
-	if(empty($ordem))
+	if (empty($ordem))
 	    $ordem = "nome";
 	else
 	    $ordem = $ordem;
@@ -61,11 +61,11 @@ sort($resumo);
 echo "
 <html>
 <head>
-<link href='../../tcc.css' rel='stylesheet' type='text/css'>
+<link href='../../css/tcc.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
-<div align='center'>
+<div>
 <table>
 <thead>
 <caption>Quantidade de monografias orientadas pelos professores da ESS</caption>
@@ -84,7 +84,7 @@ echo "
 ";
 
 $j = 1;
-for($i=0;$i<sizeof($resumo);$i++) {
+for ($i=0;$i<sizeof($resumo);$i++) {
 	$num_prof   = $resumo[$i]['num_prof'];
 	$nome       = $resumo[$i]['nome'];
 	$tipocargo  = $resumo[$i]['tipocargo'];
@@ -92,7 +92,7 @@ for($i=0;$i<sizeof($resumo);$i++) {
 	$quantidade = $resumo[$i]['quantidade'];
 	
 	// Para alternar as cores das linhas
-	if($color === '1') {
+	if ($color === '1') {
 	    echo "<tr class='resaltado' id='resaltado'>";
 	    $color = '0';
 	} else {
@@ -106,7 +106,7 @@ for($i=0;$i<sizeof($resumo);$i++) {
 	<td>$tipocargo</td>
 	<td>$situacao</td>
 	";
-	if($quantidade == 0) {
+	if ($quantidade == 0) {
 	    echo "<td class='coluna_centralizada'>$quantidade</td>";
 	} else {
 	    echo "<td class='coluna_centralizada'><a href='professor_monografia.php?id_prof=$num_prof'>$quantidade</a></td>";

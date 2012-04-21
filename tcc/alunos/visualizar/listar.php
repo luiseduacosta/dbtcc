@@ -21,9 +21,9 @@ if ($periodo) $sql .= " where periodo='$periodo' ";
 $sql .= " order by $ordem";
 // echo $sql . "<br>";
 $resultado = $db->Execute($sql);
-if($resultado == falso) die ("Nao foi possivel consultar a tabela tcc_alunos");
+if ($resultado == falso) die ("Nao foi possivel consultar a tabela tcc_alunos");
 $i = 0;
-while(!$resultado->EOF) {
+while (!$resultado->EOF) {
     $alunos[$i]['id'] = $resultado->fields['numero'];
     $alunos[$i]['registro'] = $resultado->fields['registro'];
     $alunos[$i]['nome'] = $resultado->fields['nome'];

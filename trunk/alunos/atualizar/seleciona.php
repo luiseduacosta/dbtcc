@@ -3,7 +3,7 @@
 echo "
 <html>
 <head>
-<link href='../../tcc.css' rel='stylesheet' type='text/css'>
+<link href='../../css/tcc.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
@@ -15,8 +15,8 @@ echo "
 $sql = "select * from tcc_alunos order by nome";
 include("../../include_db.inc");
 $resultado = $db->Execute($sql);
-if($resultado == false) die ("Não foi possível consultar a tabela alunos");
-while(!$resultado->EOF)
+if ($resultado == false) die ("NÃ£o foi possÃ­vel consultar a tabela alunos");
+while (!$resultado->EOF)
 	{
 	$num_aluno = $resultado->fields['numero'];
 	$nome      = $resultado->fields['nome'];

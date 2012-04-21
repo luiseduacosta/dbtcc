@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Monografias por periodo</title>
+<title>Monografias por per√≠odo</title>
 <script language="JavaScript" type="text/javascript">
 
 function janela(numero)	{
@@ -14,6 +14,7 @@ function janela(numero)	{
 <?php
 
 $servidor = $_SERVER[SERVER_NAME];
+echo $servidor . "<br>";
 $periodo  = $_REQUEST['periodo'];
 $ordem    = $_REQUEST['ordem'];
 
@@ -26,9 +27,9 @@ function titulo($periodo,$ordem) {
 	$sql .= "where periodo = '$periodo' order by titulo";
 	
 	$resultado = $db->Execute($sql);
-	if($resultado === false) die ("N„o foi possÌvel consultar a tabela monografia");
+	if ($resultado === false) die ("Nao foi possivel consultar a tabela monografia");
 	$quantidade = $resultado->RecordCount();
-	for($i=0;$i<$quantidade;$i++) {
+	for ($i=0;$i<$quantidade;$i++) {
 		$catalogo  = $resultado->fields['catalogo'];
 		$codigo    = $resultado->fields['codigo'];
 		$titulo    = $resultado->fields['titulo'];
@@ -66,11 +67,11 @@ function titulo($periodo,$ordem) {
 echo "
 <div align='center'>
 <table>
-<caption>Tabela de monografias do periodo $periodo</caption>
+<caption>Tabela de monografias do per√≠odo $periodo</caption>
 <tr>
  <th>ID</td>
  <th><a href='?ordem=catalogo&periodo=$periodo'>Cat&aacute;logo</th>
- <th><a href='?ordem=titulo&periodo=$periodo'>Titulo</a></th>
+ <th><a href='?ordem=titulo&periodo=$periodo'>T√≠tulo</a></th>
  <th><a href='?ordem=url&periodo=$periodo'>PDF</a></th>
  <th><a href='?ordem=aluno&periodo=$periodo'>Aluno(s)</a></th>
  <th width='25%'><a href='?ordem=professor&periodo=$periodo'>Professor</a></th>
@@ -84,7 +85,7 @@ reset($matriz);
 sort($matriz);
 
 $j = 1;
-for($i=0;$i<sizeof($matriz);$i++) {
+for ($i=0;$i<sizeof($matriz);$i++) {
 	$tab_codigo        = $matriz[$i]['codigo'];
 	$tab_catalogo      = $matriz[$i]['catalogo'];
 	$tab_titulo        = $matriz[$i]['titulo'];
@@ -94,7 +95,7 @@ for($i=0;$i<sizeof($matriz);$i++) {
 	$tab_num_professor = $matriz[$i]['num_professor'];
 
     // Para alternar as cores das linhas
-    if($color === '1') {
+    if ($color === '1') {
 		echo "<tr class='resaltado' id='resaltado'>";
 		$color = '0';
     } else {

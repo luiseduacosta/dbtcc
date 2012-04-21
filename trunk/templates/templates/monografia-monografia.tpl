@@ -1,17 +1,17 @@
 <html>
 <head>
-<link href='../../tcc.css' rel='stylesheet' type='text/css'>
+<link href='../../css/tcc.css' rel='stylesheet' type='text/css'/>
 </head>
 
 <body>
 {if $id_area == "99" || $id_area == "91"}
 	<table>
-	<caption>Monografias classificadas como �rea: {$area}</caption>
+	<caption>Monografias classificadas como área: {$area}</caption>
 	<tbody>
 	<tr>
-	<th><a href="?ordem=titulo&num_area={$id_area}">Titulo</a></th>
+	<th><a href="?ordem=titulo&num_area={$id_area}">Título</a></th>
 	<th><a href="?ordem=nome&num_area={$id_area}">Professor</a></td>
-	<th><a href="?ordem=periodo&num_area={$id_area}">Periodo</a></th>
+	<th><a href="?ordem=periodo&num_area={$id_area}">Período</a></th>
 	</tr>
 
 	{section name=i loop=$monografiaSem}
@@ -31,15 +31,15 @@
 	</tbody>
 	</table>
 {else}
-	<div align="center">
+	<div>
 	<table>
-	<caption>Professores da area: {$area}</caption>
+	<caption>Professores da área: {$area}</caption>
 	<tbody>
 
 	<tr>
 	<th>Professor</th>
 	<th>Departamento</th>
-	<th>Condicao</th>
+	<th>Condição</th>
 	<th>E-mail</th>
 	</tr>
 
@@ -63,13 +63,13 @@
 	<br>
 
 	<table>
-	<caption>Monografias classificadas como �rea: {$area}</caption>
+	<caption>Monografias classificadas como área: {$area}</caption>
 	<tbody>
 	<tr>
-	<th><a href="?ordem=titulo&num_area={$id_area}">Titulo</a></th>
+	<th><a href="?ordem=titulo&num_area={$id_area}">Título</a></th>
 	<th><a href="?ordem=nome&num_area={$id_area}">Professor</a></td>
-	<th><a href="?ordem=periodo&num_area={$id_area}">Periodo</a></th>
-	<th><a href="?ordem=area&num_area={$id_area}">�rea</a></th>
+	<th><a href="?ordem=periodo&num_area={$id_area}">Período</a></th>
+	<th><a href="?ordem=area&num_area={$id_area}">Área</a></th>
 	</tr>
 
 	{section name=i loop=$monografias}

@@ -1,14 +1,14 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link href="../../estagio.css" rel="stylesheet" type="text/css"> 
+<link href="../../css/tcc.css" rel="stylesheet" type="text/css"/>
 <title>Resultado da busca de alunos</title>
 </head>
 
 <body>
 
-<div align="center">
-<table border="1">
+<div>
+<table>
 <tbody>
 
 <tr>

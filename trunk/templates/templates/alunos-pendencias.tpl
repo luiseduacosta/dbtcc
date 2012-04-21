@@ -1,8 +1,9 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-        <title>Pendencias</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Alunos pendentes</title>
+        <link href="../../css/tcc.css" rel="stylesheet" type="text/css"/>
     </head>
 	{literal}
     <style type="text/css">
@@ -72,17 +73,16 @@
         });
     </script>
 	{/literal}
-    <link href='../../tcc.css' rel='stylesheet' type='text/css'>
     </head>
     <body>
         <div id='busca'>
         </div>
 		<div id='busca_periodo'>
         </div>
-        <div align='center'>
+        <div>
             <table id='alunos' class='alterna_cores'>
                 <caption>
-                    Tabela de pendencias
+                    Tabela de alunos pendentes
                 </caption>
                 <thead>
                     <th>
@@ -114,7 +114,7 @@
                         <td class='nome'>
                             {$alunos[id].nome}
                         </td>
-                        <td>
+                        <td style='text-align:center'>
                             {$alunos[id].nivel}
                         </td>
                         <td class='periodo'>

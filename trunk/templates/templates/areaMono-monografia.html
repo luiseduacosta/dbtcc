@@ -1,15 +1,15 @@
 <html>
 <head>
-<link href='../../tcc.css' rel='stylesheet' type='text/css'>
+<link href='../../css/tcc.css' rel='stylesheet' type='text/css'/>
 </head>
 <body>
 
-<div align='center'>
+<div>
 <form name='actualizar' action='../../monografia/atualizar/atualiza_mono.php' method='POST'>
 
-<table border='1' bgcolor='#C7FFB3f'>
+<table>
 <tr>
-<th bgcolor='#E7E1AE'>Monografia</th>
+<th>Monografia</th>
 </tr>
 
 <tr>
@@ -20,7 +20,7 @@
 
 <tr>
 <td>
-Titulo:
+Título:
 </td>
 </tr>
 
@@ -101,7 +101,7 @@ Resumo: <input type='text' name='resumo' size='55' value='{$resumo}'>
 </tr>
 
 <tr>
-<td><b>�rea do professor:</b>
+<td><b>Área do professor:</b>
 <select name="num_area" id="num_area" size="1">
 <option value={$id_areaProfessor}>{$areaProfessor}</option>
 {section name=i loop=$areasDosProfessores}
@@ -124,7 +124,7 @@ Resumo: <input type='text' name='resumo' size='55' value='{$resumo}'>
 
 <tr>
 <td>
-Periodo: <input type='text' name='periodo' size='6' value='{$periodo}'>
+Período: <input type='text' name='periodo' size='6' value='{$periodo}'>
 Data:    <input type='text' name='data' size='10' value='{$data}'>
 </td>
 </tr>

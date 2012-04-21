@@ -1,8 +1,8 @@
 <?php
 
 function seleciona_tcc()
-	// Seleciono número de tcc, retorno com esse valor para *main*
-	// e volto com o número de tcc para a função muda_area()
+	// Seleciono numero de tcc, retorno com esse valor para *main*
+	// e volto com o numero de tcc para a funcao muda_area()
 	{
 	echo "
 	<html>
@@ -15,7 +15,7 @@ function seleciona_tcc()
 	require_once("../../include_db.inc");
 	$sql = "select * from monografia order by titulo";
 	$resultado = $db->Execute($sql);
-	if($resultado == false) die ("Não foi possível consultar a tabela monografia");
+	if ($resultado == false) die ("Nao foi possivel consultar a tabela monografia");
 
 	echo "
 	<form name='seleciona_monografia' action='main.php' method='post'>
@@ -50,8 +50,8 @@ function muda_area($codigo)
 	require_once("../../include_db.inc");
 	$sql = "select * from monografia where codigo='$codigo'";
 	$resultados =$db->Execute($sql);
-	if($resultados == false) die ("Não foi possível consultar a tabela monografia");
-	while(!$resultados->EOF)
+	if ($resultados == false) die ("NÃ£o foi possÃ­vel consultar a tabela monografia");
+	while (!$resultados->EOF)
 		{
 		$codigo   = $resultados->fields['codigo'];
 		$titulo   = $resultados->fields['titulo'];
@@ -63,16 +63,16 @@ function muda_area($codigo)
 
 	$sql = "select * from areas where numero='$num_area'";
 	$resultados_areas = $db->Execute($sql);
-	if($resultados_areas == false) die ("Não foi possível consultar a tabela areas");
-	while(!$resultados_areas->EOF) {
+	if ($resultados_areas == false) die ("NÃ£o foi possÃ­vel consultar a tabela areas");
+	while (!$resultados_areas->EOF) {
 		$area = $resultados_areas->fields['area'];
 		$resultados_areas->MoveNext();
 	}
 	
 	$sql = "select * from professores where id='$num_prof'";
 	$resultados_professores = $db->Execute($sql);
-	if($resultados_professores == false) die ("Não foi possível consultar a tabela professores");
-	while(!$resultados_professores->EOF) {
+	if ($resultados_professores == false) die ("Nao foi possivel consultar a tabela professores");
+	while (!$resultados_professores->EOF) {
 		$nome = $resultados_professores->fields['nome'];
 		$resultados_professores->MoveNext();
 	}
@@ -143,7 +143,7 @@ function muda_area($codigo)
 	    <tr>
 	    <td></td>
 	    <td>
-	    <input type='radio' name='valor_num_area' value='99' checked>Não corresponde a nenhuma destas areas
+	    <input type='radio' name='valor_num_area' value='99' checked>NÃ£o corresponde a nenhuma destas areas
 	    </td>
 	    </tr>
 	    ";
@@ -152,7 +152,7 @@ function muda_area($codigo)
 	    <tr>
 	    <td></td>
 	    <td>
-	    <input type='radio' name='valor_num_area' value='99'>Não corresponde a nenhuma destas areas
+	    <input type='radio' name='valor_num_area' value='99'>NÃ£o corresponde a nenhuma destas areas
 	    </td>
 	    </tr>
 	    ";	

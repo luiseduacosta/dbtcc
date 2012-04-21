@@ -3,7 +3,7 @@
 require_once("../../include_db.inc");
 $sql = "select * from areas order by area";
 $resultado = $db->Execute($sql);
-if($resultado == false) die ("Não foi possível consultar a tabela areas");
+if ($resultado == false) die ("NÃ£o foi possÃ­vel consultar a tabela areas");
 
 echo "
 <html>

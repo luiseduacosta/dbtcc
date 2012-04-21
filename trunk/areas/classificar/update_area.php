@@ -3,7 +3,7 @@
 echo "
 <html>
 <head>
-<title>Avança e retrocede monografias</title>
+<title>AvanÃ§a e retrocede monografias</title>
 <link href='../../tcc.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
@@ -18,18 +18,18 @@ if(empty($nova_area_prof))
 require_once("../../include_db.inc");
 $sql_update = "update monografia set num_area='$nova_area_prof' where codigo='$codigo'";
 $resultado = $db->Execute($sql_update);
-if($resultado == false) die ("Nao foi possível atualizar a tabela monografia");
+if ($resultado == false) die ("Nao foi possivel atualizar a tabela monografia");
 
-if($submit == "Avanzar")
+if ($submit == "Avanzar")
 {
-  if($indice > ($quantidade_mono-2))
+  if ($indice > ($quantidade_mono-2))
     $indice = 0;
   else
     $indice++;
 }
-elseif($submit == "Retroceder")
+elseif ($submit == "Retroceder")
 {
-  if($indice == 0)
+  if ($indice == 0)
     $indice = ($quantidade_mono-1);
   else
     $indice--;

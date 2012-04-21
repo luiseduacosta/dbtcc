@@ -11,26 +11,26 @@ $nova_area_prof = $_REQUEST['nova_area_prof'];
 echo "
 <html>
 <head>
-<title>Avança e retrocede monografias</title>
-<link href='../../tcc.css' rel='stylesheet' type='text/css'>
+<title>AvanÃ§a e retrocede monografias</title>
+<link href='../../css/tcc.css' rel='stylesheet' type='text/css'>
 <body>
 ";
 
 /***********************************/
-// Si o botão de submit foi clicado então atualiza a tabela de areas
+// Si o botao de submit foi clicado entao atualiza a tabela de areas
 if($submit) {
-    // Si o professor não tem nenhuma area definida então area é 91=s/d
+    // Si o professor nao tem nenhuma area definida entao area e 91=s/d
     if($nova_area_prof == 0) {
 	$nova_area_prof = '91';
 	}
     require_once("../../include_db.inc");
     $sql_update = "update monografia set num_area='$nova_area_prof' where codigo='$codigo'";
     $resultado = $db->Execute($sql_update);
-    if($resultado == false) die ("Nao foi possível atualizar a tabela monografia");
+    if ($resultado == false) die ("Nao foi possivel atualizar a tabela monografia");
     // $db->Close();
 }
 
-if($submit == "Avanzar")
+if ($submit == "AvanÃ§ar")
 {
   if($indice > ($quantidade_mono-2))
     $indice = 0;
@@ -62,11 +62,11 @@ echo "
 <form name='selecion_monografia' action='selecao_monografia.php' method='post'>
 ";
 
-// Seleciono as monografias uma por uma com a função SelectLimit()
+// Seleciono as monografias uma por uma com a funÃ§Ã£o SelectLimit()
 $sql_monografia = "select * from monografia order by titulo";
 $resultado_monografia = $db->SelectLimit($sql_monografia,1,$indice);
-if($resultado_monografia == false) die ("Nao foi possivel consultar a tabela monografia");
-while(!$resultado_monografia->EOF)
+if ($resultado_monografia == false) die ("Nao foi possivel consultar a tabela monografia");
+while (!$resultado_monografia->EOF)
 {
 	$codigo   = $resultado_monografia->fields['codigo'];
 	$titulo   = $resultado_monografia->fields['titulo'];
@@ -76,8 +76,8 @@ while(!$resultado_monografia->EOF)
 
 	$sql_professores = "select nome from professores where id='$num_prof'";
 	$resultado_professores = $db->Execute($sql_professores);
-	if($resultado_professores == false) die ("Não foi possível consultar a tabela professores");
-	while(!$resultado_professores->EOF)
+	if ($resultado_professores == false) die ("NÃ£o foi possÃ­vel consultar a tabela professores");
+	while (!$resultado_professores->EOF)
 	{
 		$nome = $resultado_professores->fields['nome'];
 		$resultado_professores->MoveNext();
@@ -85,8 +85,8 @@ while(!$resultado_monografia->EOF)
 	
 	$sql_areas = "select area from areas where numero='$num_area'";
 	$resultado_areas = $db->Execute($sql_areas);
-	if($resultado_areas == false) die ("Não foi possivel consultar a tabela areas");
-	while(!$resultado_areas->EOF) {
+	if ($resultado_areas == false) die ("NÃ£o foi possivel consultar a tabela areas");
+	while (!$resultado_areas->EOF) {
 		$area = $resultado_areas->fields['area'];
 		$resultado_areas->MoveNext();	
 	}	
@@ -113,22 +113,22 @@ while(!$resultado_monografia->EOF)
 	/******************************************************************/
 	$sql_area_prof = "select num_area from prof_area where num_prof='$num_prof'";
 	$resultado_area_prof = $db->Execute($sql_area_prof);
-	if($resultado_area_prof == false) die ("Não foi possíve consultar a tabela prof_area");
-	while(!$resultado_area_prof->EOF)
+	if ($resultado_area_prof == false) die ("Nao foi possive consultar a tabela prof_area");
+	while (!$resultado_area_prof->EOF)
 		{
 		$num_area_prof = $resultado_area_prof->fields['num_area'];
 		// Pego o nome das areas do professor da tabela *areas*
 		$sql_outras_areas = "select * from areas where numero='$num_area_prof' order by area";
 		$resultado_outras_areas = $db->Execute($sql_outras_areas);
-		if($resultado_outras_areas == false) die ("Não foi possível consultar a tabela areas");
-		while(!$resultado_outras_areas->EOF)
+		if ($resultado_outras_areas == false) die ("NÃ£o foi possÃ­vel consultar a tabela areas");
+		while (!$resultado_outras_areas->EOF)
 			{
 			$numero_area = $resultado_outras_areas->fields['numero'];
 			$area        = $resultado_outras_areas->fields['area'];
 			$resultado_outras_areas->MoveNext();
 	    		}
-			// Caso exista uma área já definida a deixo selecionada
-			if($num_area == $numero_area)
+			// Caso exista uma area ja definida a deixo selecionada
+			if ($num_area == $numero_area)
 			    {
 			    echo "
 			    <tr>
@@ -165,7 +165,7 @@ if ($num_area == '99' || $num_area == '91')
     <tr>
     <td></td>
     <td>
-    <input type='radio' name='nova_area_prof' value='99' checked>Não corresponde a nenhuma destas areas
+    <input type='radio' name='nova_area_prof' value='99' checked>Nï¿½o corresponde a nenhuma destas areas
     <td>
     </tr>
     ";
@@ -174,7 +174,7 @@ if ($num_area == '99' || $num_area == '91')
     <tr>
     <td></td>
     <td>
-    <input type='radio' name='nova_area_prof' value='99'>Não corresponde a nenhuma destas areas
+    <input type='radio' name='nova_area_prof' value='99'>NÃ£o corresponde a nenhuma destas areas
     <td>
     </tr>
     ";
@@ -185,13 +185,13 @@ echo "
 <td colspan='3'>
 
 <!-- table align='center' //-->
-<table align='center' id='botao_confirma_area' name='botao_confirma_area'>
+<table id='botao_confirma_area' name='botao_confirma_area'>
     <tr><td>
     <input type='hidden' name='indice' value='$indice'>
     <input type='hidden' name='quantidade_mono' value='$quantidade_mono'>
     <input type='hidden' name='codigo' value='$codigo'>
     <input type='submit' name='submit' value='Retroceder'>	
-    <input type='submit' name='submit' value='Avanzar'>
+    <input type='submit' name='submit' value='Avanï¿½ar'>
     </td>
     </tr>
 </table>

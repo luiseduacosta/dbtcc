@@ -5,7 +5,7 @@ include("../../autentica.inc");
 echo "
 <html>
 <head>
-<link href='../../tcc.css' rel='stylesheet' type='text/css'>
+<link href='../../css/tcc.css' rel='stylesheet' type='text/css'>
 <script language='JavaScript' type='text/javascript'>
 </script>
 </head>
@@ -13,26 +13,26 @@ echo "
 ";
 
 include("../../include_db.inc");
-// Recebo o valor da variável
+// Recebo o valor da variavel
 $id_area = $_POST['id_area'];
 
-// Consulto a tabela monografia para saber quais estão associados a esta área
+// Consulto a tabela monografia para saber quais estÃ£o associados a esta Ã¡rea
 $sql = "select codigo, titulo from monografia where areamonografia='$id_area'";
 $resultado = $db->Execute($sql);
-if($resultado == false) die ("Não foi possível consultar a tabela monografia");
+if ($resultado == false) die ("NÃ£o foi possÃ­vel consultar a tabela monografia");
 $nrows = $resultado->RecordCount();
-// Si existe uma monografia associada a esta area não pode ser eliminada
-if($nrows != 0)
+// Si existe uma monografia associada a esta area nao pode ser eliminada
+if ($nrows != 0)
 {
-	echo "<p>Nao é possível eliminar esta area por estar associada a uma monografia. <br>";
+	echo "<p>Nao e possivel eliminar esta area por estar associada a uma monografia. <br>";
 	exit;
 }
-// Em caso contrário si posso eliminar a area da tabela
+// Em caso contrario si posso eliminar a area da tabela
 else 
 {
 	$sql = "delete from areasmonografia where id='$id_area'";
 	$resultado = $db->Execute($sql);
-	if($resultado == false) die ("Não foi possível eliminar o registro da tabela areasmonografia");
+	if ($resultado == false) die ("NÃ£o foi possÃ­vel eliminar o registro da tabela areasmonografia");
 
 	echo "<p>Registro eliminado <br>";
 }

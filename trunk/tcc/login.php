@@ -9,16 +9,16 @@ $host = $_SERVER[HTTP_HOST];
 <html>
 <head>
 <title>Menu lateral</title>
-<link href="tcc.css" rel="stylesheet" type="text/css">
+<link href="css/tcc.css" rel="stylesheet" type="text/css"/>
 </head>
 
-<body>
+<body class='body'>
 
 <?php
 
 echo "
 
-<div align='center'>
+<div>
 <strong>
 <font size='+1'>UNIVERSIDADE FEDERAL DO RIO DE JANEIRO</font>
 </strong>
@@ -26,27 +26,27 @@ echo "
 
 <br>
 
-<div align='center'>
+<div>
 <strong>
-<font size='+1'>ESCOLA DE SERVI«O SOCIAL</font>
+<font size='+1'>ESCOLA DE SERVI√áO SOCIAL</font>
 </strong>
 </div>
 
 <br>
 
-<div align='center'>
+<div>
 <strong>
-<font size='+1'>Comiss„o de TCC</font>
+<font size='+1'>Comiss√£o de TCC</font>
 </strong>
 </div>
 
 <br>
 
 <form name='login' id='login' action='verifica_login.php' method='post'>
-<table align='center'>
+<table>
 
 <tr>
-<td>Usu·rio</td>
+<td>Usu√°rio</td>
 <td><input type='text' name='nome_usuario' id='nome_usuario' size='15'></td>
 </tr>
 

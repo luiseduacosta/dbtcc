@@ -1,6 +1,7 @@
 14/07/2004
 
-Finalmente já consegui passar todo o programa para a classe ADODB. Também já instalei o programa completo no site da escola.
+Finalmente já consegui passar todo o programa para a classe ADODB. 
+Também já instalei o programa completo no site da escola.
 Fiz algumas melhoras em vários lugares.
 
 	26/06/2004
@@ -53,3 +54,10 @@ Fiz algumas melhoras em vários lugares.
 	exclussão das áreas.  No módulo impressão culminei a transição
 	para arquivos PDF.  Agora é possivel imprimir declarações
 	individuais em formato PDF.
+
+	30-09-2009
+	A pedido do Luis começei a criar um layout para a página.
+	Criei a pasta /css onde colocarei todas folhgas de estilo.
+	Editei os .php para indicar o mesmo .css
+	Rafael Castro Couto.
+	

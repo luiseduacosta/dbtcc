@@ -49,7 +49,7 @@ $data = $dia . "/" . $mes . "/" . $ano;
 echo "
 <html>
 <head>
-<link href='../../tcc.css' rel='stylesheet' type='text/css'>
+<link href='../../css/tcc.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
@@ -153,7 +153,7 @@ echo "
 <input type='hidden' name='id' value=$id>		
 <input type='hidden' name='registro_atual' value=$registro_atual>
 
-<div align='center'>
+<div>
 <table>
 <tr>
 <td><input type='submit' name='enviar' value='Confirma'></td>

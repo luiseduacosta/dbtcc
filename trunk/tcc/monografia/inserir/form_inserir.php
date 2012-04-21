@@ -48,13 +48,12 @@ function processaConsulta () {
 //
 -->
 </script>
-
+<link href='../css/tcc.css' rel='stylesheet' type='text/css'/>
 </head>
 
 <?php
 
 require_once("../../include_db.inc");
-
 require_once("../../data.php");
 
 echo "<hr>";
@@ -79,9 +78,9 @@ if ($mes >= 7 AND $mes <= 12) {
 	}
 ?>
 
-<body bgcolor='#B0FFFB'>
+<body class='body'>
 
-<div align="center">
+<div>
 
 <form name="inserir" action="verifica_tcc.php" method="post">
 
@@ -94,7 +93,7 @@ if ($mes >= 7 AND $mes <= 12) {
 // Catalogo
 $sql_catalogo = "select max(catalogo) as num_catalogo from monografia";
 $resposta_catalogo = $db->Execute($sql_catalogo);
-if($resposta_catalogo === null) die ("N„o foi possÌ≠vel consultar a tabela tcc_alunos");
+if ($resposta_catalogo === null) die ("N√£o foi poss√≠vel consultar a tabela tcc_alunos");
 $catalogo = $resposta_catalogo->fields['num_catalogo'];
 $catalogo = $catalogo + 1;
 ?>
@@ -106,14 +105,14 @@ Cat&aacute;logo: <input type='text' name='catalogo' id='catalogo' value='<?php e
 <tr>
 
 <tr>
-<td>¡rea da monografia:
+<td>√Årea da monografia:
 <select name="id_areaMonografia" id="id_areaMonografia" size="1">
-<option value=0>Selecione ·rea da monografia</option>
+<option value=0>Selecione √°rea da monografia</option>
 <?php
 $sql_areaMonografia = "select id, areamonografia from areasmonografia order by areamonografia";
 // echo $sql_areaMonografia . "<br>";
 $resultado = $db->Execute($sql_areaMonografia);
-if($resultado === false) die ("N„o foi possÌvel consultar a tabela areasmonografias");
+if ($resultado === false) die ("N√£o foi poss√≠vel consultar a tabela areasmonografias");
 while (!$resultado->EOF) {
 	$id_area = $resultado->fields['id'];
 	$areamonografia = $resultado->fields['areamonografia'];
@@ -128,13 +127,13 @@ while (!$resultado->EOF) {
 </tr>
 
 <tr>
-<td>Orientador (obrigatÛrio):
+<td>Orientador (obrigat√≥rio):
 <select name="id_professor" id="id_professor" size="1" onChange="return processaConsulta();">
 <option value=0>Selecione o professor</option>
 <?php
 $sql_professores = "select id, nome from professores order by nome";
 $resultado = $db->Execute($sql_professores);
-if($resultado === false) die ("N„o foi possÌvel consultar a tabela professores");
+if($resultado === false) die ("NÔøΩo foi possÔøΩvel consultar a tabela professores");
 while (!$resultado->EOF) {
 	$num_professor = $resultado->fields['id'];
 	$professor     = $resultado->fields['nome'];
@@ -161,7 +160,7 @@ while (!$resultado->EOF) {
 <?php
 $sql_professores = "select id, nome from professores order by nome";
 $resposta_professores = $db->Execute($sql_professores);
-if($resposta_professores == false) die ("N„o foi possÌvel consultar a tabela professores");
+if ($resposta_professores == false) die ("N√£o foi poss√≠vel consultar a tabela professores");
 while (!$resposta_professores->EOF)	{
 	$num_professor = $resposta_professores->fields['id'];
 	$professor     = $resposta_professores->fields['nome'];
@@ -190,9 +189,9 @@ Registro: <input type="text" name="numeroaluno1" size="9">
 <?php
 $sql_aluno = "SELECT registro, nome, nivel, periodo FROM alunos inner join estagiarios using (registro) where estagiarios.nivel = 4 order by nome";
 $resposta_aluno = $db->Execute($sql_aluno);
-if($resposta_aluno == false) die ("N„o foi possÌvel consultar a tabela alunos");
+if ($resposta_aluno == false) die ("N√£o foi poss√≠vel consultar a tabela alunos");
 $j = 0;
-while(!$resposta_aluno->EOF) {
+while (!$resposta_aluno->EOF) {
 	$registro = $resposta_aluno->fields['registro'];
 	$nome = $resposta_aluno->fields['nome'];
 	$nivel = $resposta_aluno->fields['nivel'];
@@ -235,8 +234,8 @@ Registro: <input type="text" name="numeroaluno2" size="9">
 $sql_aluno = "SELECT registro, nome FROM alunos inner join estagiarios using (registro) where estagiarios.nivel = 4 order by nome";
 $resposta_aluno = $db->Execute($sql_aluno);
 print_r($resposta_aluno);
-if($resposta_aluno == false) die ("N„o foi possÌvel consultar a tabela alunos");
-while(!$resposta_aluno->EOF) {
+if ($resposta_aluno == false) die ("N√£o foi poss√≠vel consultar a tabela alunos");
+while (!$resposta_aluno->EOF) {
 	$registro = $resposta_aluno->fields['registro'];
 	$nome = $resposta_aluno->fields['nome'];
 	echo $nome . "<br>";
@@ -269,8 +268,8 @@ Registro: <input type="text" name="numeroaluno3" size="9">
 $sql_aluno = "SELECT registro, nome FROM alunos inner join estagiarios using (registro) where estagiarios.nivel = 4 order by nome";
 $resposta_aluno = $db->Execute($sql_aluno);
 print_r($resposta_aluno);
-if($resposta_aluno == false) die ("NÔøΩo foi possÔøΩvel consultar a tabela alunos");
-while(!$resposta_aluno->EOF) {
+if ($resposta_aluno == false) die ("N√£o foi poss√≠vel consultar a tabela alunos");
+while (!$resposta_aluno->EOF) {
 	$registro = $resposta_aluno->fields['registro'];
 	$nome = $resposta_aluno->fields['nome'];
 	echo $nome . "<br>";
@@ -311,7 +310,7 @@ Resumo: <input type="text" name="carateres" value="0" size='4' readonly>
 
 <tr>
 <td>
-PerÔøΩodo: <input type="text" name="periodo" size="6" value="<?php echo $periodo; ?>">
+Per√≠odo: <input type="text" name="periodo" size="6" value="<?php echo $periodo; ?>">
 Data:    <input type="text" name="data" size="10" value="<?php echo $data; ?>">
 </td>
 </tr>

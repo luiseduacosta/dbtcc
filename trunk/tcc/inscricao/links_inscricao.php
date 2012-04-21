@@ -1,12 +1,12 @@
 <html>
 <head>
 <title>Lista lateral - Modulo inscrição</title>
-<link href="../lateral.css" rel="stylesheet" type="text/css">
+<link href="../css/lateral.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
 
-<div align="center">
+<div>
 
 <table>
 <tr><td>
@@ -43,27 +43,27 @@ Tabela de professores por orientandos</a>
 
 <table>
 
-<tr><td align='center'>
+<tr><td>
 <a href="../monografia/monografia.html" target="_top">
 Monografias</a>
 </td></tr>
 
-<tr><td align='center'>
+<tr><td>
 <a href="../professor/professores.html" target="_top">
 Professores</a>
 </td></tr>
 
-<tr><td align='center'>
+<tr><td>
 <a href="../alunos/alunos.html" target="_top">
 Alunos</a>
 </td></tr>
 
-<tr><td align='center'>
+<tr><td>
 <a href="../areas/areas.html" target="_top">
 Áreas</a>
 </td></tr>
 
-<tr><td align='center'>
+<tr><td>
 <a href="../index.html" target="_top">
 Inicio</a>
 </td></tr>

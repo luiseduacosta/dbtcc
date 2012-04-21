@@ -3,402 +3,196 @@
 include("../../autentica.inc");
 // include("../../include_db.inc");
 include("../../setup.php");
+
 $servidor = $_SERVER['SERVER_NAME'];
 // echo $_SERVER[HTTP_REFERER];
 
 $codigo = $_REQUEST['codigo'];
 
 $sql = "select monografia.codigo, monografia.catalogo, monografia.titulo, monografia.resumo, "
-. " monografia.num_prof, monografia.num_co_orienta, monografia.data, monografia.periodo, monografia.url, "
-. " professores.nome, areasmonografia.id as id_areamonografia, areasmonografia.areamonografia, "
-. " areas.numero as id_area, areas.area "
-. " from monografia "
-. " inner join professores on monografia.num_prof = professores.id "
-. " left outer join areasmonografia on monografia.areamonografia = areasmonografia.id "
-. " left outer join areas on monografia.num_area = areas.numero "
-. " where codigo = $codigo "
-. " order by titulo";
+        . " monografia.num_prof, monografia.num_co_orienta, monografia.num_area, monografia.areamonografia, monografia.data, monografia.periodo, monografia.url, "
+        . " monografia.data_defesa, monografia.banca1, monografia.banca2, monografia.banca3, monografia.convidado, "
+        . " professores.nome, areasmonografia.id as id_areamonografia, areasmonografia.areamonografia, "
+        . " areas.numero as id_area, areas.area "
+        . " from monografia "
+        . " inner join professores on monografia.num_prof = professores.id "
+        . " left outer join areasmonografia on monografia.areamonografia = areasmonografia.id "
+        . " left outer join areas on monografia.num_area = areas.numero "
+        . " where codigo = $codigo";
 // echo $sql. "<br>";
+
 $resposta = $db->Execute($sql);
-if($resposta === false) die ("Nao foi possivel consultar a tabela monografia");
+if ($resposta === false) die("Nao foi possivel consultar a tabela monografia");
 
-while(!$resposta->EOF) {
-	$codigo         = $resposta->fields['codigo'];
-	$catalogo       = $resposta->fields['catalogo'];
-	$titulo         = $resposta->fields['titulo'];
-	$resumo         = $resposta->fields['resumo'];
-	$data_sql       = $resposta->fields['data'];
-	$periodo        = $resposta->fields['periodo'];
-	$num_prof       = $resposta->fields['num_prof'];
-	$nome           = $resposta->fields['nome'];
-	$num_co_orienta = $resposta->fields['num_co_orienta'];
-	$num_area       = $resposta->fields['id_area'];
-	$area           = $resposta->fields['area'];
-	$id_areamonografia = $resposta->fields['id_areamonografia'];
-	$areamonografia = $resposta->fields['areamonografia'];
-	$url            = $resposta->fields['url'];
+while (!$resposta->EOF) {
+    $codigo = $resposta->fields['codigo'];
+    $catalogo = $resposta->fields['catalogo'];
+    $titulo = $resposta->fields['titulo'];
+    $resumo = $resposta->fields['resumo'];
+    $data_sql = $resposta->fields['data'];
+    $periodo = $resposta->fields['periodo'];
+    $id_professor = $resposta->fields['num_prof'];
+    $professor = $resposta->fields['nome'];
+    $id_co_orienta = $resposta->fields['num_co_orienta'];
+    $id_areaprofessor = $resposta->fields['num_area'];
+    $id_areamonografia = $resposta->fields['id_areamonografia'];
+    $areamonografia = $resposta->fields['areamonografia'];
+    $area = $resposta->fields['area'];
+    $url = $resposta->fields['url'];
+    $data_defesa_sql = $resposta->fields['data_defesa'];
+    $banca1 = $resposta->fields['banca1'];
+    $banca2 = $resposta->fields['banca2'];
+    $banca3 = $resposta->fields['banca3'];
+    $convidado = $resposta->fields['convidado'];
 
-	if (empty($areamonografia)) {
-			$areamonografia = "Selecione área";
-	}
+    if (empty($areamonografia)) {
+        $areamonografia = "Selecione Ã¡rea";
+    }
 
-	if(ereg("([0-9]{4}).([0-9]{2}).([0-9]{2})",$data_sql,$regs))
-		$data = $regs[3]."-". $regs[2]."-". $regs[1];
+    /* Ajusto as datas */
+    if ($data_sql != 0) {
+        $data = date('d-m-Y', strtotime($data_sql));
+    } else {
+        $data = "s/d";
+    }
 
-	$resposta->MoveNext();
-	}
+    if ($data_defesa_sql != 0) {
+        $data_defesa = date('d-m-Y', strtotime($data_defesa_sql));
+    } else {
+        $data_defesa = "s/d";
+    }
 
-echo "
-<html>
-<head>
-<link href='../../tcc.css' rel='stylesheet' type='text/css'>
-</head>
-<body>
-<form name='actualizar' action='atualiza_mono.php' method='POST' enctype='multipart/form-data'>
+    $resposta->MoveNext();
+}
+// print_r($catalogo);
 
-<div align='center'>
-<table border='1' bgcolor='#C7FFB3f'>
-<th bgcolor='#E7E1AE'>Atualiza registro</th>
-<tr>
-<td>
-<input type='hidden' name='codigo' size='5' value='$codigo'>
-</td>
-</tr>
-
-<tr>
-<td>
-Cat&aacute;logo:
-<input type='text' name='catalogo' size='4' value='$catalogo'>
-</td>
-</td>
-</tr>
-
-<tr>
-<td>
-Titulo:
-</td>
-</tr>
-
-<tr>
-<td>
-<textarea rows='2' cols='80' name='titulo'>$titulo</textarea>
-</td>
-</tr>
-";
-
-/**********
-Professor
-**********/
-
-echo "
-<tr>
-<td>
-Professor(a):
-";
-echo "
-<select name='num_prof' size='1'>
-<option value='$num_prof'>$nome</option>
-";
-
+/* Professores */
 $sql = "select * from professores order by nome";
 $resposta_sql = $db->Execute($sql);
-if($resposta_sql === false) die ("Nao foi possivel consultar a tabela professores");
+if ($resposta_sql === false) die("Nao foi possivel consultar a tabela professores");
+$i = 0;
+while (!$resposta_sql->EOF) {
+    $professores[$i]['id']   = $resposta_sql->fields['id'];
+    $professores[$i]['nome'] = $resposta_sql->fields['nome'];
 
-while(!$resposta_sql->EOF) {
-	$numero_prof = $resposta_sql->fields['id'];
-	$nome        = $resposta_sql->fields['nome'];
-	echo "<option value='$numero_prof'>$nome</option>";
-	$resposta_sql->MoveNext();
-	}
+    $i++;
+    $resposta_sql->MoveNext();
+}
+/* Nome do professor co-orientador */
+$sql_co_orienta = "select nome from professores where id=$id_co_orienta";
+$res_co_orienta = $db->Execute($sql_co_orienta);
+$co_orientador = $res_co_orienta->fields['nome'];
+// print_r($professores);
 
-echo "
-</select>
-</td>
-</tr>
-";
-/*Fim de professor*/
-
-/************
-Co-orientador
-************/
-echo "
-<tr>
-<td>
-Co-orientador(a):
-";
-if(empty($num_co_orienta)) {
-	// echo "Não tem co-orientador <br>";
-	$num_co_orienta = 0;
-	$co_orientador = "Selecione co-orientador";
-} else {
-	$sql_co_orienta = "select nome from professores where id='$num_co_orienta'";
-	$resultado_co_orienta = $db->Execute($sql_co_orienta);
-	if($resultado_co_orienta === false) die ("Nao foi possivel consultar a tabela professores");
-	while(!$resultado_co_orienta->EOF) {
-		$co_orientador = $resultado_co_orienta->fields['nome'];
-		$resultado_co_orienta->MoveNext();
-		}
-	}
-
-echo "
-<select name='num_co_orienta' size='1'>
-<option value='$num_co_orienta'>$co_orientador</option>
-";
-
-$sql = "select * from professores order by nome";
-$resultado = $db->Execute($sql);
-if($resultado === false) die ("Nao foi possivel consultar a tabela professores");
-
-while(!$resultado->EOF)	{
-	$numero_prof = $resultado->fields['id'];
-	$nome        = $resultado->fields['nome'];
-	echo "<option value='$numero_prof'>$nome</option>";
-	$resultado->MoveNext();
-	}
-	echo "
-</select>
-</td>
-</tr>
-";
-/*Fim de co-orientador*/
-
-/**********/
+/* * ******** */
 /* Alunos */
-/**********/
-
+/* * ******** */
 $sql = "select * from tcc_alunos where num_monografia='$codigo'";
 // echo $sql. "<br>";
 $resposta = $db->Execute($sql);
-if($resposta === false) die ("Nao foi possivel consultar a tabela alunos");
+if ($resposta === false) die("Nao foi possivel consultar a tabela alunos");
 $q_alunos = $resposta->RecordCount();
 // echo 'q ' . $q_alunos . "<br>";
-$j = 0;
-while(!$resposta->EOF) {
-	$aluno[$j] = $resposta->fields['nome'];
-	$id_alunos[$j] = $resposta->fields['numero'];
-
-	echo "
-	<tr>
-	<td>
-	Aluno(s):
-	<select name = 'id_aluno$j'>
-	<option value='0'>$aluno[$j]</a>
-	";
-	$sql = "select numero, nome from tcc_alunos order by nome";
-	$resultado = $db->Execute($sql);
-	if($resultado === false) die ("Nao foi possivel consultar a tabela alunos");
-	while(!$resultado->EOF)	{
-		$id_aluno = $resultado->fields['numero'];
-		$nome    = $resultado->fields['nome'];
-		echo "<option value='$id_aluno'>$nome</option>";
-		$resultado->MoveNext();
-	}
-
-	echo "
-	</select>
-	";
-	
-	if($q_alunos > 1) {
-		echo "
-		<a href='../../alunos/eliminar/elimina.php?numero_aluno=$id_aluno[$j]'>Excluir</a>
-		";
-		}
-	echo "
-	</td>
-	</tr>
-	";
-
-	$j++;
-	$resposta->MoveNext();
-
-	}
-
-for($z=$j; $z<$alunos_por_monografia; $z++) {
-	echo "
-	<tr>
-	<td>
-	Aluno(s):
-	<select name = 'id_aluno$z'>
-	<option value='0'>Seleciona aluno</a>
-	";
-	$sql = "select numero, nome from tcc_alunos order by nome";
-	$resultado = $db->Execute($sql);
-	if($resultado === false) die ("Nao foi possivel consultar a tabela alunos");
-	while(!$resultado->EOF)	{
-		$id_aluno = $resultado->fields['numero'];
-		$nome    = $resultado->fields['nome'];
-		echo "<option value='$id_aluno'>$nome</option>";
-		$resultado->MoveNext();
-	}
-	echo "
-	</select>
-	";
+$i = 0;
+while (!$resposta->EOF) {
+    $alunostcc[$i]['aluno'] = 'id_aluno' . strval($i);
+    $alunostcc[$i]['nome']  = $resposta->fields['nome'];
+    $alunostcc[$i]['id']    = $resposta->fields['numero'];
+    $i++;
+    $resposta->MoveNext();
 }
-
-/**********/
-/* Resumo */
-/**********/
-
-echo "
-<tr>
-<td>
-Resumo: <input type='text' name='resumo' size='55' value='$resumo'>
-</td>
-</tr>
-";
-
-/*
- * Arquivo da monografia
- */
-
-echo "
-<tr>
-<td>
-Arquivo: <a href='http://$servidor/monografias/$url'>$url</a>
-<input type='file' name='monografia' size='30'>
-";
-if(!empty($url)) {
-	echo "
-	<a href='../eliminar/excluir_arquivo.php?url=$url&codigo=$codigo'>Excluir</a>
-	";
+/* Todos os alunos para o select */
+$sql_alunos = "select numero, nome from tcc_alunos order by nome";
+$res_alunos = $db->Execute($sql_alunos);
+while (!$res_alunos->EOF) {
+    $alunos[$i]['id']   = $res_alunos->fields['numero'];
+    $alunos[$i]['nome'] = $res_alunos->fields['nome'];
+    $i++;
+    $res_alunos->MoveNext();
 }
-echo "
-</td>
-</tr>
-";
+// print_r($alunostcc);
+// print_r($alunos);
 
-/***********/
-/* Areas ***/
-/***********/
-echo "
-<tr>
-<td>
-<b>Área de orientação do professor</b>: $area
-</td>
-</tr>
-";
-
-echo "
-<tr>
-<td align='center'>Área(s) de orientação do professor</td>
-</tr>
-";
-// echo "Num_area " . $num_area . "<br>";
-if($num_area == "99") {
-	echo "
-	<tr>
-	<td>
-	<input type='radio' name='num_area' value='$num_area' checked>$area
-	</td>
-	</tr>
-	";
-} else {
-	echo "
-	<tr>
-	<td>
-	<input type='radio' name='num_area' value='99'>Nao corresponde a nenhuma desta(s) area(s)
-	</td>
-	</tr>
-	";
-	}
-
-// Inicio um bucle (loop) com a tabela prof_area
-$sql_prof_area = "select * from prof_area where num_prof='$num_prof'";
+/* * ******** */
+/* Areas ** */
+/* * ******** */
+$sql_prof_area = "select * from prof_area 
+join areas on prof_area.num_area = areas.numero
+where prof_area.num_prof='$id_professor'";
+// echo $sql_prof_area . "<br>";
 $resposta_prof_area = $db->Execute($sql_prof_area);
-if($resposta_prof_area === false) die ("Nao foi possivel consultar a tabela prof_area");
+if ($resposta_prof_area === false) die("Nao foi possivel consultar a tabela prof_area");
 $quantidade_area = $resposta_prof_area->RecordCount();
-while(!$resposta_prof_area->EOF) {
-	$num_area = $resposta_prof_area->fields['num_area'];
-
-	// Incio um bucle (loop) interior com a tabela areas a partir do num_area.
-	$sql_areas = "select * from areas where numero='$num_area'";
-	$resposta_areas = $db->Execute($sql_areas);
-	if($resposta_areas == false) die ("Nao foi possivel consultar a tabela areas");
-	$quantidade = $resposta_areas->RecordCount();
-	while(!$resposta_areas->EOF) {
-		$nomeArea = $resposta_areas->fields['area'];
-		if(($nomeArea == $area) || ($quantidade_area == "1")) {
-			echo "
-			<tr>
-			<td>
-			<input type='radio' name='num_area' value='$num_area' checked>$nomeArea
-			</td>
-			</tr>
-			";
-		} else {
-			echo "
-			<tr>
-			<td>
-			<input type='radio' name='num_area' value='$num_area'>$nomeArea
-			</td>
-			</tr>
-			";
-			}
-		$resposta_areas->MoveNext();
-		} // Finaliza bucle interior
-	$resposta_prof_area->MoveNext();
-	} // Finaliza bucle maior
-
-/**********************
-* Area da monografia
-**********************/
-
-echo "
-<tr>
-<td align='center'><b>Área da monografia</b>
-<select name='id_areamonografia' size='1'>
-<option value='$id_areamonografia'>$areamonografia</option>
-";
-
-$sql = "select * from areasmonografia order by areamonografia";
-$resposta_sql = $db->Execute($sql);
-if($resposta_sql === false) die ("Nao foi possivel consultar a tabela areasmonografia");
-
-while(!$resposta_sql->EOF)	{
-	$id_area = $resposta_sql->fields['id'];
-	$area = $resposta_sql->fields['areamonografia'];
-	echo "<option value='$id_area'>$area</option>";
-	$resposta_sql->MoveNext();
-	}
-
-echo "
-</select>
-</td>
-</tr>
-";
-
-/***********/
-/* Periodo */
-/***********/
-
-echo "
-<tr>
-<td>
-Periodo: <input type='text' name='periodo' size='6' value='$periodo'>
-Data:    <input type='text' name='data' size='10' value='$data'>
-</td>
-</tr>
-
-<input type='hidden' name='fazer' value='atualiza'>
-";
-
-for($i=0;$i<sizeof($id_alunos);$i++) {
-	echo "<input type='hidden' name='num_aluno$i' value='$id_alunos[$i]'>";
+$i = 0;
+while (!$resposta_prof_area->EOF) {
+    $areas[$i]['id']   = $resposta_prof_area->fields['num_area'];
+    $areas[$i]['area'] = $resposta_prof_area->fields['area']; 
+    
+    $i++;
+    $resposta_prof_area->MoveNext();
 }
+/* Acrescento mais uma area para o professor */
+$areas[$i]['id'] = '99';
+$areas[$i]['area'] = 'No corresponde';
+// print_r($areas);
+// die();
+/* * ********************
+ * Area da monografia
+ * ******************* */
+$sql = "select * from areasmonografia order by areamonografia";
+// echo $sql . "<br>";
+$res_areamonografia = $db->Execute($sql);
+if ($res_areamonografia === false) die("Nao foi possivel consultar a tabela areasmonografia");
+$quantidade_area = $res_areamonografia->RecordCount($sql);
+$i = 0;
+while (!$res_areamonografia->EOF) {
+    $area_monografia[$i]['id']   = $res_areamonografia->fields['id'];
+    $area_monografia[$i]['area'] = $res_areamonografia->fields['areamonografia'];
+    $i++;
+    $res_areamonografia->MoveNext();
+}
+/* Capturo o nome do orientador que preside a banca */
+$sql_orientador = "select nome from professores where id='$banca1'";
+$res_orientador = $db->Execute($sql_orientador);
+$professorbanca1 = $res_orientador->fields['nome'];
+/* Capturo o nome do segundo integrante da banca */
+$sql_orientador = "select nome from professores where id='$banca2'";
+$res_orientador = $db->Execute($sql_orientador);
+$professorbanca2 = $res_orientador->fields['nome'];
+/* Capturo o nome do terceiro integrante da banca */
+$sql_orientador = "select nome from professores where id='$banca3'";
+$res_orientador = $db->Execute($sql_orientador);
+$professorbanca3 = $res_orientador->fields['nome'];
+// print_r($area_monografia);
 
-echo "
-<tr>
-<td>
-<p class='coluna_centralizada'>
-<input type='submit' name='submit' value='Atualizar'></td>
-</tr>
-
-</table>
-</div>
-
-</form>
-";
-
-$db->Close();
+$smarty = new template_tcc;
+// $smarty->debugging = true;
+$smarty->assign('codigo', $codigo);
+$smarty->assign('catalogo', $catalogo);
+$smarty->assign('titulo', $titulo);
+$smarty->assign('id_professor', $id_professor);
+$smarty->assign('professor', $professor);
+$smarty->assign('professores', $professores);
+$smarty->assign('id_co_orientador', $id_co_orientador);
+$smarty->assign('co_orientador', $co_orientador);
+$smarty->assign('alunostcc', $alunostcc);
+$smarty->assign('alunos', $alunos);
+$smarty->assign('resumo', $resumo);
+$smarty->assign('url', $url);
+$smarty->assign('area', $area);
+$smarty->assign('id_areaprofessor', $id_areaprofessor);
+$smarty->assign('areas', $areas);
+$smarty->assign('id_areamonografia', $id_areamonografia);
+$smarty->assign('area_monografia', $area_monografia);
+$smarty->assign('periodo', $periodo);
+$smarty->assign('data_defesa', $data_defesa);
+$smarty->assign('banca1', $banca1);
+$smarty->assign('professorbanca1', $professorbanca1);
+$smarty->assign('banca2', $banca2);
+$smarty->assign('professorbanca2', $professorbanca2);
+$smarty->assign('banca3', $banca3);
+$smarty->assign('professorbanca3', $professorbanca3);
+$smarty->assign('convidado', $convidado);
+$smarty->display('file:'. RAIZ . 'monografia/atualizar/mono.tpl');
 
 ?>

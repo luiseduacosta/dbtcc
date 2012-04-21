@@ -1,14 +1,15 @@
 <html>
 <head>
+<link href="../../css/tcc.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 
-<table border="1">
-<caption>Monografias da área: {$area}</caption>
+<table>
+<caption>Monografias da Ã¡rea: {$area}</caption>
 <tbody>
 <tr>
 <th>Titulo</th>
-<th>Período</th>
+<th>PerÃ­odo</th>
 <th>Professor</th>
 </tr>
 

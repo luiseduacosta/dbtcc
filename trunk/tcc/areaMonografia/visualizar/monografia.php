@@ -19,9 +19,9 @@ $sql = "select monografia.codigo, monografia.catalogo, monografia.titulo, monogr
 . " order by titulo";
 // echo $sql. "<br>";
 $resposta = $db->Execute($sql);
-if($resposta === false) die ("N„o foi possÌvel consultar a tabela monografia");
+if ($resposta === false) die ("N√£o foi poss√≠vel consultar a tabela monografia");
 
-while(!$resposta->EOF) {
+while (!$resposta->EOF) {
 	$codigo         = $resposta->fields['codigo'];
 	$catalogo       = $resposta->fields['catalogo'];
 	$titulo         = $resposta->fields['titulo'];
@@ -37,15 +37,15 @@ while(!$resposta->EOF) {
 	$areamonografia = $resposta->fields['areamonografia'];
 	
 	if (empty($areamonografia)) {
-			$areamonografia = "Selecione ·rea";
+			$areamonografia = "Selecione √°rea";
 	}
 
 	$sqlAluno = "select numero, nome from tcc_alunos where num_monografia = $codigo";
 	// echo $sqlAluno . "<br>";
 	$respostaAluno = $db->Execute($sqlAluno);
-	if($respostaAluno === false) die ("N„ox foi possÌvel consultar a tabela monografia");
+	if ($respostaAluno === false) die ("N√£o foi poss√≠vel consultar a tabela monografia");
 	$i = 1;
-	while(!$respostaAluno->EOF) {
+	while (!$respostaAluno->EOF) {
 			if ($i == 1) {
 				$id_aluno1 = $respostaAluno->fields['numero'];
 				$aluno1 = $respostaAluno->fields['nome'];
@@ -84,9 +84,9 @@ Professores
 **********/
 $sql = "select * from professores order by nome";
 $resposta_sql = $db->Execute($sql);
-if($resposta_sql === false) die ("Nao foi possivel consultar a tabela professores");
+if ($resposta_sql === false) die ("Nao foi possivel consultar a tabela professores");
 
-while(!$resposta_sql->EOF)	{
+while (!$resposta_sql->EOF) {
 	$professores[$i]['id'] = $resposta_sql->fields['numero'];
 	$professores[$i]['nome'] = $resposta_sql->fields['nome'];
 	$resposta_sql->MoveNext();
@@ -96,9 +96,9 @@ while(!$resposta_sql->EOF)	{
 /************
 Co-orientador 
 ************/
-if(empty($num_co_orienta))
+if (empty($num_co_orienta))
 	{
-	// echo "N„o tem co-orientador <br>";
+	// echo "N√£o tem co-orientador <br>";
 	$num_co_orienta = 0;
 	$co_orientador = "Selecione co-orientador";
 	}
@@ -106,8 +106,8 @@ else
 	{
 	$sql_co_orienta = "select nome from professores where id='$num_co_orienta'";
 	$resultado_co_orienta = $db->Execute($sql_co_orienta);
-	if($resultado_co_orienta === false) die ("N„o foi possivel consultar a tabela professores");
-	while(!$resultado_co_orienta->EOF)
+	if ($resultado_co_orienta === false) die ("N√£o foi possivel consultar a tabela professores");
+	while (!$resultado_co_orienta->EOF)
 		{
 		$co_orientador = $resultado_co_orienta->fields['nome'];
 		$resultado_co_orienta->MoveNext();
@@ -120,9 +120,9 @@ else
 $sql = "select * from tcc_alunos where num_monografia='$codigo'";
 // echo $sql . "<br>";
 $resposta = $db->Execute($sql);
-if($resposta === false) die ("N„ox foi possivel consultar a tabela alunos");
+if ($resposta === false) die ("Nao foi possivel consultar a tabela alunos");
 $j = 0;
-while(!$resposta->EOF)
+while (!$resposta->EOF)
 	{
 	$alunos[$j] = $resposta->fields['nome'];
 	$j++;
@@ -131,12 +131,12 @@ while(!$resposta->EOF)
 
 $sql = "select numero, nome from tcc_alunos order by nome";
 $resposta = $db->Execute($sql);
-if($resposta === false) die ("N„o foi possivel consultar a tabela alunos");
+if ($resposta === false) die ("N√£o foi possivel consultar a tabela alunos");
 $j = 0;
 $alunosTotal[$j]['id'] = 0;
 $alunosTotal[$j]['nome'] = "Seleciona aluno";
 $j++;
-while(!$resposta->EOF) {
+while (!$resposta->EOF) {
 		$alunosTotal[$j]['id'] = $resposta->fields['numero'];
 		$alunosTotal[$j]['nome'] = $resposta->fields['nome'];
 		$j++;
@@ -144,7 +144,7 @@ while(!$resposta->EOF) {
 	}
 
 /***********************
-* ¡reas dos Professores 
+* ÔøΩreas dos Professores 
 ***********************/
 $sql = "select num_area, area "
 . " from prof_area "
@@ -152,12 +152,12 @@ $sql = "select num_area, area "
 . " where num_prof = $num_prof";
 // echo $sql . "<br>";
 $resposta_sql = $db->Execute($sql);
-if($resposta_sql === false) die ("Nao foi possivel consultar a tabela areas");
+if ($resposta_sql === false) die ("Nao foi possivel consultar a tabela areas");
 $i = 0;
 $areasDosProfessores[$i]['id'] = 99;
-$areasDosProfessores[$i]['area'] = "N„o corresponde";
+$areasDosProfessores[$i]['area'] = "N√£o corresponde";
 $i++;
-while(!$resposta_sql->EOF)	{
+while (!$resposta_sql->EOF)	{
 	$areasDosProfessores[$i]['id'] = $resposta_sql->fields['num_area'];
 	$areasDosProfessores[$i]['area'] = $resposta_sql->fields['area'];
 	$i++;
@@ -165,14 +165,14 @@ while(!$resposta_sql->EOF)	{
 	}
 
 /***********************
-* ¡reas das Monografias 
+* √Åreas das Monografias 
 ************************/
 $sql = "select id, areamonografia from areasmonografia order by areamonografia";
 // echo $sql . "<br>";
 $resposta_sql = $db->Execute($sql);
-if($resposta_sql === false) die ("Nao foi possivel consultar a tabela areasmonografia");
+if ($resposta_sql === false) die ("Nao foi possivel consultar a tabela areasmonografia");
 $i = 0;
-while(!$resposta_sql->EOF) {
+while (!$resposta_sql->EOF) {
 	$areasmonografias[$i]['id'] = $resposta_sql->fields['id'];
 	$areasmonografias[$i]['areamonografia'] = $resposta_sql->fields['areamonografia'];
 	// echo $resposta_sql->fields['areamonografia'] . "<br>";

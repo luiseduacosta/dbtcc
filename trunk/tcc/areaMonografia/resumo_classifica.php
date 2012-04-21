@@ -5,22 +5,22 @@ $ordem = $_REQUEST['ordem'];
 $sql = "select num_area, count(*) as quantidade from monografia group by num_area order by num_area";
 include_once("../include_db.inc");
 $resultado = $db->Execute($sql);
-if($resultado == false) die ("Nao foi poss�vel consultar a tabela monografia");
+if ($resultado == false) die ("Nao foi possível consultar a tabela monografia");
 
 // Inicio o contador em 0
 $i = 0;
-while(!$resultado->EOF)
+while (!$resultado->EOF)
 {
 	$num_area   = $resultado->fields['num_area'];
 	$quantidade = $resultado->fields['quantidade'];
 	$sql_areas = "select * from areas where numero='$num_area'";
 	$resultado_areas = $db->Execute($sql_areas);
-	if($resultado_areas == false) die ("N�o foi possivel consultar a tabela areas");
-	while(!$resultado_areas->EOF)
+	if ($resultado_areas == false) die ("Não foi possivel consultar a tabela areas");
+	while (!$resultado_areas->EOF)
 	{
 		$area = $resultado_areas->fields['area'];
 
-		if(empty($ordem))
+		if (empty($ordem))
 		    $ordem='area';
 		else
 		    $indice=$ordem;
@@ -43,16 +43,16 @@ while(!$resultado->EOF)
 echo "
 <html>
 <head>
-<link href='../tcc.css' rel='stylesheet' type='text/css'>
+<link href='../css/tcc.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
-<div align='center'>
+<div>
 <table>
 <theader>
-<caption>Quantidade de monografias por area</caption>
+<caption>Quantidade de monografias por área</caption>
 <tr>
-<th><a href='resumo_classifica.php?ordem=area'>Area</a></th>
+<th><a href='resumo_classifica.php?ordem=area'>Área</a></th>
 <th><a href='resumo_classifica.php?ordem=quantidade'>Quantidade de monografias</a></th>
 </tr>
 </theader>
@@ -64,7 +64,7 @@ echo "
 reset($matriz);
 sort($matriz);
 
-for($i=0;$i<sizeof($matriz);$i++)
+for ($i=0;$i<sizeof($matriz);$i++)
 {
     $num_area   = $matriz[$i]['num_area'];
     $area       = $matriz[$i]['area'];

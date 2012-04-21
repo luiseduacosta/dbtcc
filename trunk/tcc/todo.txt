@@ -1,5 +1,5 @@
-Substituir include() por require(), pode ser necessário
-também substituir por require_once().
+Substituir include() por require(), pode ser necessario
+tambem substituir por require_once().
 
 2/05/2003
-Quando apago um aluno a monografia fica orfã. Fazer o que?
+Quando excluo um aluno a monografia fica orfa. Fazer o que?

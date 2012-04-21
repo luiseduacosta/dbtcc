@@ -1,7 +1,7 @@
 <html>
 <head>
 </head>
-<link href="../tcc.css" rel="stylesheet" type="text/css">
+<link href="../css/tcc.css" rel="stylesheet" type="text/css">
 <body>
 
 <?php
@@ -29,8 +29,8 @@ while($rows_monografia = mysql_fetch_array($res))
 
 echo "
 <form action='tcc.php' name='monografia' method='POST'>
-<div align='center'>
-<table border='1'>
+<div>
+<table>
 <tr><th>Selecione a monografia</th></tr>
 ";
 for($i=0;$i<sizeof($matriz);$i++)
@@ -51,7 +51,7 @@ echo "
 </table>
 </div>
 
-<div align='center'>
+<div>
 <table>
 <tr>
  <td><input type='submit' name='enviar' value='Confirmar'></td>

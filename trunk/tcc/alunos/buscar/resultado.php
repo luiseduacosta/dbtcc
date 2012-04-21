@@ -19,15 +19,15 @@ order by tcc_alunos.nome";
 
 // echo $sql . "<br>";
 $resultado = $db->Execute($sql);
-if($resultado === false) die ("Não foi possïvél consultar a tabela alunos");
+if ($resultado === false) die ("NÃ£o foi possÃ­vel consultar a tabela alunos");
 $quantidade = $resultado->RecordCount();
 echo $quantidade . "<br>";
-if($quantidade === 0) {
-    echo "Não há registros com a palavra: $palavra";
+if ($quantidade === 0) {
+    echo "NÃ£o hÃ¡ registros com a palavra: $palavra";
     exit;
 } else {
     $i = 0;
-    while(!$resultado->EOF) {
+    while (!$resultado->EOF) {
 		$alunos[$i]['id_aluno'] = $resultado->fields['numero'];
 		$alunos[$i]['nome']     = $resultado->fields['nome'];
 		$alunos[$i]['registro'] = $resultado->fields['registro'];

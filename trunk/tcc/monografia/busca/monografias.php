@@ -9,7 +9,7 @@
  */
 
 /**
-* Função de auxilio para exemplo, ela filtra o array
+* FunÃ§Ã£o de auxilio para exemplo, ela filtra o array
 * retornando apenas as entradas que se iniciam com
 * a string recebida
 * 
@@ -33,7 +33,7 @@ if (class_exists('DOMDocument')){ //Adapta o script para PHP4
 	$xmlDoc = new DOMDocument('1.0', 'utf-8');
 	$xmlDoc->formatOutput = true;
 
-	//Criar elementos Raíz do XML
+	//Criar elementos Raï¿½z do XML
 	//Create root XML element
 	$root = $xmlDoc->createElement('root');
 	$root = $xmlDoc->appendChild($root);
@@ -65,9 +65,9 @@ if ($_POST['string'] != ''){
 	$sql = "select codigo, titulo from monografia where titulo like '%" . $_POST['string'] . "%' order by titulo";
 	// echo $sql . "<br>";
 	$resultado = $db->Execute($sql);
-	if($resultado == false) die ("Nao foi possivel consultar a tabela monografias");
+	if ($resultado == false) die ("Nao foi possivel consultar a tabela monografias");
 	//  print_r($resultado);
-	while(!$resultado->EOF) {
+	while (!$resultado->EOF) {
 
 	//Construir elementos ITEM
 	//built ITEM elements

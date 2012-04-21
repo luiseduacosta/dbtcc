@@ -6,7 +6,7 @@ $submit   = $_REQUEST['submit'];
 echo $num_prof . "<br />";
 echo $submit . "<br />";
 
-if($submit == "Avanzar")
+if ($submit == "Avanzar")
 	{
 	$index++;
 	echo $index . "<br />";
@@ -16,8 +16,8 @@ $sql = "select * from professores where numero='$num_prof'";
 echo $sql . "<br />";
 include("../../include_db.inc");
 $resposta = $db->Execute($sql);
-if($resposta = false) die ("Não foi possível consultar a tabela professores");
-while(!$resposta->EOF)
+if ($resposta = false) die ("NÃ£o foi possÃ­vel consultar a tabela professores");
+while (!$resposta->EOF)
 	{
 	$nome = $resposta->fields['nome'];
 	echo $nome . "<br />";

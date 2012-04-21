@@ -27,7 +27,7 @@ table {
 	background-color: #FFFFFF;
 	border-style: solid;
 	border-color: #000000;
-	border-width: 1px;
+	border-width: 1;
 	}
 
 td {
@@ -38,13 +38,13 @@ td {
 	text-align: left;
 	border-style: outset;
 	border-color: #000000;
-	border-width: 2px;
+	border-width: 2;
 	}
 
 hr {
 	background-color: #FF0000;
-	width: 150px;
-	height: 5px;
+	width: 150;
+	height: 5;
 	}
 
 .coluna_centralizada {
@@ -70,6 +70,6 @@ a:active {
 	text-align: center;
 	}
 
-/*
-* Fim da folha de estilos
 */
+* Fim da folha de estilos
+/*

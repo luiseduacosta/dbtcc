@@ -3,7 +3,7 @@
 echo "
 <html>
 <head>
-<link href='../../tcc.css' rel='stylesheet' type='text/css'>
+<link href='../../css/tcc.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
 ";
@@ -72,7 +72,7 @@ while(!$resultado->EOF)
 $db->Close();
 
 echo "
-<div align='center'>
+<div>
 <table>
 <tr>
 	<th><a href=$_SERVER[PHP_SELF]?ordem=nome_prof>Professor</a></th>

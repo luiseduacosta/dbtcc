@@ -6,7 +6,7 @@ echo "
 <html>
 <head>
 <title>Atualiza professor </title>
-<link href='../../tcc.css' rel='stylesheet' type='text/css'>
+<link href='../../css/tcc.css' rel='stylesheet' type='text/css'>
 </head>
 </body>
 ";
@@ -25,7 +25,7 @@ $resultado = $db->Execute($sql);
 if($resultado === false) die ("Não foi possível consultar a tabela professores");
 echo "
 <form action='update.php' name='atualiza' method='POST'>
-<div align='center'>
+<div>
 <table>
 ";
 
@@ -185,7 +185,7 @@ echo "
 <input type='hidden' name='id_prof' value='$id_prof'>
 
 <tr>
-<td><div align='center'>
+<td><div>
   <table border='1'>
   <tr><td colspan=3>
   <input type='submit' name='submit' value='Atualiza dados'>
@@ -201,7 +201,7 @@ echo "
 ";
 
 echo "
-<div align='center'>
+<div>
 <table>
 <tr>
 <td>Acrescentar área</td>

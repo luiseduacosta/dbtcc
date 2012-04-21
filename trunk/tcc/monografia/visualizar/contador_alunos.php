@@ -15,14 +15,14 @@ Crio um array *numero* com a quantidade de alunos por monografia
 $sql = "select codigo from monografia";
 include("../../include_db.inc");
 $resultados = $db->Execute($sql);
-if($resultados === false) die ("Nao foi possivel consultar a tabela monografia");
+if ($resultados === false) die ("Nao foi possivel consultar a tabela monografia");
 
 $j = 0;
-while(!$resultados->EOF) {
+while (!$resultados->EOF) {
 	$codigo = $resultados->fields['codigo'];
 	$sql_alunos = "select * from tcc_alunos where num_monografia='$codigo'";
 	$resultados_alunos = $db->Execute($sql_alunos);
-	if($resultados_alunos === false) die ("Não foi possivel consultar a tabela alunos");
+	if ($resultados_alunos === false) die ("NÃ£o foi possivel consultar a tabela alunos");
 	$quantidade = $resultados_alunos->RecordCount();
 	$numero[$j] = $quantidade;
 	$tabelaCodigoQuantdade[$j]['codigo'] = $codigo;
@@ -37,8 +37,8 @@ Crio um array *$valor* para contar a quantidade de alunos
 sort($numero);
 $j = 1;
 $k = 0;
-for($i=0;$i<sizeof($numero);$i++) {
-	if($numero[$i] !=  $numero[$j]) {
+for ($i=0;$i<sizeof($numero);$i++) {
+	if ($numero[$i] !=  $numero[$j]) {
 		$valor[$k] = $numero[$i];
 		$k++;
 		}
@@ -57,10 +57,10 @@ echo "
 ";
 $var = count($valor);
 $a = count($numero);
-for($i=0;$i<count($valor);$i++) {
+for ($i=0;$i<count($valor);$i++) {
 	$contador = 0;
-	for($j=0;$j<count($numero);$j++) {
-		if($valor[$i] == $numero[$j])
+	for ($j=0;$j<count($numero);$j++) {
+		if ($valor[$i] == $numero[$j])
 			$contador++;
 		}
 		$subtotal = $contador * $valor[$i];
@@ -69,7 +69,7 @@ for($i=0;$i<count($valor);$i++) {
 		$total_monografia += $contador;
 
 	    // Para alternar as cores das linhas
-		if($color === '1') {
+		if ($color === '1') {
 			echo "<tr class='resaltado' id='resaltado'>";
 			$color = '0';
 		} else {

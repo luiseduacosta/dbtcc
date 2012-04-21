@@ -7,23 +7,23 @@ $sql  = "select * from professores where departamento='$departamento'";
 // echo $sql . "<br>";
 include("../../include_db.inc");
 $resultado_professores = $db->Execute($sql);
-if($resultado_professores === false) die ("Não foi possível consultar a tabela professores");
+if ($resultado_professores === false) die ("NÃ£o foi possÃ­vel consultar a tabela professores");
 $total_professores = $resultado_professores->RecordCount();
 $i = 0;
-while(!$resultado_professores->EOF) {
+while (!$resultado_professores->EOF) {
 	$num_prof = $resultado_professores->fields['id'];
 	$nome     = $resultado_professores->fields['nome'];
 	$resultado_professores->MoveNext();
 
 	$sql_monografia = "select * from monografia where num_prof='$num_prof'";
 	$resultado_monografia = $db->Execute($sql_monografia);
-	if($resultado_monografia === false) die ("Não foi possível consultar a tablea monografia");
-	while(!$resultado_monografia->EOF) {
+	if ($resultado_monografia === false) die ("NÃ£o foi possÃ­vel consultar a tablea monografia");
+	while (!$resultado_monografia->EOF) {
 		$titulo  = $resultado_monografia->fields['titulo'];
 		$periodo = $resultado_monografia->fields['periodo'];
 		$resultado_monografia->MoveNext();
 
-		if(empty($ordem))
+		if (empty($ordem))
 		    $ordem = 'titulo';
 		else 
 		    $indice = $ordem;
@@ -45,7 +45,7 @@ sort($matriz);
 echo "
 <html>
 <head>
-<link href='../../tcc.css' rel='stylesheet' type='text/css'>
+<link href='../../css/tcc.css' rel='stylesheet' type='text/css'>
 <title>Monografias orientadas pelos professores dos departamentos</title>
 </head>
 
@@ -69,13 +69,13 @@ Monografias orientadas pelos professores do departamento de $departamento
 <tbody>
 ";
 
-for($i=0;$i<sizeof($matriz);$i++) {
+for ($i=0;$i<sizeof($matriz);$i++) {
 	$titulo  = $matriz[$i]['titulo'];
 	$nome    = $matriz[$i]['nome'];
 	$periodo = $matriz[$i]['periodo'];
 
     // Para alternar as cores das linhas
-    if($color === '1') {
+    if ($color === '1') {
 		echo "<tr class='resaltado' id='resaltado'>";
 		$color = '0';
     } else {

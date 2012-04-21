@@ -163,7 +163,7 @@ elseif($acordo == "n")
 */
 
 echo "
-<div align=\"center\">
+<div>
 <table>
 <tr><th colspan=2>Datos inseridos</th></tr>
 <tr><td>Nome</td><td>$aluno</td></tr>

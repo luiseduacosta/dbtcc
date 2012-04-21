@@ -8,9 +8,9 @@ $id_aluno = $_REQUEST['id_aluno'];
 $sql_alunos = "select * from tcc_alunos where numero='$id_aluno'";
 
 $resultado = $db->Execute($sql_alunos);
-if($resultado === false) die ("N„o foi possÌvel consultar a tabela alunos");
+if ($resultado === false) die ("N√£o foi poss√≠vel consultar a tabela alunos");
 
-while(!$resultado->EOF) {
+while (!$resultado->EOF) {
 	$nome           = $resultado->fields['nome'];
 	$num_monografia = $resultado->fields['num_monografia'];
 	$registro       = $resultado->fields['registro'];
@@ -19,9 +19,10 @@ while(!$resultado->EOF) {
 	$sql_monografia = "select * from monografia where codigo='$num_monografia'";
 	// echo $sql_monografia . "<br>";
 	$resultado_monografia = $db->Execute($sql_monografia);
-	if($resultado_monografia == false) die ("N„o foi possÌvel consultar a tabela monografia");
-	while(!$resultado_monografia->EOF) {
-		$titulo = $resultado_monografia->fields['titulo'];
+	if ($resultado_monografia == false) die ("N√£o foi poss√≠vel consultar a tabela monografia");
+	while (!$resultado_monografia->EOF) {
+		$titulo  = $resultado_monografia->fields['titulo'];
+		$periodo = $resultado_monografia->fields['periodo'];
 		$resultado_monografia->MoveNext();
 	}
 }
@@ -29,26 +30,34 @@ while(!$resultado->EOF) {
 echo "
 <html>
 <head>
-<link href='../../tcc.css' rel='stylesheet' type='text/css'>
-<script languaje='Javascript' type='text/javascript'>
+<link href='../../css/tcc.css' rel='stylesheet' type='text/css'/>
+<script languaje=\"Javascript\" type=\"text/javascript\">
 function confirma() {
     var codigo = document.getElementById('codigo').value;
 	if (codigo == 0) {
-		alert('Selecionando esta opÁ„o a relaÁ„o entre o aluno e a monografia ser· desfeita e ambos podem ficar \"Ûrf„os\"');
+		alert('Selecionando esta op√ß√£o a rela√ß√£o entre o aluno e a monografia ser√° desfeita e ambos podem ficar \"√≥rf√£os\"');
 	} else {
 		alert('Relacione o aluno com outra monografia');
 	}
 	return true;
 }
 </script>
+<script language=\"JavaScript\" type=\"text/javascript\" src=\"../../lib/jquery.js\"></script>
+<script language=\"JavaScript\" type=\"text/javascript\" src=\"../../lib/jquery.maskedinput-1.2.1.pack.js\"></script>
+<script language=\"JavaScript\" type=\"text/javascript\">
+$(function() {
+	$('#periodo').mask('9999-9');
+});
+</script>
+
 </head>
 </body>
 
 <form name='update_aluno' action='update.php' method='POST'>
-<table border='1'>
+<table>
 
 <tr>
-<td width='10%'>
+<td>
 <p>Registro: 
 </td>
 <td>
@@ -70,24 +79,33 @@ function confirma() {
 <p>Titulo:  
 </td>
 <td>
-$titulo
+<textarea name='titulo' cols='60' rows='3'>$titulo</textarea>
+</td>
+</tr>
+
+<tr>
+<td>
+<p>Per√≠odo:  
+</td>
+<td>
+<input type='text' name='periodo' id='periodo' value='$periodo' size='6' maxlength='6'>
 </td>
 </tr>
 ";
 
 $sql_mono = "SELECT * FROM monografia ORDER BY titulo";
 $resultado_mono = $db->Execute($sql_mono);
-if($resultado_mono === false) die ("N„o foi possÌvel consultar a tabela monografia");
+if ($resultado_mono === false) die ("N√£o foi poss√≠vel consultar a tabela monografia");
 
 echo "
 <tr>
 <td colspan='2'>
 <select name='codigo' id='codigo' size='1' onChange='return confirma();'>
-<option value='0'>Para desfazer a atual relaÁ„o da monografia com o aluno clique aqui</option>
+<option value='0'>Para desfazer a atual rela√ß√£o da monografia com o aluno clique aqui</option>
 ";
-while(!$resultado_mono->EOF) {
-	$codigo      = $resultado_mono->fields['codigo'];
-	$titulo      = $resultado_mono->fields['titulo'];   
+while (!$resultado_mono->EOF) {
+	$codigo  = $resultado_mono->fields['codigo'];
+	$titulo  = $resultado_mono->fields['titulo'];
 	$resultado_mono->MoveNext();
 	$pequeno_titulo = substr($titulo,0,69);
 	echo "
@@ -105,7 +123,7 @@ echo "
 <input type='hidden' name='num_monografia' value='$num_monografia'>
 <input type='hidden' name='id_aluno' value='$id_aluno'>
 
-<div align='center'>
+<div>
 <input type='submit' name='submit' value='Enviar'>
 </div>
 </td>

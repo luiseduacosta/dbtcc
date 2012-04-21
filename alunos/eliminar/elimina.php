@@ -8,7 +8,7 @@ $numero_aluno = $_REQUEST['numero_aluno'];
 echo "
 <html>
 <head>
-<link href='../../tcc.css' rel='stylesheet' type='text/css'>
+<link href='../../css/tcc.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
 ";
@@ -16,8 +16,8 @@ echo "
 $sql = "select * from tcc_alunos where numero='$numero_aluno'";
 // echo $sql . "<br>";
 $resultado = $db->Execute($sql);
-if($resultado === false) die ("N„o foi possÌvel consultar a tabela tcc_alunos");
-while(!$resultado->EOF) {
+if ($resultado === false) die ("N√£o foi poss√≠vel consultar a tabela tcc_alunos");
+while (!$resultado->EOF) {
 	$nome           = $resultado->fields['nome'];
 	$num_monografia = $resultado->fields['num_monografia'];
 	$resultado->MoveNext();
@@ -26,15 +26,15 @@ while(!$resultado->EOF) {
 $sql_tcc_alunos = "select numero, registro from tcc_alunos where num_monografia = $num_monografia"; 
 // echo "sql_tcc_alunos: " . $sql_tcc_alunos . "<br>";
 $resultado_tcc_alunos = $db->Execute($sql_tcc_alunos);
-if($resultado_tcc_alunos === false) die ("N„o foi possÌvel consultar a tabela tcc_alunos");
+if ($resultado_tcc_alunos === false) die ("N√£o foi poss√≠vel consultar a tabela tcc_alunos");
 $q_alunos = $resultado_tcc_alunos->RecordCount();
 // echo $q_alunos . "<br>";
 			
 $sql_monografia = "select titulo from monografia where codigo='$num_monografia'";
 $resultado_monografia = $db->Execute($sql_monografia);
 $quantidade = $resultado_monografia->RecordCount();
-if($resultado_monografia === false) die ("N„o foi possÌvel consultar a tabela monografia");
-while(!$resultado_monografia->EOF) {
+if ($resultado_monografia === false) die ("N√£o foi poss√≠vel consultar a tabela monografia");
+while (!$resultado_monografia->EOF) {
 	$titulo = $resultado_monografia->fields['titulo'];
 	$resultado_monografia->MoveNext();
 }
@@ -42,19 +42,19 @@ while(!$resultado_monografia->EOF) {
 echo "
 <table>
 <tr>
-<td><p>Aluno $nome est· relacionado com a monografia $titulo</td>
+<td><p>Aluno $nome est√° relacionado com a monografia $titulo</td>
 </tr>
 </table>
 ";
 
-// Si tem monografias associadas a este aluno n„o se cancela o registro
-if($q_alunos === 1) {
-    echo "Registro do aluno n„o pode ser cancelado por estar relacionado com uma monografia";
+// Si tem monografias associadas a este aluno n√£o se cancela o registro
+if ($q_alunos === 1) {
+    echo "Registro do aluno n√£o pode ser cancelado por estar relacionado com uma monografia";
 } else {    
     $sql_aluno = "delete from tcc_alunos where numero='$numero_aluno'";
 	// echo $sql_aluno . "<br>";
     $resultado = $db->Execute($sql_aluno);
-    if($resultado === false) die ("N„o foi possÌvel cancelar o registro do aluno da tabela alunos");
+    if ($resultado === false) die ("N√£o foi poss√≠vel cancelar o registro do aluno da tabela alunos");
     echo "Registro excluido !! <br>";
 }
 

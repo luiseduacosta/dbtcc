@@ -1,12 +1,14 @@
 <?php
 
-include("../../include_db.inc");
+include("../../setup.php");
+include("../../autoriza.inc");
 
-$codigo = $_REQUEST['codigo'];
+$codigo = isset($_REQUEST['codigo']) ? $_REQUEST['codigo'] : NULL;
 $servidor = $_SERVER['SERVER_NAME'];
 
-$sql = "select monografia.codigo, monografia.catalogo, monografia.titulo, monografia.resumo, "
-. " monografia.num_prof, monografia.num_co_orienta, monografia.data, monografia.periodo, monografia.url, "
+$sql = "select monografia.codigo, monografia.catalogo, monografia.titulo, monografia.resumo, monografia.data, monografia.periodo, "
+. " monografia.num_prof, monografia.num_co_orienta, monografia.num_area, monografia.areamonografia, "
+. " monografia.data_defesa, monografia.banca1, monografia.banca2, monografia.banca3, monografia.convidado, monografia.url, "
 . " professores.nome, areasmonografia.id as id_areamonografia, areasmonografia.areamonografia, "
 . " areas.numero as id_area, areas.area "
 . " from monografia "
@@ -15,52 +17,71 @@ $sql = "select monografia.codigo, monografia.catalogo, monografia.titulo, monogr
 . " left outer join areas on monografia.num_area = areas.numero "
 . " where codigo = $codigo "
 . " order by titulo";
-// echo $sql. "<br>";
+// echo $sql . "<br>";
+// die();
 $resposta = $db->Execute($sql);
-if($resposta === false) die ("Nao foi possivel consultar a tabela monografia");
+if ($resposta === false) die ("Nao foi possivel consultar a tabela monografia");
 
-while(!$resposta->EOF) {
-	$codigo         = $resposta->fields['codigo'];
-	$catalogo       = $resposta->fields['catalogo'];
-	$titulo         = $resposta->fields['titulo'];
-	$resumo         = $resposta->fields['resumo'];
-	$data_sql       = $resposta->fields['data'];
-	$periodo        = $resposta->fields['periodo'];
-	// $num_prof       = $resposta->fields['num_prof'];
-	$nome           = $resposta->fields['nome'];
-	$num_co_orienta = $resposta->fields['num_co_orienta'];
-	// $num_area       = $resposta->fields['id_area'];
-	$area           = $resposta->fields['area'];
-	// $id_areamonografia = $resposta->fields['id_areamonografia'];
-	$areamonografia = $resposta->fields['areamonografia'];
-	$url            = $resposta->fields['url'];
-	// echo $url . "<br>";
-	$data = date('d-m-Y',strtotime($data_sql));
+while (!$resposta->EOF) {
+	$codigo            = $resposta->fields['codigo'];
+	$catalogo          = $resposta->fields['catalogo'];
+	$titulo            = $resposta->fields['titulo'];
+	$resumo            = $resposta->fields['resumo'];
+	$data_sql          = $resposta->fields['data'];
+	$periodo           = $resposta->fields['periodo'];
+	$num_prof          = $resposta->fields['num_prof'];
+	$nome              = $resposta->fields['nome'];
+	$num_co_orienta    = $resposta->fields['num_co_orienta'];
+	$num_area          = $resposta->fields['num_area'];
+	$area              = $resposta->fields['area'];
+	$id_areamonografia = $resposta->fields['id_areamonografia'];
+	$areamonografia    = $resposta->fields['areamonografia'];
+	$url               = $resposta->fields['url'];
+        $data_defesa_sql   = $resposta->fields['data_defesa'];
+        $banca1            = $resposta->fields['banca1'];
+        $banca2            = $resposta->fields['banca2'];
+        $banca3            = $resposta->fields['banca3'];
+        $convidado         = $resposta->fields['convidado'];
+        // echo $url . "<br>";
+        
+        if ($data_sql != 0) {
+            $data = date('d-m-Y',strtotime($data_sql));
+        } else {
+            $data = "s/d";
+        }
 
-	$resposta->MoveNext();
+        if ($data_defesa_sql != 0) {
+            $data_defesa = date('d-m-Y',strtotime($data_defesa_sql));
+        } else {
+            $data_defesa = "s/d";
+        }
+        
+        $resposta->MoveNext();
 	}
 
 echo "
 <html>
 <head>
 <title>Ver cada monografia</title>
-<link href='../../tcc.css' rel='stylesheet' type='text/css'>
+<link href='../../css/tcc.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
+<a href='javascript:history.back();'>Voltar</a>
+
 <form name='actualizar' action='../atualizar/modifica_mono.php' method='POST'>
 
-<div align='center'>
-<table border='1' bgcolor='#C7FFB3f' summary='Ver cada mongrafia'>
+<div>
+<table summary='Ver cada mongrafia'>
 
 <thead>
 <tr>
-<th bgcolor='#E7E1AE' colspan='2'>Monografia</th>
+<th colspan='2'>Monografia</th>
 </tr>
 </thead>
 
 <tr>
-<td>Titulo:</td>
+<td>Título:</td>
 <td>$titulo</td>
 </tr>
 
@@ -81,9 +102,9 @@ echo "
 $sql = "select * from tcc_alunos where num_monografia='$codigo' order by nome";
 // echo $sql . "<br>";
 $resposta = $db->Execute($sql);
-if($resposta === false) die ("N�o foi possivel consultar a tabela alunos");
+if ($resposta === false) die ("Não foi possivel consultar a tabela alunos");
 $j = 0;
-while(!$resposta->EOF) {
+while (!$resposta->EOF) {
 	$aluno = $resposta->fields['nome'];
 	$id_aluno = $resposta->fields['numero'];
 	$registro = $resposta->fields['registro'];
@@ -107,21 +128,26 @@ echo "
 </tr>
 
 <tr>
-<td>�rea do professor</td>
+<td>Área do professor</td>
 <td>$area</td>
 </tr>
 
 <tr>
-<td align='center'>�rea da monografia
+<td>Área da monografia
 </td>
 <td></td>
 </tr>
 
 <tr>
-<td>Periodo:</td>
+<td>Período:</td>
 <td>$periodo</td>
 </tr>
 
+<tr>
+<td>Data:</td>
+<td>$data</td>
+</tr>        
+        
 <tr>
 <td>Arquivo</td>
 ";
@@ -136,14 +162,56 @@ if(!empty($url)) {
 }
 echo "
 </tr>
+";
 
+echo "
 <tr>
-<td class='coluna_centralizada' colspan='2'>
-<input type='hidden' name='codigo' value=$codigo>
-<input type='submit' name='submit' value='Atualizar'>
-</td>
+<td>Data defesa</td>    
+<td>$data_defesa</td>    
 </tr>
+";
 
+echo "
+<tr>
+<td>Banca (orientador)</td>    
+<td>$banca1</td>    
+</tr>
+";
+
+echo "
+<tr>
+<td>Banca</td>    
+<td>$banca2</td>    
+</tr>
+";
+
+echo "
+<tr>
+<td>Banca</td>    
+<td>$banca3</td>    
+</tr>
+";
+
+echo "
+<tr>
+<td>Convidado</td>    
+<td>$convidado</td>    
+</tr>
+";
+
+// echo "Sistema autentica " . $sistema_autentica . "<br>";
+if ($sistema_autentica === 1) {
+	echo "
+	<tr>
+	<td class='coluna_centralizada' colspan='2'>
+	<input type='hidden' name='codigo' value=$codigo>
+	<input type='submit' name='submit' value='Atualizar'>
+	</td>
+	</tr>
+	";
+}
+
+echo "
 </table>
 </div>
 

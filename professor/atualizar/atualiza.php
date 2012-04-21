@@ -6,7 +6,7 @@ echo "
 <html>
 <head>
 <title>Atualiza professor </title>
-<link href='../../tcc.css' rel='stylesheet' type='text/css'>
+<link href='../../css/tcc.css' rel='stylesheet' type='text/css'>
 </head>
 </body>
 ";
@@ -25,7 +25,7 @@ $resultado = $db->Execute($sql);
 if($resultado === false) die ("Não foi possível consultar a tabela professores");
 echo "
 <form action='update.php' name='atualiza' method='POST'>
-<div align='center'>
+<div>
 <table>
 ";
 
@@ -131,10 +131,10 @@ while(!$resultado->EOF) {
 		$departamento_extenso = "Fundamentos";
 	    break;
 	    case "Metodos e tecnicas":
-		$departamento_extenso = "MÃ©todos e tÃ©cnicas";
+		$departamento_extenso = "Métodos e técnicas";
 	    break;
 	    case "Politica social":
-		$departamento_extenso = "PolÃ­tic Social";
+		$departamento_extenso = "Polí­ticas Sociais";
 	    break;
 	    }
 
@@ -153,17 +153,17 @@ while(!$resultado->EOF) {
 	/* Areas de orientacao */
 	/***********************/
 	echo "
-	<tr><th>Area(s) de orientaÃ§Ã£o em TCC</th></tr>
+	<tr><th>Area(s) de orientação em TCC</th></tr>
 	";
 
 	$sql_prof_area = "select * from prof_area where num_prof='$id_prof'";
 	$resultado_prof_area = $db->Execute($sql_prof_area);
-	if($resultado_prof_area == false) die ("NÃ£o foi possÃ­vel consultar a tabela prof_area");
+	if($resultado_prof_area == false) die ("Não foi possí­vel consultar a tabela prof_area");
 	while(!$resultado_prof_area->EOF) {
 		$num_area = $resultado_prof_area->fields['num_area'];
 		$sql_areas = "select * from areas where numero='$num_area'";
 		$resultado_areas = $db->Execute($sql_areas);
-		if($resultado_areas == false) die ("NÃ£o foi possÃ­vel consultar a tabela areas");
+		if($resultado_areas == false) die ("Não foi possí­vel consultar a tabela areas");
 		while(!$resultado_areas->EOF) {
 			$area = $resultado_areas->fields['area'];
 			echo "
@@ -185,7 +185,7 @@ echo "
 <input type='hidden' name='id_prof' value='$id_prof'>
 
 <tr>
-<td><div align='center'>
+<td><div>
   <table border='1'>
   <tr><td colspan=3>
   <input type='submit' name='submit' value='Atualiza dados'>
@@ -201,7 +201,7 @@ echo "
 ";
 
 echo "
-<div align='center'>
+<div>
 <table>
 <tr>
 <td>Acrescentar área</td>
@@ -210,7 +210,7 @@ echo "
 
 $sql_areas = "select * from areas order by area";
 $resultado_areas = $db->Execute($sql_areas);
-if($resultado_areas == false) die ("NÃ£o foi possÃ­vel consultar a tabela areas");
+if($resultado_areas == false) die ("Não foi possível consultar a tabela areas");
 
 echo "
 <form action='acrescenta_area.php' name='acrescentar_area' method='post'>

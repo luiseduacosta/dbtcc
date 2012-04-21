@@ -1,7 +1,7 @@
 <html>
 <head>
 <title><?php echo $_SERVER[PHP_SELF]; ?></title>
-<link href="../../tcc.css" rel="stylesheet" type="text/css">
+<link href="../../css/tcc.css" rel="stylesheet" type="text/css">
 
 <style type="text/css">
 <!--
@@ -54,7 +54,7 @@ else
 if($numero_area !=0)
 {
 	$sql_area = "select * from areas where numero=$numero_area";
-	$resultado = $db->Execute($sql_area);
+	$resultado = $db->Exalign=\"center\"ecute($sql_area);
 	if($resultado === false) die ("Não foi possível consultar a tabela areas");
 	while(!$resultado->EOF)
 	{
@@ -68,7 +68,7 @@ else
 	}
 
 echo "
-<div align='center'>
+<div>
 <h1>Inscrição na disciplina Seminário de TCC - nivel $nivel</h1>
 <h2>$numero_registro  -  $nome_aluno</h2>
 </div>

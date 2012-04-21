@@ -195,7 +195,7 @@ $data = $ano . "/" . $mes . "/" . $dia;
 * Mostrar os dados numa tabela
 ***********************************************/
 echo "
-<div align=\"center\">
+<div>
 <table>
 <tr><th colspan=2>Datos a serem inseridos</th></tr>
 <tr><td>Nome</td><td>$aluno</td></tr>

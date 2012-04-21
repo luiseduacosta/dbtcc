@@ -17,9 +17,9 @@ $sql = "select monografia.codigo, monografia.catalogo, monografia.titulo, monogr
 . " order by titulo";
 // echo $sql. "<br>";
 $resposta = $db->Execute($sql);
-if($resposta === false) die ("N„o foi possÌvel consultar a tabela monografia");
+if ($resposta === false) die ("N√£o foi poss√≠vel consultar a tabela monografia");
 
-while(!$resposta->EOF) {
+while (!$resposta->EOF) {
 	$codigo         = $resposta->fields['codigo'];
 	$catalogo       = $resposta->fields['catalogo'];
 	$titulo         = $resposta->fields['titulo'];
@@ -35,7 +35,7 @@ while(!$resposta->EOF) {
 	$areamonografia = $resposta->fields['areamonografia'];
 	
 	if (empty($areamonografia)) {
-			$areamonografia = "Selecione ·rea";
+			$areamonografia = "Selecione √°rea";
 	}
 	
 	if(ereg("([0-9]{4}).([0-9]{2}).([0-9]{2})",$data_sql,$regs))
@@ -47,7 +47,7 @@ while(!$resposta->EOF) {
 echo "
 <html>
 <head>
-<link href='../../tcc.css' rel='stylesheet' type='text/css'>
+<link href='../../css/tcc.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
 <form name='actualizar' action='atualiza_mono.php' method='POST'>
@@ -97,9 +97,9 @@ echo "
 
 $sql = "select * from professores order by nome";
 $resposta_sql = $db->Execute($sql);
-if($resposta_sql === false) die ("Nao foi possivel consultar a tabela professores");
+if ($resposta_sql === false) die ("Nao foi possivel consultar a tabela professores");
 
-while(!$resposta_sql->EOF) {
+while (!$resposta_sql->EOF) {
 	$numero_prof = $resposta_sql->fields['numero'];
 	$nome        = $resposta_sql->fields['nome'];
 	echo "<option value='$numero_prof'>$nome</option>";
@@ -122,14 +122,14 @@ echo "
 Co-orientador(a):
 ";
 if(empty($num_co_orienta)) {
-	echo "N„o tem co-orientador <br>";
+	echo "N√£o tem co-orientador <br>";
 	$num_co_orienta = 0;
 	$co_orientador = "Selecione co-orientador";
 } else {
 	$sql_co_orienta = "select nome from professores where numero='$num_co_orienta'";
 	$resultado_co_orienta = $db->Execute($sql_co_orienta);
-	if($resultado_co_orienta === false) die ("N„o foi possivel consultar a tabela professores");
-	while(!$resultado_co_orienta->EOF) {
+	if ($resultado_co_orienta === false) die ("N√£o foi possivel consultar a tabela professores");
+	while (!$resultado_co_orienta->EOF) {
 		$co_orientador = $resultado_co_orienta->fields['nome'];
 		$resultado_co_orienta->MoveNext();
 		}
@@ -142,9 +142,9 @@ echo "
 
 $sql = "select * from professores order by nome";
 $resultado = $db->Execute($sql);
-if($resultado === false) die ("Nao foi possivel consultar a tabela professores");
+if ($resultado === false) die ("Nao foi possivel consultar a tabela professores");
 
-while(!$resultado->EOF)	{
+while (!$resultado->EOF)	{
 	$numero_prof = $resultado->fields['numero'];
 	$nome        = $resultado->fields['nome'];
 	echo "<option value='$numero_prof'>$nome</option>";
@@ -162,16 +162,16 @@ while(!$resultado->EOF)	{
 /**********/
 echo "
 <tr>
-<td><b>Para atualizar os dados dos alunos utilize o mÛdulo alunos</b></td>
+<td><b>Para atualizar os dados dos alunos utilize o m√≥dulo alunos</b></td>
 </tr>
 ";
 
 $sql = "select * from tcc_alunos where num_monografia='$codigo'";
 // echo $sql . "<br>";
 $resposta = $db->Execute($sql);
-if($resposta === false) die ("N„o foi possivel consultar a tabela alunos");
+if ($resposta === false) die ("N√£o foi possivel consultar a tabela alunos");
 $j = 0;
-while(!$resposta->EOF) {
+while (!$resposta->EOF) {
 	$aluno[$j] = $resposta->fields['nome'];
 	$num_variavel = 'num_aluno' . $j;
 	$variavel = 'aluno' . $j;
@@ -207,18 +207,18 @@ Resumo: <input type='text' name='resumo' size='55' value='$resumo'>
 echo "
 <tr>
 <td>
-<b>¡rea de orientaÁ„o do professor</b>: $area
+<b>√Årea de orienta√ß√£o do professor</b>: $area
 </td>
 </tr>
 ";
 
 echo "
 <tr>
-<td align='center'>¡rea(s) de orientaÁ„o do professor</td>
+<td align='center'>√Årea(s) de orienta√ß√£o do professor</td>
 </tr>
 ";
 // echo "Num_area " . $num_area . "<br>";
-if($num_area == "99") {
+if ($num_area == "99") {
 	echo "
 	<tr>
 	<td>
@@ -230,7 +230,7 @@ if($num_area == "99") {
 	echo "
 	<tr>
 	<td>
-	<input type='radio' name='num_area' value='99'>N„o corresponde a nenhuma desta(s) area(s)
+	<input type='radio' name='num_area' value='99'>N√£o corresponde a nenhuma desta(s) area(s)
 	</td>
 	</tr>
 	";	
@@ -239,19 +239,19 @@ if($num_area == "99") {
 // Inicio um bucle (loop) com a tabela prof_area
 $sql_prof_area = "select * from prof_area where num_prof='$num_prof'";
 $resposta_prof_area = $db->Execute($sql_prof_area);
-if($resposta_prof_area === false) die ("N„o foi possivel consultar a tabela prof_area");
+if ($resposta_prof_area === false) die ("N√£o foi possivel consultar a tabela prof_area");
 $quantidade_area = $resposta_prof_area->RecordCount();
-while(!$resposta_prof_area->EOF) {
+while (!$resposta_prof_area->EOF) {
 	$num_area = $resposta_prof_area->fields['num_area'];
 
 	// Incio um bucle (loop) interior com a tabela areas a partir do num_area. 
 	$sql_areas = "select * from areas where numero='$num_area'";
 	$resposta_areas = $db->Execute($sql_areas);
-	if($resposta_areas == false) die ("N„o foi possivel consultar a tabela areas");
+	if ($resposta_areas == false) die ("N√£o foi possivel consultar a tabela areas");
 	$quantidade = $resposta_areas->RecordCount();
-	while(!$resposta_areas->EOF) {
+	while (!$resposta_areas->EOF) {
 		$nomeArea = $resposta_areas->fields['area'];
-		if(($nomeArea == $area) || ($quantidade_area == "1")) {
+		if (($nomeArea == $area) || ($quantidade_area == "1")) {
 			echo "
 			<tr>
 			<td>
@@ -274,21 +274,21 @@ while(!$resposta_prof_area->EOF) {
 	} // Finaliza bucle maior
 
 /**********************
-* ¡rea da monografia
+* √Årea da monografia
 **********************/
 
 echo "
 <tr>
-<td align='center'><b>¡rea da monografia</b>
+<td><b>√Årea da monografia</b>
 <select name='id_areamonografia' size='1'>
 <option value='$id_areamonografia'>$areamonografia</option>
 ";
 
 $sql = "select * from areasmonografia order by areamonografia";
 $resposta_sql = $db->Execute($sql);
-if($resposta_sql === false) die ("Nao foi possivel consultar a tabela areasmonografia");
+if ($resposta_sql === false) die ("Nao foi possivel consultar a tabela areasmonografia");
 
-while(!$resposta_sql->EOF) {
+while (!$resposta_sql->EOF) {
 	$id_area = $resposta_sql->fields['id'];
 	$area = $resposta_sql->fields['areamonografia'];
 	echo "<option value='$id_area'>$area</option>";
@@ -308,7 +308,7 @@ echo "
 echo "
 <tr>
 <td>
-Periodo: <input type='text' name='periodo' size='6' value='$periodo'>
+Per√≠odo: <input type='text' name='periodo' size='6' value='$periodo'>
 Data:    <input type='text' name='data' size='10' value='$data'>
 </td>
 </tr>

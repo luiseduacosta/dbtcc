@@ -13,14 +13,14 @@ if (empty($id_area)) {
 // echo $indice . " " . $codigo . " " . $quantidade_mono . " " . $submit . " " . $id_area . "<br>";
 
 /***********************************/
-// Si o bot„o de submit foi clicado ent„o atualiza a tabela de areas
-if($submit)
+// Si o bot√£o de submit foi clicado ent√£o atualiza a tabela de areas
+if ($submit)
 {
     require_once("../../include_db.inc");
     $sql_update = "update monografia set areamonografia='$id_area' where codigo='$codigo'";
 	// echo $sql_update . "<br>";
     $resultado = $db->Execute($sql_update);
-    if($resultado == false) die ("Nao foi possÌvel atualizar a tabela monografia");
+    if ($resultado == false) die ("Nao foi poss√≠vel atualizar a tabela monografia");
     // $db->Close();
 }
 
@@ -48,12 +48,12 @@ $quantidade_mono = $resultado->RecordCount();
 echo "
 <html>
 <head>
-<title>AvanÁa e retrocede monografias</title>
-<link href='../../tcc.css' rel='stylesheet' type='text/css'>
+<title>Avan√ßa e retrocede monografias</title>
+<link href='../../css/tcc.css' rel='stylesheet' type='text/css'>
 <body>
 
-<div align=\"center\">
-<table width='90%'>
+<div>
+<table>
 <tr>
 <td width='40px'>$indice</td>
 <td></td>
@@ -62,7 +62,7 @@ echo "
 <form name='selecion_monografia' id='selecion_monografia' action='selecao_monografia.php' method='post'>
 ";
 
-// Seleciono as monografias uma por uma com a funÁ„o SelectLimit()
+// Seleciono as monografias uma por uma com a fun√ß√£o SelectLimit()
 $sql_monografia = "select monografia.codigo, monografia.titulo, monografia.periodo, "
 . " monografia.areamonografia as id_areamonografia, "
 . " professores.nome, areasmonografia.areamonografia "
@@ -71,8 +71,8 @@ $sql_monografia = "select monografia.codigo, monografia.titulo, monografia.perio
 . " left outer join areasmonografia on monografia.areamonografia = areasmonografia.id "
 . " order by titulo";
 $resultado_monografia = $db->SelectLimit($sql_monografia,1,$indice);
-if($resultado_monografia == false) die ("Nao foi possivel consultar a tabela monografia");
-while(!$resultado_monografia->EOF) {
+if ($resultado_monografia == false) die ("Nao foi possivel consultar a tabela monografia");
+while (!$resultado_monografia->EOF) {
 	$codigo   = $resultado_monografia->fields['codigo'];
 	$titulo   = $resultado_monografia->fields['titulo'];
 	$periodo  = $resultado_monografia->fields['periodo'];
@@ -81,12 +81,12 @@ while(!$resultado_monografia->EOF) {
 	$num_prof = $resultado_monografia->fields['num_prof'];
 	$areamonografia = $resultado_monografia->fields['areamonografia'];
 	if (empty($areamonografia)) {
-		$areamonografia = "Selecione ·rea";
+		$areamonografia = "Selecione √°rea";
 	}
 	
 	echo "
 	<tr>
-        <td colspan='3'>PerÌodo: $periodo</td>
+        <td colspan='3'>Per√≠odo: $periodo</td>
 	</tr>
 	<tr class='titulo_monografia'><td colspan='3'>$titulo</td>
 	</tr>
@@ -97,7 +97,7 @@ while(!$resultado_monografia->EOF) {
 	echo "
 	<tr><td>Aluno(s): </td><td>$aluno</td></tr>
 	<tr><td>Professor: </td><td>$nome</td></tr>
-	<tr><td>¡rea da monografia: </td>
+	<tr><td>√Årea da monografia: </td>
 	";
 
 	echo "
@@ -108,8 +108,8 @@ while(!$resultado_monografia->EOF) {
 
 	$sql_outras_areas = "select * from areasmonografia order by areamonografia";
 	$resultado_outras_areas = $db->Execute($sql_outras_areas);
-	if($resultado_outras_areas == false) die ("N„o foi possÌvel consultar a tabela areasmonografia");
-	while(!$resultado_outras_areas->EOF) {
+	if ($resultado_outras_areas == false) die ("N√£o foi poss√≠vel consultar a tabela areasmonografia");
+	while (!$resultado_outras_areas->EOF) {
 		$id_area = $resultado_outras_areas->fields['id'];
 		$areamonografia = $resultado_outras_areas->fields['areamonografia'];
 		echo "
@@ -131,7 +131,7 @@ echo "
 <td colspan='3'>
 
 <!-- table align='center' //-->
-<table align='center' id='botao_confirma_area' name='botao_confirma_area'>
+<table id='botao_confirma_area' name='botao_confirma_area'>
     <tr><td>
     <input type='hidden' name='indice' value='$indice'>
     <input type='hidden' name='quantidade_mono' value='$quantidade_mono'>

@@ -7,27 +7,27 @@ $ordem = $_REQUEST['ordem'];
 $sql = "select id, areamonografia from areasmonografia order by areamonografia"; 
 // echo $sql . "<br>";
 $resultado = $db->Execute($sql);
-if($resultado === false) die ("N„o foi possÌvel consultar a tabela areasMongrafia");
+if ($resultado === false) die ("N√£o foi poss√≠vel consultar a tabela areasMongrafia");
 
 echo "
 <htnl>
 <head>
-<link href='../../tcc.css' rel='stylesheet' type='text/css'>
+<link href='../../css/tcc.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
-<div align='center'>
+<div>
 <table>
 <tbody>
-<caption>Quantidade de monografias por ·rea da monografia</caption>
+<caption>Quantidade de monografias por √°rea da monografia</caption>
 <tr>
-<th><a href='listar_areas.php?ordem=areamonografia'>¡rea</a></th>
+<th><a href='listar_areas.php?ordem=areamonografia'>√Årea</a></th>
 <th><a href='listar_areas.php?ordem=contador'>Quantidade</a></th>
 </tr>
 ";
 
 $i = 0;
-while(!$resultado->EOF)
+while (!$resultado->EOF)
 	{
 	$areamonografia = $resultado->fields['areamonografia'];
 	$id_area = $resultado->fields['id'];
@@ -36,9 +36,9 @@ while(!$resultado->EOF)
 	$sql_monografia = "select codigo, titulo from monografia where areamonografia='$id_area'";
 	// echo $sql_monografia . "<br>";
 	$resultado_monografia = $db->Execute($sql_monografia);
-	if($resultado_monografia === false) die ("N„o foi possÌvel consultar a tabela monografia");
+	if ($resultado_monografia === false) die ("N√£o foi poss√≠vel consultar a tabela monografia");
 	$contador = 0;
-	while(!$resultado_monografia->EOF)
+	while (!$resultado_monografia->EOF)
 		{
 		$codigo = $resultado_monografia->fields['codigo'];	
 		$titulo = $resultado_monografia->fields['titulo'];	
@@ -51,12 +51,12 @@ while(!$resultado->EOF)
 	if(empty($ordem))
 	    $ordem = "areamonografia";
 	else
-	    $ordem = $ordem; // $ordem ser· igual a $area ou $contador
+	    $ordem = $ordem; // $ordem sera igual a $area ou $contador
 
-	// O conte˙do da variavel din‚mica $$indice È $ordem
+	// O conteudo da variavel dinamica $$indice e $ordem
 	// Para testar:
 	// echo $ordem . " " . $$ordem . "<br>";
-	$matriz[$i][$ordem] = $$ordem; // $ordem ser· igual ao conte˙do de $area ou $contador
+	$matriz[$i][$ordem] = $$ordem; // $ordem sera igual ao conteudo de $area ou $contador
 
 	$matriz[$i]['id_area'] = $id_area;
 	$matriz[$i]['areamonografia'] = $areamonografia;

@@ -1,6 +1,6 @@
 <html>
 <head>
-<link href="../tcc.css" rel="stylesheet" type="text/css">
+<link href="../css/tcc.css" rel="stylesheet" type="text/css">
 <title><?php echo $_SERVER[PHP_SELF]; ?></title>
 
 <script language="JavaScript">
@@ -21,9 +21,9 @@ $i = 0;
 $sql = "select titulo, num_prof, num_area from monografia order by titulo";
 include("../include_db.inc");
 $resultado = $db->Execute($sql);
-if($resultado == false) die ("N„o foi possivel consultar a tabela monografia");
+if ($resultado == false) die ("N√£o foi possivel consultar a tabela monografia");
 
-while(!$resultado->EOF)
+while (!$resultado->EOF)
 {
 	$titulo   = $resultado->fields['titulo'];
 	$num_prof = $resultado->fields['num_prof'];
@@ -31,8 +31,8 @@ while(!$resultado->EOF)
 	
 	$sql_professores = "select nome from professores where numero='$num_prof'";
 	$resultado_professores = $db->Execute($sql_professores);
-	if($resultado_professores == false) die ("N„o foi possivel consultar a tabela areas");
-	while(!$resultado_professores->EOF)
+	if ($resultado_professores == false) die ("N√£o foi possivel consultar a tabela areas");
+	while (!$resultado_professores->EOF)
 	{
 		$professor = $resultado_professores->fields['nome'];
 		$resultado_professores->MoveNext();
@@ -40,8 +40,8 @@ while(!$resultado->EOF)
 		
 	$sql_areas = "select area from areas where numero='$num_area'";
 	$resultado_areas = $db->Execute($sql_areas);
-	if($resultado_areas == false) die ("N„o foi possivel consultar a tabela areas");
-	while(!$resultado_areas->EOF)
+	if ($resultado_areas == false) die ("N√£o foi possivel consultar a tabela areas");
+	while (!$resultado_areas->EOF)
 	{
 		$area = $resultado_areas->fields['area'];
 		$resultado_areas->MoveNext();
@@ -69,15 +69,15 @@ sort($matriz);
 
 echo "
 <table>
-<caption>Monografias classificadas por ·rea</caption>
+<caption>Monografias classificadas por √°rea</caption>
 <tr>
- <th width='55%'><a href='$_SERVER[PHP_SELF]?ordem=titulo'>Titulo</a></th>
+ <th width='55%'><a href='$_SERVER[PHP_SELF]?ordem=titulo'>T√≠tulo</a></th>
  <th width='35%'><a href='$_SERVER[PHP_SELF]?ordem=professor'>Professor</a></th>
- <th width='10%'><a href='$_SERVER[PHP_SELF]?ordem=area'>¡rea</a></th>
+ <th width='10%'><a href='$_SERVER[PHP_SELF]?ordem=area'>√Årea</a></th>
 </tr>
 ";
 
-for($i=0;$i<sizeof($matriz);$i++)
+for ($i=0;$i<sizeof($matriz);$i++)
 {
     $titulo        = $matriz[$i]['titulo'];
     $num_professor = $matriz[$i]['num_professor'];

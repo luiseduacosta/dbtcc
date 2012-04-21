@@ -1,6 +1,6 @@
 <html>
 <head></head>
-<link href="../tcc.css" rel="stylesheet" type="text/css">
+<link href="../css/tcc.css" rel="stylesheet" type="text/css">
 <body>
 
 <?php

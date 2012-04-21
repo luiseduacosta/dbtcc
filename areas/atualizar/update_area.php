@@ -15,7 +15,7 @@ $sql = "update areas set area='$nova_area' where numero='$num_area'";
 
 require_once("../../include_db.inc");
 $resultado = $db->Execute($sql);
-if($resultado == false) die ("Não foi possível atualizar a tabela areas");
+if ($resultado == false) die ("Nao foi possivel atualizar a tabela areas");
 echo "Registro atualizado !!! <br />";
 
 $db->Close();

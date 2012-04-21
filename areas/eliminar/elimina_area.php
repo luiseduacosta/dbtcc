@@ -23,30 +23,30 @@ function elimina()
 <body>
 ";
 
-// Recebo o valor da vari·vel
+// Recebo o valor da variavel
 $num_area = $_POST['num_area'];
 
-// Consulto a tabela prof_area para saber que professores est„o associados a esta ·rea
+// Consulto a tabela prof_area para saber que professores estÔøΩo associados a esta ÔøΩrea
 $sql = "select * from prof_area where num_area='$num_area'";
 include("../../include_db.inc");
 $resultado = $db->Execute($sql);
-if($resultado == false) die ("N„o foi possÌvel consultar a tabela prof_area");
-while(!$resultado->EOF)
+if ($resultado == false) die ("N√£o foi poss√≠vel consultar a tabela prof_area");
+while (!$resultado->EOF)
 {
 	$num_professor = $resultado->fields['num_prof'];
 	$num_area      = $resultado->fields['num_area'];
 	$sql_prof_area = "select * from prof_area where num_prof='$num_professor'";
 	$resultado_prof_area = $db->Execute($sql_prof_area);
-	if($resultado_prof_area == false) die ("N„o foi possÌvel consultar a tabela prof_area");
+	if ($resultado_prof_area == false) die ("N√£o foi poss√≠vel consultar a tabela prof_area");
 	$nrows = $resultado_prof_area->RecordCount();
 		
-	// Si a ·rea a ser eliminada È a ˙nica ·rea de um professor ent„o n„o pode ser eliminada
-	if($nrows == '1')
+	// Si a area a ser eliminada e a unica area de um professor entao nao pode ser eliminada
+	if ($nrows == '1')
 	{
 		$sql_professores = "select nome from professores where numero='$num_professor'";
 		$resultado_professores = $db->Execute($sql_professores);
-		if($resultado_professores == false) die ("N„o foi possÌvel consultar a tabela professores");
-		while(!$resultado_professores->EOF)
+		if ($resultado_professores == false) die ("Nao foi possivel consultar a tabela professores");
+		while (!$resultado_professores->EOF)
 		{
 			$nome = $resultado_professores->fields['nome'];
 			$resultado_professores->MoveNext();
@@ -60,29 +60,29 @@ while(!$resultado->EOF)
 }
 
 // Agora passo a consultar a tabela monografias para saber
-// si alguma delas est· associada a esta area
+// si alguma delas estÔøΩ associada a esta area
 $sql_monografia = "select num_area from monografia where num_area='$num_area'";
 $resultado_monografia = $db->Execute($sql_monografia);
-if($resultado_monografia == false) die ("Nao foi possivel consultar a tabela monografia");
+if ($resultado_monografia == false) die ("Nao foi possivel consultar a tabela monografia");
 $nrows = $resultado_monografia->RecordCount();
 
-// N„o excluir a ·rea N„o corresponde e sem/dados
+// NÔøΩo excluir a ÔøΩrea NÔøΩo corresponde e sem/dados
 if ($num_area == '99' || $num_area == '91') {
-    echo "<p>¡rea(s) 'N„o corresponde' e 's/d' n„o podem ser excluÌdas</p>";
+    echo "<p>√Årea(s) 'N√£o corresponde' e 's/d' n√£o podem ser exclu√≠das</p>";
     exit;
 }
-// Si existe uma monografia associada a esta area n„o pode ser eliminada
-if($nrows != 0)
+// Si existe uma monografia associada a esta area nao pode ser eliminada
+if ($nrows != 0)
 {
-	echo "<p>Nao È possÌvel eliminar esta area por estar associada a uma monografia. <br>";
+	echo "<p>N√£o √© possivel eliminar esta area por estar associada a uma monografia. <br>";
 	exit;
 }
-// Em caso contr·rio si posso eliminar a area da tabela
+// Em caso contrario si posso eliminar a area da tabela
 else 
 {
 	$sql = "delete from areas where numero='$num_area'";
 	$resultado = $db->Execute($sql);
-	if($resultado == false) die ("N„o foi possÌvel eliminar o registro da tabela areas");
+	if ($resultado == false) die ("Nao foi possivel eliminar o registro da tabela areas");
 
 	echo "<p>Registro eliminado <br>";
 }

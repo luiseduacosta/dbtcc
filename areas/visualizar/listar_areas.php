@@ -5,16 +5,16 @@ $ordem = $_REQUEST['ordem'];
 $sql = "select * from areas order by area"; 
 include("../../include_db.inc");
 $resultado = $db->Execute($sql);
-if($resultado == false) die ("Não foi possível consultar a tabela areas");
+if ($resultado == false) die ("NÃ£o foi possÃ­vel consultar a tabela areas");
 
 echo "
-<htnl>
+<html>
 <head>
-<link href='../../tcc.css' rel='stylesheet' type='text/css'>
+<link href='../../css/tcc.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
-<div align='center'>
+<div>
 <table>
 <caption>Quantidade de professores por area</caption>
 <tr>
@@ -24,12 +24,12 @@ echo "
 ";
 
 $i = 0;
-while(!$resultado->EOF)	{
+while (!$resultado->EOF)	{
 	$area     = $resultado->fields['area'];
 	$num_area = $resultado->fields['numero'];
 	$sql_prof_area = "select * from prof_area where num_area='$num_area'";
 	$resultado_prof_area = $db->Execute($sql_prof_area);
-	if($resultado_prof_area == false) die ("Não foi possível consultar a tabela prof_area");
+	if ($resultado_prof_area == false) die ("NÃ£o foi possÃ­vel consultar a tabela prof_area");
 	$contador = 0;
 	while(!$resultado_prof_area->EOF) { 
 		$num_prof = $resultado_prof_area->fields['num_prof'];	
@@ -40,12 +40,12 @@ while(!$resultado->EOF)	{
 	if(empty($ordem))
 	    $ordem = "area";
 	else
-	    $ordem = $ordem; // $ordem será igual a $area ou $contador
+	    $ordem = $ordem; // $ordem sera igual a $area ou $contador
 
-	// O conteúdo da variavel dinâmica $$indice é $ordem
+	// O conteudo da variavel dinamica $$indice e $ordem
 	// Para testar:
 	// echo $ordem . " " . $$ordem . "<br>";
-	$matriz[$i][$ordem] = $$ordem; // $ordem será igual ao conteúdo de $area ou $contador
+	$matriz[$i][$ordem] = $$ordem; // $ordem sera igual ao conteudo de $area ou $contador
 
 	$matriz[$i]['num_area'] = $num_area;
 	$matriz[$i]['area']     = $area;
@@ -61,14 +61,14 @@ while(!$resultado->EOF)	{
 
 reset($matriz);
 sort($matriz);
-for($i=0;$i<sizeof($matriz);$i++)
+for ($i=0;$i<sizeof($matriz);$i++)
 {
     $num_area = $matriz[$i]['num_area'];
     $area     = $matriz[$i]['area']; 
     $contador = $matriz[$i]['contador'];   
 
     // Para alternar as cores das linhas
-    if($color === '1')
+    if ($color === '1')
     {
 		echo "<tr class='resaltado' id='resaltado'>";
 		$color = '0';

@@ -87,7 +87,7 @@ $co_orientador = $res_co_orienta->fields['nome'];
 /* * ******** */
 /* Alunos */
 /* * ******** */
-$sql = "select * from tcc_alunos where num_monografia='$codigo'";
+$sql = "select * from tcc_alunos where num_monografia='$codigo' order by nome";
 // echo $sql. "<br>";
 $resposta = $db->Execute($sql);
 if ($resposta === false) die("Nao foi possivel consultar a tabela alunos");
@@ -101,13 +101,23 @@ while (!$resposta->EOF) {
     $i++;
     $resposta->MoveNext();
 }
+
 /* Todos os alunos para o select */
-$sql_alunos = "select numero, nome from tcc_alunos order by nome";
+$sql_alunos = "select numero, nome, registro from tcc_alunos order by nome";
+// echo $sql_alunos;
 $res_alunos = $db->Execute($sql_alunos);
+
+$alunos[0]['id'] = "";
+$alunos[0]['nome'] = "Seleciona estudante";
+$i = 1;
 while (!$res_alunos->EOF) {
-    $alunos[$i]['id']   = $res_alunos->fields['numero'];
-    $alunos[$i]['nome'] = $res_alunos->fields['nome'];
-    $i++;
+    // Somente os estudantes que tem numero de registro
+    if (strlen($res_alunos->fields['registro'] >= 8)) {
+        $alunos[$i]['id'] = $res_alunos->fields['numero'];
+        $alunos[$i]['nome'] = $res_alunos->fields['nome'];
+
+        $i++;
+    }
     $res_alunos->MoveNext();
 }
 // print_r($alunostcc);

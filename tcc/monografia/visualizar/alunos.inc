@@ -11,11 +11,11 @@ $resultado_monografia = $db->Execute($sql_monografia);
 if ($resultado_monografia === false) die ("Não foi possível consultar a tabela monografia");
 $titulo = $resultado_monografia->fields['titulo'];
 
-$sql_alunos = "select * from tcc_alunos where num_monografia='$codigo'";
+$sql_alunos = "select * from tcc_alunos where num_monografia='$codigo' order by nome";
 $resultado_alunos = $db->Execute($sql_alunos);
 if ($resultado_alunos === false) die ("Não foi possível consultar a tabela alunos");
 $quantidade_alunos = $resultado_alunos->RecordCount();
-
+// if ($quantidade_alunos == 0) die("Monografia sem estudante");
 // echo $sql_alunos . "<br>";
 
 $j = 0;
@@ -31,16 +31,18 @@ while (!$resultado_alunos->EOF) {
 /*
 Si a monografia foi feita com mais da um aluno entao *$quantidade* tem que ser maior que 1
 */
-
-if ($quantidade_alunos == 1) {
+if ($quantidade_alunos == 0) {
+    $aluno = "";
+} elseif ($quantidade_alunos == 1) {
 	$aluno = $nome[0];
 } elseif ($quantidade_alunos == 2) {
 	$aluno = $nome[0] . " e " . $nome[1];
 } elseif ($quantidade_alunos == 3) {
 	$aluno = $nome[0] . ", " . $nome[1] . " e " . $nome[2];
-} elseif ($quantidade_aluno > 3)
+} elseif ($quantidade_aluno > 3) {
 	echo "Error: mais da três alunos em monografia $codigo: $titulo";
-else 
+} else { 
 	echo "Error: nenhum aluno em monografia $codigo: $titulo";
+}
 
 ?>

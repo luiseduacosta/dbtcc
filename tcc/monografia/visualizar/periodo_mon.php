@@ -1,12 +1,6 @@
 <html>
 <head>
 <title>Monografias por período</title>
-<script language="JavaScript" type="text/javascript">
-
-function janela(numero)	{
-	var controle=window.open("../../professor/visualizar/ver_professor.php?id_prof="+numero,"janela1","width=500,height=250,screenX=150,screenY=200,scrollbars=yes,resizable=yes,dependent=yes");
-	}
-</script>
 <link href='../../tcc.css' rel='stylesheet' type='text/css'>
 </head>
 <body>
@@ -14,7 +8,7 @@ function janela(numero)	{
 <?php
 
 $servidor = $_SERVER[SERVER_NAME];
-echo $servidor . "<br>";
+// echo $servidor . "<br>";
 $periodo  = $_REQUEST['periodo'];
 $ordem    = $_REQUEST['ordem'];
 
@@ -29,14 +23,14 @@ function titulo($periodo,$ordem) {
 	$resultado = $db->Execute($sql);
 	if ($resultado === false) die ("Nao foi possivel consultar a tabela monografia");
 	$quantidade = $resultado->RecordCount();
-	for ($i=0;$i<$quantidade;$i++) {
+	while (!$resultado->EOF) {
+        // for ($i=0;$i<$quantidade;$i++) {
 		$catalogo  = $resultado->fields['catalogo'];
 		$codigo    = $resultado->fields['codigo'];
 		$titulo    = $resultado->fields['titulo'];
 		$url       = $resultado->fields['url'];
 		$professor = $resultado->fields['nome'];
 		$num_prof  = $resultado->fields['num_prof'];
-		$resultado->MoveNext();	
 
 		// Para ordenar a tabela
 		if(empty($ordem)) {
@@ -56,7 +50,18 @@ function titulo($periodo,$ordem) {
 		$matriz[$i]['titulo']        = $titulo;
 		$matriz[$i]['url']           = $url;
 		$matriz[$i]['catalogo']      = $catalogo;
-		
+
+                unset($aluno);
+                unset($num_prof);
+                unset($professor);
+                unset($codigo);
+                unset($titulo);
+                unset($url);
+                unset($catalogo);
+                
+                $resultado->MoveNext();
+                $i++;
+                
 	} // Fin do loop monografia
 	
 	$db->close();
@@ -85,7 +90,7 @@ reset($matriz);
 sort($matriz);
 
 $j = 1;
-for ($i=0;$i<sizeof($matriz);$i++) {
+for ($i=0; $i<sizeof($matriz); $i++) {
 	$tab_codigo        = $matriz[$i]['codigo'];
 	$tab_catalogo      = $matriz[$i]['catalogo'];
 	$tab_titulo        = $matriz[$i]['titulo'];

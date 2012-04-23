@@ -12,7 +12,7 @@ class template_tcc extends Smarty {
 
     $this->Smarty();
 
-    $this->cache_dir    = RAIZ.'templates/cache/';    
+    $this->cache_dir    = RAIZ.'templates/cache/';
     $this->config_dir   = RAIZ.'templates/configs/';
     $this->template_dir = RAIZ.'templates/templates/';
     $this->compile_dir  = RAIZ.'templates/templates_c/';

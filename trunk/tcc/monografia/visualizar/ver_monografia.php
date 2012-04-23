@@ -3,8 +3,11 @@
 include("../../setup.php");
 include("../../autoriza.inc");
 
-$codigo = isset($_REQUEST['codigo']) ? $_REQUEST['codigo'] : NULL;
 $servidor = $_SERVER['SERVER_NAME'];
+$codigo = isset($_REQUEST['codigo']) ? $_REQUEST['codigo'] : NULL;
+$error = isset($_REQUEST['error']) ? $_REQUEST['error'] : NULL;
+
+if ($error == "sem_registro") echo "<h1>Error: Estudante selecionada sem número de registro</h1>";
 
 $sql = "select monografia.codigo, monografia.catalogo, monografia.titulo, monografia.resumo, monografia.data, monografia.periodo, "
 . " monografia.num_prof, monografia.num_co_orienta, monografia.num_area, monografia.areamonografia, "
@@ -171,24 +174,36 @@ echo "
 </tr>
 ";
 
+$sql_banca0 = "select id, nome from professores where id=$banca1";
+$res_banca0 = $db->Execute($sql_banca0);
+$nome_professor0 = $res_banca0->fields['nome'];
+
 echo "
 <tr>
 <td>Banca (orientador)</td>    
-<td>$banca1</td>    
+<td>$nome_professor0</td>    
 </tr>
 ";
+
+$sql_banca1 = "select id, nome from professores where id=$banca2";
+$res_banca1 = $db->Execute($sql_banca1);
+$nome_professor1 = $res_banca1->fields['nome'];
 
 echo "
 <tr>
 <td>Banca</td>    
-<td>$banca2</td>    
+<td>$nome_professor1</td>    
 </tr>
 ";
+
+$sql_banca2 = "select id, nome from professores where id=$banca3";
+$res_banca2 = $db->Execute($sql_banca2);
+$nome_professor2 = $res_banca2->fields['nome'];
 
 echo "
 <tr>
 <td>Banca</td>    
-<td>$banca3</td>    
+<td>$nome_professor2</td>    
 </tr>
 ";
 

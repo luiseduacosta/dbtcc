@@ -73,7 +73,7 @@ while (!$resultado->EOF) {
 
 // Alunos
 // Seleciono os alunos que ja finalizaram o estagio
-$sql_aluno = "SELECT registro, nome, nivel, periodo FROM alunos inner join estagiarios using (registro) where estagiarios.nivel = 4 order by nome";
+$sql_aluno = "SELECT registro, nome, nivel, periodo FROM alunos inner join estagiarios using (registro) where estagiarios.nivel = 4 and nota != 0 order by nome";
 $resposta_aluno = $db->Execute($sql_aluno);
 if ($resposta_aluno == false)
     die("Nao foi possiível consultar a tabela alunos");

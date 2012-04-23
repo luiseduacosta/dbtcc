@@ -90,7 +90,8 @@ function matriz($ordem) {
 		// Fim da ordenação
 
 		include("alunos.inc");
-		$matriz[$i]['aluno'] = $aluno;
+
+                $matriz[$i]['aluno'] = $aluno;
 
 		$sql_professores = "select * from professores where id='$num_prof'";
 		$resultado_professores = $db->Execute($sql_professores);
@@ -115,6 +116,15 @@ function matriz($ordem) {
 		$matriz[$i]['periodo']       = $periodo;
 
 		$i++;
+                
+                unset($id_aluno);
+                unset($codigo);
+                unset($catalogo);
+                unset($titulo);
+                unset($arquivo);
+                unset($professor);
+                unset($num_prof);
+                unset($periodo);
 
 	} // Fin do loop while monografia
 
@@ -189,8 +199,10 @@ for ($i=0; $i<sizeof($matriz); $i++) {
 		} else {
 		echo "<td><a href='http://$servidor/monografias/$artigo'>PDF</a></td>";
 	}
-	echo "	
-	<td><a href='../../alunos/visualizar/aluno.php?id_aluno=$id_aluno'>$aluno</td>
+	echo "
+	<td>
+        <a href='../../alunos/visualizar/aluno.php?id_aluno=$id_aluno'>$aluno
+        </td>
 	<div id='aluno'></div>
 	<td class='professor'><a href='../../professor/visualizar/ver_professor.php?id_prof=$num_professor'>$professor</a></td>
 	<td class='coluna_centralizada'>$periodo</td>

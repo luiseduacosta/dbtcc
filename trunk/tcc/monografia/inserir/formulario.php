@@ -30,6 +30,7 @@ if (date('m') >=1 AND date('m') <=6) {
 }
 // echo "Período atual: " . $periodo_atual . "<br>";
 
+/* Catálogo */
 $sql_catalogo = "select max(catalogo) as num_catalogo from monografia";
 $resposta_catalogo = $db->Execute($sql_catalogo);
 if ($resposta_catalogo === null)
@@ -73,7 +74,7 @@ while (!$resultado->EOF) {
 
 // Alunos
 // Seleciono os alunos que ja finalizaram o estagio
-$sql_aluno = "SELECT registro, nome, nivel, periodo FROM alunos inner join estagiarios using (registro) where estagiarios.nivel = 4 and nota != 0 order by nome";
+$sql_aluno = "SELECT registro, nome, nivel, periodo FROM alunos inner join estagiarios using (registro) where estagiarios.nivel = 4 order by nome";
 $resposta_aluno = $db->Execute($sql_aluno);
 if ($resposta_aluno == false)
     die("Nao foi possiível consultar a tabela alunos");
@@ -100,6 +101,11 @@ while (!$resposta_aluno->EOF) {
 
     $resposta_aluno->MoveNext();
 }
+/* Ordeno pelo dre */
+$alunos_dre = $alunos;
+sort($alunos_dre);
+// print_r($alunos_dre);
+
 // echo "Hoje " . date('d/m/Y');
 $smarty = new template_tcc;
 // $smarty->debugging = true;
@@ -107,6 +113,7 @@ $smarty->assign('catalogo', $catalogo);
 $smarty->assign('areamonografia', $area_monografia);
 $smarty->assign('professores', $professores);
 $smarty->assign('alunos', $alunos);
+$smarty->assign('alunos_dre', $alunos_dre);
 // $smarty->assign('periodo', $periodo_atual);
 // $smarty->assign('data', $data);
 $smarty->assign('hoje', date('d/m/Y'));

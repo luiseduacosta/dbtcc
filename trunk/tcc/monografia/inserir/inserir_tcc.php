@@ -16,10 +16,10 @@ if ($quantidade > 0) {
 }
 
 /* Coloco as datas no padrõn sql */
-$data_sql = date('Y-m-d', strtotime($data));
+if ($data != 0) $data_sql = date('Y-m-d', strtotime($data));
 // echo "Data " . $data . "<br>";
 // echo "Data sql " . $data_sql . "<br>";
-$data_defesa_sql = date('Y-m-d', strtotime($data_defesa));
+if ($data_defesa != 0) $data_defesa_sql = date('Y-m-d', strtotime($data_defesa));
 
 $sql  = "INSERT INTO monografia(titulo, catalogo, areamonografia, resumo, data, periodo, num_prof, num_co_orienta, num_area, url, data_defesa, banca1, banca2, banca3, convidado) ";
 $sql .= "VALUES('$titulo','$catalogo','$id_areamonografia','$resumo','$data_sql','$periodo',$num_professor,$num_co_orienta,$id_areaProfessor,'$fichero', '$data_defesa_sql', '$banca1', '$banca2', '$banca3', '$convidado')";

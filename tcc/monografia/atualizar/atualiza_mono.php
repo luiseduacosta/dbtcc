@@ -32,12 +32,12 @@ $banca2 = $_REQUEST['banca2'];
 $banca3 = $_REQUEST['banca3'];
 $convidado = $_REQUEST['convidado'];
 
-echo var_dump($_REQUEST);
+// echo var_dump($_REQUEST);
 // die();
 // echo "Data: " .  $data . " Data defesa: " . $data_defesa. "<br>";
-if ($data)
+if ($data != 0)
     $data = date('Y-m-d', strtotime($data));
-if ($data_defesa)
+if ($data_defesa != 0)
     $data_defesa = date('Y-m-d', strtotime($data_defesa));
 // echo "Data: " .  $data . " Data defesa: " . $data_defesa. "<br>";
 
@@ -82,13 +82,15 @@ if (empty($periodo)) {
  */
 
 if (empty($num_prof)) {
+    $num_area = 0;
     $error[$numerros] = "É obrigatório inserir o nome de um professor";
-    $numerros++;
+    // $numerros++;
 }
 
 if (empty($num_area)) {
+    $num_area = 0;
     $error[$numerros] = "É obrigatório escolher uma area";
-    $numerros++;
+    // $numerros++;
 }
 
 if ($numerros > 0) {
@@ -146,40 +148,22 @@ if (isset($_FILES['monografia']) == false OR $_FILES['monografia']['error'] == U
     $sql_aluno = "select registro from tcc_alunos";
     $sql_aluno .= " where num_monografia='$codigo'";
     $sql_aluno .= " order by nome";
-    echo $sql_aluno . "<br>";
+    // echo $sql_aluno . "<br>";
     // die();
     $resultado_aluno = $db->Execute($sql_aluno);
     if ($resultado_aluno === false)
         die("Nao foi possivel consultar a tabela tcc_alunos");
     $quantidade_mono = $resultado_aluno->RecordCount();
-    echo "Estudantes nesta Monografias: " . $quantidade_mono . "<br>";
+    // echo "Estudantes nesta Monografias: " . $quantidade_mono . "<br>";
     // die("Estudantes desta monografia");
     $registro = $resultado_aluno->fields['registro'];
-    echo "Registro do estudante: " . $registro . "<br>";
+    // echo "Registro do estudante: " . $registro . "<br>";
     if (strlen($registro) < 8) {
-
-        echo "161 - Estudante sem número de registro";
-        header("Location: ../visualizar/ver_monografia.php?codigo=$codigo&error=sem_registro");
+        // echo "161 - Estudante sem número de registro";
+        // header("Location: ../visualizar/ver_monografia.php?codigo=$codigo&error=sem_registro");
         die("Error: Estudante sem número de registro");
     }
-
-    if ($id_novoid_aluno0) {
-        $sql_id_aluno = "select registro from tcc_alunos where numero=$id_novoid_aluno0";
-    } elseif ($id_atualizaid_aluno0) {
-        $sql_id_aluno = "select registro from tcc_alunos where numero=$id_atualizaid_aluno0";
-    } elseif ($id_aluno) {
-        $sql_id_aluno = "select registro from tcc_alunos where numero=$id_aluno0";
-    }
-    $res_id_aluno = $db->Execute($sql_id_aluno);
-    $registro_id_aluno = $res_id_aluno->fields['registro'];
-    echo "Registro id aluno: " . $registro_id_aluno . "<br>";
     // die();
-    /*
-      if (strlen($registro) <= 1) {
-      die("É necessario o número de registro para armazenar a monografia");
-      };
-     */
-    $registro = $registro_id_aluno;
     echo strlen($registro) . "<br>";
     // die();
     if (strlen($registro) >= 8) {
@@ -194,7 +178,7 @@ if (isset($_FILES['monografia']) == false OR $_FILES['monografia']['error'] == U
         move_uploaded_file($_FILES['monografia']['tmp_name'], $novo_arquivo);
         // die('Your file has been successfully uploaded.');
     } else {
-        echo "198 Estudante sem número de registro: $registro";
+        // echo "198 Estudante sem número de registro: $registro";
         header("Location: ../visualizar/ver_monografia.php?codigo=$codigo&error=sem_registro");
         die("Error: Estudante sem número de registro");
     }
@@ -225,157 +209,235 @@ $sql .= "banca2='$banca2', ";
 $sql .= "banca3='$banca3', ";
 $sql .= "convidado='$convidado' ";
 $sql .= "WHERE codigo='$codigo'";
-echo $sql . "<br>";
+// echo $sql . "<br>";
 // die($sql);
 $resposta = $db->Execute($sql);
 if ($resposta === false)
     die("Nao foi possivel atualizar a tabela monografia");
 
-/* Atualizacao da tabela tcc_alunos */
-echo "Id aluno0 " . $id_aluno0 . " Id atualiza id aluno0 " . $id_atualizaid_aluno0 . "<br>";
-if (!empty($id_atualizaid_aluno0)) {
-    echo $id_atualizaid_aluno0 . "<br>";
-    // die();
-    if ($id_atualizaid_aluno0 <> $id_aluno0) {
-        echo "Atualiza estudante: $id_atualizaid_aluno0 -> $id_aluno0" . "<br>";
-        $sql_atualiza0 = "update tcc_alunos set num_monografia = '$codigo' where numero = '$id_atualizaid_aluno0'";
-        echo $sql_atualiza0 . "<br>";
-        $res_atualiza0 = $db->Execute($sql_atualiza0);
-        if ($res_atualiza0 === false)
-            die("Nao foi possivel atualizar registro na tabela tcc_alunos");
-
-        $sql_delete0 = "delete from tcc_alunos where numero = '$id_aluno0'";
-        // echo $sql_delete0 . "<br>";
-        // die("0 Excluíndo registro de monografia por alteração do estudante autor");
-        $res_delete0 = $db->Execute($sql_delete0);
-        if ($res_delete0 === false)
-            die("Nao foi possivel excluir registro da tabela tcc_alunos");
-    } else {
-        echo "Permanece sem alterações <br>";
-        // die();
-    }
-}
-
+/* Atualizacao da tabela tcc_alunos: insero um registro novo e excluo o registro anterior */
 /* Esta é uma situação rara: inserir aluno novo */
-echo $id_novoid_aluno0;
+// echo $id_novoid_aluno0;
 // die();
 if (!empty($id_novoid_aluno0)) {
-    echo "Inserir" . "<br>";
-    $sql_seleciona = "select nome, num_monografia, registro from tcc_alunos where numero=$id_novoid_aluno0";
+    // echo "Inserir" . "<br>";
+    /* Junto todo */
+    $sql_seleciona = "select nome, registro 
+        from tcc_alunos where length(registro) > 7
+        union
+        select nome, registro from alunos";
+    // echo $sql_seleciona . "<br>";
     $res_seleciona = $db->Execute($sql_seleciona);
-    $nome = $res_seleciona->fields['nome'];
-    $num_monografia = $res_seleciona->fields['num_monografia'];
-    $registro = $res_seleciona->fields['registro'];
-    echo "Numero de monografia " . $num_monografia . "<br>";
+    while (!$res_seleciona->EOF) {
+        if ($res_seleciona->fields['registro'] == $id_novoid_aluno0) {
+            $nome = $res_seleciona->fields['nome'];
+        }
+        $res_seleciona->MoveNext();
+        $i++;
+    }
+    $sql_inserir = "insert into tcc_alunos(nome, num_monografia, registro) values(\"$nome\", $codigo, $id_novoid_aluno0)";
+    // echo $sql_inserir . "<br>";
     // die();
-    $sql_inserir = "insert into tcc_alunos(nome, num_monografia, registro) values(\"$nome\", $codigo, $registro)";
-    echo $sql_inserir . "<br>";
-
     $res_inserir = $db->Execute($sql_inserir);
     if (($res_inserir === FALSE))
         die("Não foi possível inserir o registro na tabela tcc_alunos");
-
-    $sql_delete0 = "delete from tcc_alunos where numero = '$id_novoid_aluno0'";
-    // echo $sql_delete0 . "<br>";
-    // die("1 Excluíndo registro de monografia por alteração do estudante autor");
-    $res_delete0 = $db->Execute($sql_delete0);
-    if ($res_delete0 === false)
-        die("Nao foi possivel excluir registro da tabela tcc_alunos");
 }
 
-echo "Id aluno1 " . $id_novoid_aluno1 . "<br>";
+/* Esta é uma situação rara: inserir aluno novo */
+// echo $id_novoid_aluno1;
+// die();
 if (!empty($id_novoid_aluno1)) {
-
-    echo "Inserir" . "<br>";
-    $sql_seleciona = "select nome, num_monografia, registro from tcc_alunos where numero=$id_novoid_aluno1";
+    // echo "Inserir" . "<br>";
+    /* Junto todo */
+    $sql_seleciona = "select nome, registro 
+        from tcc_alunos where length(registro) > 7
+        union
+        select nome, registro from alunos";
+    // echo $sql_seleciona . "<br>";
     $res_seleciona = $db->Execute($sql_seleciona);
-    $nome = $res_seleciona->fields['nome'];
-    $num_monografia = $res_seleciona->fields['num_monografia'];
-    $registro = $res_seleciona->fields['registro'];
-    echo "Numero de monografia " . $num_monografia . "<br>";
+    while (!$res_seleciona->EOF) {
+        if ($res_seleciona->fields['registro'] == $id_novoid_aluno1) {
+            $nome = $res_seleciona->fields['nome'];
+        }
+        $res_seleciona->MoveNext();
+        $i++;
+    }
+    $sql_inserir = "insert into tcc_alunos(nome, num_monografia, registro) values(\"$nome\", $codigo, $id_novoid_aluno1)";
+    // echo $sql_inserir . "<br>";
     // die();
-    if ($registro) {
-        $sql_inserir = "insert into tcc_alunos(nome, num_monografia, registro) values(\"$nome\', $codigo, $registro)";
-        echo $sql_inserir . "<br>";
+    $res_inserir = $db->Execute($sql_inserir);
+    if (($res_inserir === FALSE))
+        die("Não foi possível inserir o registro na tabela tcc_alunos");
+}
 
+/* Esta é uma situação rara: inserir aluno novo */
+// echo $id_novoid_aluno2;
+// die();
+if (!empty($id_novoid_aluno2)) {
+    // echo "Inserir" . "<br>";
+    /* Junto todo */
+    $sql_seleciona = "select nome, registro 
+        from tcc_alunos where length(registro) > 7
+        union
+        select nome, registro from alunos";
+    // echo $sql_seleciona . "<br>";
+    $res_seleciona = $db->Execute($sql_seleciona);
+    while (!$res_seleciona->EOF) {
+        if ($res_seleciona->fields['registro'] == $id_novoid_aluno2) {
+            $nome = $res_seleciona->fields['nome'];
+        }
+        $res_seleciona->MoveNext();
+        $i++;
+    }
+    $sql_inserir = "insert into tcc_alunos(nome, num_monografia, registro) values(\"$nome\", $codigo, $id_novoid_aluno2)";
+    // echo $sql_inserir . "<br>";
+    // die();
+    $res_inserir = $db->Execute($sql_inserir);
+    if (($res_inserir === FALSE))
+        die("Não foi possível inserir o registro na tabela tcc_alunos");
+}
+
+/* Atualiza aluno */
+// echo "Id aluno0 (atual autor): " . $id_aluno0 . " Id atualiza id aluno0 (novo autor): " . $id_atualizaid_aluno0 . "<br>";
+// die();
+if (!empty($id_atualizaid_aluno0)) {
+    // echo $id_atualizaid_aluno0 . "<br>";
+    // die();
+    if (trim($id_atualizaid_aluno0) != trim($id_aluno0)) {
+        // echo "Atualiza estudante: " . trim($id_atualizaid_aluno0) . " diferente de: " . trim($id_aluno0) . "<br>";
+        // die();
+
+        /* Junto todo */
+        $sql_seleciona = "select nome, registro 
+        from tcc_alunos where length(registro) > 7
+        union
+        select nome, registro from alunos";
+        // echo $sql_seleciona . "<br>";
+        $res_seleciona = $db->Execute($sql_seleciona);
+        while (!$res_seleciona->EOF) {
+            if ($res_seleciona->fields['registro'] == $id_atualizaid_aluno0) {
+                $nome = $res_seleciona->fields['nome'];
+            }
+            $res_seleciona->MoveNext();
+            $i++;
+        }
+        $sql_inserir = "insert into tcc_alunos(nome, num_monografia, registro) values(\"$nome\", $codigo, $id_atualizaid_aluno0)";
+        // echo $sql_inserir . "<br>";
+        // die();
         $res_inserir = $db->Execute($sql_inserir);
         if (($res_inserir === FALSE))
             die("Não foi possível inserir o registro na tabela tcc_alunos");
 
-        $sql_delete0 = "delete from tcc_alunos where numero = '$id_novoid_aluno1'";
-        // echo $sql_delete0 . "<br>";
-        // die("1 Excluíndo registro de monografia por alteração do estudante autor");
-        $res_delete0 = $db->Execute($sql_delete0);
-        if ($res_delete0 === false)
-            die("Nao foi possivel excluir registro da tabela tcc_alunos");
-    } else {
-        echo "Não foi possível inserir o estudante por falta do número de registro";
-    }
-}
-
-if (!empty($id_atualizaid_aluno1)) {
-    echo $id_atualizaid_aluno1 . "<br>";
-    // die();
-    if ($id_atualizaid_aluno1 <> $id_aluno1) {
-        echo "Atualiza estudante: $id_atualizaid_aluno1 -> $id_aluno1" . "<br>";
-        $sql_atualiza0 = "update tcc_alunos set num_monografia = '$codigo' where numero = '$id_atualizaid_aluno1'";
-        echo $sql_atualiza0 . "<br>";
-        $res_atualiza0 = $db->Execute($sql_atualiza0);
-        if ($res_atualiza0 === false)
-            die("Nao foi possivel atualizar registro na tabela tcc_alunos");
-
-        $sql_delete0 = "delete from tcc_alunos where numero = '$id_aluno1'";
+        /* Excluo o registro anterior */
+        $sql_delete0 = "delete from tcc_alunos where registro = '$id_aluno0'";
         // echo $sql_delete0 . "<br>";
         // die("0 Excluíndo registro de monografia por alteração do estudante autor");
         $res_delete0 = $db->Execute($sql_delete0);
         if ($res_delete0 === false)
             die("Nao foi possivel excluir registro da tabela tcc_alunos");
     } else {
-        echo "Permanece sem alterações <br>";
+        // echo "Permanece sem alterações <br>";
         // die();
     }
 }
 
-echo "Id aluno2 " . $id_novoid_aluno2 . "<br>";
-if (!empty($id_novoid_aluno2)) {
-
-    echo "Inserir" . "<br>";
-    $sql_seleciona = "select nome, num_monografia, registro from tcc_alunos where numero=$id_novoid_aluno2";
-    $res_seleciona = $db->Execute($sql_seleciona);
-    $nome = $res_seleciona->fields['nome'];
-    $num_monografia = $res_seleciona->fields['num_monografia'];
-    $registro = $res_seleciona->fields['registro'];
-    echo "Numero de monografia " . $num_monografia . "<br>";
+// echo "Id aluno1 (atual autor): " . $id_aluno1 . " Id atualiza id aluno1 (novo autor): " . $id_atualizaid_aluno1 . "<br>";
+// die();
+if (!empty($id_atualizaid_aluno1)) {
+    // echo $id_atualizaid_aluno1 . "<br>";
     // die();
-    if ($registro) {
-        $sql_inserir = "insert into tcc_alunos(nome, num_monografia, registro) values(\"$nome\", $codigo, $registro)";
-        echo $sql_inserir . "<br>";
+    if (trim($id_atualizaid_aluno1) != trim($id_aluno1)) {
+        // echo "Atualiza estudante: " . trim($id_atualizaid_aluno1) . " diferente de: " . trim($id_aluno1) . "<br>";
+        // die();
+
+        /* Junto todo */
+        $sql_seleciona = "select nome, registro 
+        from tcc_alunos where length(registro) > 7
+        union
+        select nome, registro from alunos";
+        // echo $sql_seleciona . "<br>";
+        $res_seleciona = $db->Execute($sql_seleciona);
+        while (!$res_seleciona->EOF) {
+            if ($res_seleciona->fields['registro'] == $id_atualizaid_aluno1) {
+                $nome = $res_seleciona->fields['nome'];
+            }
+            $res_seleciona->MoveNext();
+            $i++;
+        }
+        $sql_inserir = "insert into tcc_alunos(nome, num_monografia, registro) values(\"$nome\", $codigo, $id_atualizaid_aluno1)";
+        // echo $sql_inserir . "<br>";
+        // die();
         $res_inserir = $db->Execute($sql_inserir);
         if (($res_inserir === FALSE))
             die("Não foi possível inserir o registro na tabela tcc_alunos");
 
-        $sql_delete0 = "delete from tcc_alunos where numero = '$id_novoid_aluno2'";
-        // echo $sql_delete0 . "<br>";
-        // die("1 Excluíndo registro de monografia por alteração do estudante autor");
-        $res_delete0 = $db->Execute($sql_delete0);
-        if ($res_delete0 === false)
+        /* Excluo o registro anterior */
+        $sql_delete1 = "delete from tcc_alunos where registro = '$id_aluno1'";
+        // echo $sql_delete1 . "<br>";
+        // die("0 Excluíndo registro de monografia por alteração do estudante autor");
+        $res_delete1 = $db->Execute($sql_delete1);
+        if ($res_delete1 === false)
             die("Nao foi possivel excluir registro da tabela tcc_alunos");
     } else {
-        echo "Não foi possível inserir o estudente por falta do número de registro)";
+        // echo "Permanece sem alterações <br>";
+        // die();
+    }
+}
+
+// echo "Id aluno2 (atual autor): " . $id_aluno2 . " Id atualiza id aluno2 (novo autor): " . $id_atualizaid_aluno2 . "<br>";
+// die();
+if (!empty($id_atualizaid_aluno2)) {
+    // echo $id_atualizaid_aluno2 . "<br>";
+    // die();
+    if (trim($id_atualizaid_aluno2) != trim($id_aluno2)) {
+        // echo "Atualiza estudante: " . trim($id_atualizaid_aluno2) . " diferente de: " . trim($id_aluno2) . "<br>";
+        // die();
+
+        /* Junto todo */
+        $sql_seleciona = "select nome, registro 
+        from tcc_alunos where length(registro) > 7
+        union
+        select nome, registro from alunos";
+        // echo $sql_seleciona . "<br>";
+        $res_seleciona = $db->Execute($sql_seleciona);
+        while (!$res_seleciona->EOF) {
+            if ($res_seleciona->fields['registro'] == $id_atualizaid_aluno2) {
+                $nome = $res_seleciona->fields['nome'];
+            }
+            $res_seleciona->MoveNext();
+            $i++;
+        }
+        $sql_inserir = "insert into tcc_alunos(nome, num_monografia, registro) values(\"$nome\", $codigo, $id_atualizaid_aluno2)";
+        // echo $sql_inserir . "<br>";
+        // die();
+        $res_inserir = $db->Execute($sql_inserir);
+        if (($res_inserir === FALSE))
+            die("Não foi possível inserir o registro na tabela tcc_alunos");
+
+        /* Excluo o registro anterior */
+        $sql_delete2 = "delete from tcc_alunos where registro = '$id_aluno2'";
+        // echo $sql_delete2 . "<br>";
+        // die("0 Excluíndo registro de monografia por alteração do estudante autor");
+        $res_delete2 = $db->Execute($sql_delete2);
+        if ($res_delete2 === false)
+            die("Nao foi possivel excluir registro da tabela tcc_alunos");
+    } else {
+        // echo "Permanece sem alterações <br>";
+        // die();
     }
 }
 
 /* Renomea os arquivos por mudança do nome do estudante autor */
 if ($url) {
-    echo "URL: " . $url . "<br>";
+    // echo "URL: " . $url . "<br>";
     // die();
 
     $sql_aluno0 = "select registro from tcc_alunos where num_monografia = $codigo order by nome";
-    echo $sql_aluno0 . "<br>";
+    // echo $sql_aluno0 . "<br>";
     // die();
     $res_aluno0 = $db->Execute($sql_aluno0);
     $registro_aluno0 = $res_aluno0->fields['registro'];
-    echo $registro_aluno0 . "<br>";
+    // echo $registro_aluno0 . "<br>";
     // die();
     if ($registro_aluno0) {
 
@@ -388,14 +450,14 @@ if ($url) {
 
         $url_nova = $registro_aluno0 . ".pdf";
         $sql_url = "update monografia set url = '$url_nova' where codigo=$codigo";
-        echo $sql_url . "<br>";
+        // echo $sql_url . "<br>";
         // die();
         $res_url = $db->Execute($sql_url);
         if ($res_url === false)
             die("Não foi possível atualizar a url da tabela monografia");
     } else {
 
-        echo "400 Estudante sem número de registro";
+        // echo "478 Estudante sem número de registro";
         header("Location: ../visualizar/ver_monografia.php?codigo=$codigo&error=sem_registro");
         die("Error: Estudante sem número de registro");
     }
@@ -404,5 +466,4 @@ if ($url) {
 $db->Close();
 
 header("Location: ../visualizar/ver_monografia.php?codigo=$codigo");
-
 ?>

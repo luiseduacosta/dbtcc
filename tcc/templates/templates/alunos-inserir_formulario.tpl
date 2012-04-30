@@ -25,6 +25,54 @@ $(function() {
 });
 </script>
 
+<script language="JavaScript" type="text/javascript">
+$(function() {
+    $('#dre_registro_aluno1').change(function() {
+        var id_estudante1 = $(this).val();
+        /* alert(id_estudante1); */
+        $('#nome_registro_aluno1').val(id_estudante1);
+        })
+});
+$(function() {
+    $('#nome_registro_aluno1').change(function() {
+        var id_estudante1 = $(this).val();
+        /* alert(id_estudante1); */
+        $('#dre_registro_aluno1').val(id_estudante1);    
+        })
+});
+
+$(function() {
+    $('#dre_registro_aluno2').change(function() {
+        var id_estudante2 = $(this).val();
+        /* alert(id_estudante2); */
+        $('#nome_registro_aluno2').val(id_estudante2);    
+        })
+});
+$(function() {
+    $('#nome_registro_aluno2').change(function() {
+        var id_estudante2 = $(this).val();
+        /* alert(id_estudante2); */
+        $('#dre_registro_aluno2').val(id_estudante2);    
+        })
+});
+
+$(function() {
+    $('#dre_registro_aluno3').change(function() {
+        var id_estudante3 = $(this).val();
+        /* alert(id_estudante3); */
+        $('#nome_registro_aluno3').val(id_estudante3);    
+        })
+}); 
+$(function() {
+    $('#nome_registro_aluno3').change(function() {
+        var id_estudante3 = $(this).val();
+        /* alert(id_estudante3); */
+        $('#dre_registro_aluno3').val(id_estudante3);    
+        })
+});
+
+</script>
+
 <script type="text/javascript" src="../../lib/datepick/jquery.datepick.js"></script>
 <script language="JavaScript" type="text/javascript">
 $(function() {
@@ -67,7 +115,7 @@ function scriptcarateres() {
 <textarea rows="3" cols="70" name="titulo" id="titulo"></textarea>
 <br>
     
-<label for="id_areaMonografi">Área da monografia:</label>
+<label for="id_areaMonografia">Área da monografia:</label>
 <select name="id_areaMonografia" id="id_areaMonografia" size="1">
 <option value=0>Selecione área da monografia</option>
 {section name=i loop=$areamonografia}
@@ -99,12 +147,21 @@ function scriptcarateres() {
 <br>
     
 <label for="registro_aluno1">Aluno 1:</label>
-<select name="registro_aluno1" id="registro_aluno1" size="1">
-<option value=0>Selecione aluno</option>
+
+<select name="registro_aluno1" id="dre_registro_aluno1" size="1">
+<option value=0>Selecione estudante pelo DRE</option>
+{section name=k loop=$alunos_dre}
+<option value='{$alunos_dre[k].registro}'>{$alunos_dre[k].registro}</option>
+{/section}
+</select>
+
+<select name="registro_aluno1" id="nome_registro_aluno1" size="1">
+<option value=0>Selecione estudante pelo nome</option>
 {section name=k loop=$alunos}
 <option value='{$alunos[k].registro}'>{$alunos[k].nome}</option>
 {/section}
 </select>
+
 <br>
     
 <!--
@@ -117,12 +174,20 @@ Registro: <input type="text" name="numeroaluno1" size="9">
 //-->
 
 <label for="registro_aluno2">Aluno 2:</label>
-<select name="registro_aluno2" id="registro_aluno2" size="1">
-<option value=0>Selecione aluno</option>
+<select name="registro_aluno2" id="dre_registro_aluno2" size="1">
+<option value=0>Selecione estudante pelo DRE</option>
+{section name=k loop=$alunos_dre}
+<option value='{$alunos_dre[k].registro}'>{$alunos_dre[k].registro}</option>
+{/section}
+</select>
+
+<select name="registro_aluno2" id="nome_registro_aluno2" size="1">
+<option value=0>Selecione estudante pelo nome</option>
 {section name=k loop=$alunos}
 <option value='{$alunos[k].registro}'>{$alunos[k].nome}</option>
 {/section}
 </select>
+
 <br>
     
 <!--
@@ -135,12 +200,20 @@ Registro: <input type="text" name="numeroaluno2" size="9">
 //-->
 
 <label for="registro_aluno3">Aluno 3:</label>
-<select name="registro_aluno3" id="registro_aluno3" size="1">
-<option value=0>Selecione aluno</option>
+<select name="registro_aluno3" id="dre_registro_aluno3" size="1">
+<option value=0>Selecione estudante pelo DRE</option>
+{section name=k loop=$alunos_dre}
+<option value='{$alunos_dre[k].registro}'>{$alunos_dre[k].registro}</option>
+{/section}
+</select>
+
+<select name="registro_aluno3" id="nome_registro_aluno3" size="1">
+<option value=0>Selecione estudante pelo nome</option>
 {section name=k loop=$alunos}
 <option value='{$alunos[k].registro}'>{$alunos[k].nome}</option>
 {/section}
 </select>
+
 <br>
     
 <!--

@@ -21,11 +21,49 @@ $(function() {
 });
 </script>
 
-<script language='JavaScript' type='text/javascript'>
+<script language="JavaScript" type="text/javascript">
 $(function() {
-    $('#id_aluno0').change(function() {
-        var id_aluno0 = $(this).val();
-        /* alert(id_aluno0); */
+    $('#dre_registro_id_aluno0').change(function() {
+        var id_estudante0 = $(this).val();
+        /* alert(id_estudante0); */
+        $('#nome_registro_id_aluno0').val(id_estudante0);
+        })
+});
+$(function() {
+    $('#nome_registro_id_aluno0').change(function() {
+        var id_estudante0 = $(this).val();
+        /* alert(id_estudante0); */
+        $('#dre_registro_id_aluno0').val(id_estudante0);    
+        })
+});
+
+$(function() {
+    $('#dre_registro_id_aluno1').change(function() {
+        var id_estudante1 = $(this).val();
+        /* alert(id_estudante1); */
+        $('#nome_registro_id_aluno1').val(id_estudante1);    
+        })
+});
+$(function() {
+    $('#nome_registro_id_aluno1').change(function() {
+        var id_estudante1 = $(this).val();
+        /* alert(id_estudante1); */
+        $('#dre_registro_id_aluno1').val(id_estudante1);    
+        })
+});
+
+$(function() {
+    $('#dre_registro_id_aluno2').change(function() {
+        var id_estudante2 = $(this).val();
+        /* alert(id_estudante2); */
+        $('#nome_registro_id_aluno2').val(id_estudante2);    
+        })
+}); 
+$(function() {
+    $('#nome_registro_id_aluno2').change(function() {
+        var id_estudante2 = $(this).val();
+        /* alert(id_estudante2); */
+        $('#dre_registro_id_aluno2').val(id_estudante2);    
         })
 });
 </script>
@@ -97,15 +135,21 @@ Co-orientador:
 
 {section name=i loop=$alunostcc}
 Estudante(s): 
-<input type='hidden' name={$alunostcc[i].aluno} value={$alunostcc[i].id}>
+<input type='hidden' name={$alunostcc[i].aluno} value={$alunostcc[i].registro}>
 
-<select name = id_atualiza{$alunostcc[i].aluno} id={$alunostcc[i].aluno}>
-    <option value='{$alunostcc[i].id}'>{$alunostcc[i].nome}
-    {section name=j loop=$alunos}
-    <option value="{$alunos[j].id}">{$alunos[j].nome}</option>
+<select name = id_atualiza{$alunostcc[i].aluno} id=dre_registro_{$alunostcc[i].aluno}>
+    <option value='{$alunostcc[i].registro}'>{$alunostcc[i].registro}
+    {section name=j loop=$alunos_dre}
+    <option value="{$alunos_dre[j].registro}">{$alunos_dre[j].registro}</option>
     {/section}
 </select>
-
+<select name = id_atualiza{$alunostcc[i].aluno} id=nome_registro_{$alunostcc[i].aluno}>
+    <option value='{$alunostcc[i].registro}'>{$alunostcc[i].nome}
+    {section name=j loop=$alunos}
+    <option value="{$alunos[j].registro}">{$alunos[j].nome}</option>
+    {/section}
+</select>
+    
 {* Somente excluo se ha mais de um estudante *}
 
 {if $smarty.section.i.index > 0}
@@ -117,11 +161,19 @@ Estudante(s):
 {* Se a quantidade de alunos eh menor de tres *}
 {section name=k start=$smarty.section.i.index loop=3}
 Estudante:
-<select name = id_novoid_aluno{$smarty.section.k.index} id=aluno{$smarty.section.k.index}>
-    {section name=j loop=$alunos}
-    <option value="{$alunos[j].id}">{$alunos[j].nome}</option>    
+<select name = id_novoid_aluno{$smarty.section.k.index} id=dre_registro_id_aluno{$smarty.section.k.index}>
+     <option value="">DRE</option>
+    {section name=j loop=$alunos_dre}       
+    <option value="{$alunos_dre[j].registro}">{$alunos_dre[j].registro}</option>    
     {/section}
 </select>
+<select name = id_novoid_aluno{$smarty.section.k.index} id=nome_registro_id_aluno{$smarty.section.k.index}>
+     <option value="">Nome</option>
+    {section name=j loop=$alunos}
+    <option value="{$alunos[j].registro}">{$alunos[j].nome}</option>    
+    {/section}
+</select>
+
 <br>    
 {/section}
 </fieldset>

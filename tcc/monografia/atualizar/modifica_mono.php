@@ -15,14 +15,15 @@ $sql = "select monografia.codigo, monografia.catalogo, monografia.titulo, monogr
         . " professores.nome, areasmonografia.id as id_areamonografia, areasmonografia.areamonografia, "
         . " areas.numero as id_area, areas.area "
         . " from monografia "
-        . " inner join professores on monografia.num_prof = professores.id "
-        . " left outer join areasmonografia on monografia.areamonografia = areasmonografia.id "
-        . " left outer join areas on monografia.num_area = areas.numero "
+        . " left join professores on monografia.num_prof = professores.id "
+        . " left join areasmonografia on monografia.areamonografia = areasmonografia.id "
+        . " left join areas on monografia.num_area = areas.numero "
         . " where codigo = $codigo";
 // echo $sql. "<br>";
 
 $resposta = $db->Execute($sql);
-if ($resposta === false) die("Nao foi possivel consultar a tabela monografia");
+if ($resposta === false)
+    die("Nao foi possivel consultar a tabela monografia");
 
 while (!$resposta->EOF) {
     $codigo = $resposta->fields['codigo'];
@@ -53,13 +54,13 @@ while (!$resposta->EOF) {
     if ($data_sql != 0) {
         $data = date('d-m-Y', strtotime($data_sql));
     } else {
-        $data = "s/d";
+        $data = "";
     }
 
     if ($data_defesa_sql != 0) {
         $data_defesa = date('d-m-Y', strtotime($data_defesa_sql));
     } else {
-        $data_defesa = "s/d";
+        $data_defesa = "";
     }
 
     $resposta->MoveNext();
@@ -69,10 +70,11 @@ while (!$resposta->EOF) {
 /* Professores */
 $sql = "select * from professores order by nome";
 $resposta_sql = $db->Execute($sql);
-if ($resposta_sql === false) die("Nao foi possivel consultar a tabela professores");
+if ($resposta_sql === false)
+    die("Nao foi possivel consultar a tabela professores");
 $i = 0;
 while (!$resposta_sql->EOF) {
-    $professores[$i]['id']   = $resposta_sql->fields['id'];
+    $professores[$i]['id'] = $resposta_sql->fields['id'];
     $professores[$i]['nome'] = $resposta_sql->fields['nome'];
 
     $i++;
@@ -90,38 +92,52 @@ $co_orientador = $res_co_orienta->fields['nome'];
 $sql = "select * from tcc_alunos where num_monografia='$codigo' order by nome";
 // echo $sql. "<br>";
 $resposta = $db->Execute($sql);
-if ($resposta === false) die("Nao foi possivel consultar a tabela alunos");
+if ($resposta === false)
+    die("Nao foi possivel consultar a tabela alunos");
 $q_alunos = $resposta->RecordCount();
 // echo 'q ' . $q_alunos . "<br>";
 $i = 0;
 while (!$resposta->EOF) {
+    $alunostcc[$i]['registro'] = $resposta->fields['registro'];
+    $alunostcc[$i]['nome'] = $resposta->fields['nome'];
+    $alunostcc[$i]['id'] = $resposta->fields['numero'];
     $alunostcc[$i]['aluno'] = 'id_aluno' . strval($i);
-    $alunostcc[$i]['nome']  = $resposta->fields['nome'];
-    $alunostcc[$i]['id']    = $resposta->fields['numero'];
+
     $i++;
     $resposta->MoveNext();
 }
 
-/* Todos os alunos para o select */
-$sql_alunos = "select numero, nome, registro from tcc_alunos order by nome";
+/* Todos os alunos estagiarios e monografias para o select */
+$sql_alunos = "select alunos.registro, alunos.nome 
+    from estagiarios 
+    inner join alunos on estagiarios.registro = alunos.registro 
+    where estagiarios.nivel = 4  
+    union
+    select tcc_alunos.registro, tcc_alunos.nome 
+    from tcc_alunos 
+    where length(registro) > 7
+    order by nome";
+
 // echo $sql_alunos;
 $res_alunos = $db->Execute($sql_alunos);
 
-$alunos[0]['id'] = "";
+$alunos[0]['registro'] = "0";
 $alunos[0]['nome'] = "Seleciona estudante";
 $i = 1;
 while (!$res_alunos->EOF) {
-    // Somente os estudantes que tem numero de registro
-    if (strlen($res_alunos->fields['registro'] >= 8)) {
-        $alunos[$i]['id'] = $res_alunos->fields['numero'];
-        $alunos[$i]['nome'] = $res_alunos->fields['nome'];
 
-        $i++;
-    }
+    $alunos[$i]['registro'] = $res_alunos->fields['registro'];
+    $alunos[$i]['nome'] = $res_alunos->fields['nome'];
+    $i++;
+
     $res_alunos->MoveNext();
 }
+/* Para selecionar ordenador por DRE */
+$alunos_dre = $alunos;
+sort($alunos_dre);
 // print_r($alunostcc);
 // print_r($alunos);
+
 
 /* * ******** */
 /* Areas ** */
@@ -131,13 +147,14 @@ join areas on prof_area.num_area = areas.numero
 where prof_area.num_prof='$id_professor'";
 // echo $sql_prof_area . "<br>";
 $resposta_prof_area = $db->Execute($sql_prof_area);
-if ($resposta_prof_area === false) die("Nao foi possivel consultar a tabela prof_area");
+if ($resposta_prof_area === false)
+    die("Nao foi possivel consultar a tabela prof_area");
 $quantidade_area = $resposta_prof_area->RecordCount();
 $i = 0;
 while (!$resposta_prof_area->EOF) {
-    $areas[$i]['id']   = $resposta_prof_area->fields['num_area'];
-    $areas[$i]['area'] = $resposta_prof_area->fields['area']; 
-    
+    $areas[$i]['id'] = $resposta_prof_area->fields['num_area'];
+    $areas[$i]['area'] = $resposta_prof_area->fields['area'];
+
     $i++;
     $resposta_prof_area->MoveNext();
 }
@@ -152,11 +169,12 @@ $areas[$i]['area'] = 'No corresponde';
 $sql = "select * from areasmonografia order by areamonografia";
 // echo $sql . "<br>";
 $res_areamonografia = $db->Execute($sql);
-if ($res_areamonografia === false) die("Nao foi possivel consultar a tabela areasmonografia");
+if ($res_areamonografia === false)
+    die("Nao foi possivel consultar a tabela areasmonografia");
 $quantidade_area = $res_areamonografia->RecordCount($sql);
 $i = 0;
 while (!$res_areamonografia->EOF) {
-    $area_monografia[$i]['id']   = $res_areamonografia->fields['id'];
+    $area_monografia[$i]['id'] = $res_areamonografia->fields['id'];
     $area_monografia[$i]['area'] = $res_areamonografia->fields['areamonografia'];
     $i++;
     $res_areamonografia->MoveNext();
@@ -187,6 +205,7 @@ $smarty->assign('id_co_orientador', $id_co_orientador);
 $smarty->assign('co_orientador', $co_orientador);
 $smarty->assign('alunostcc', $alunostcc);
 $smarty->assign('alunos', $alunos);
+$smarty->assign('alunos_dre', $alunos_dre);
 $smarty->assign('resumo', $resumo);
 $smarty->assign('url', $url);
 $smarty->assign('area', $area);
@@ -203,6 +222,5 @@ $smarty->assign('professorbanca2', $professorbanca2);
 $smarty->assign('banca3', $banca3);
 $smarty->assign('professorbanca3', $professorbanca3);
 $smarty->assign('convidado', $convidado);
-$smarty->display('file:'. RAIZ . 'monografia/atualizar/mono.tpl');
-
+$smarty->display('file:' . RAIZ . 'monografia/atualizar/mono.tpl');
 ?>

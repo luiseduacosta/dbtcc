@@ -15,9 +15,9 @@ $sql = "select monografia.codigo, monografia.catalogo, monografia.titulo, monogr
 . " professores.nome, areasmonografia.id as id_areamonografia, areasmonografia.areamonografia, "
 . " areas.numero as id_area, areas.area "
 . " from monografia "
-. " inner join professores on monografia.num_prof = professores.id "
-. " left outer join areasmonografia on monografia.areamonografia = areasmonografia.id "
-. " left outer join areas on monografia.num_area = areas.numero "
+. " left join professores on monografia.num_prof = professores.id "
+. " left join areasmonografia on monografia.areamonografia = areasmonografia.id "
+. " left join areas on monografia.num_area = areas.numero "
 . " where codigo = $codigo "
 . " order by titulo";
 // echo $sql . "<br>";
@@ -50,13 +50,13 @@ while (!$resposta->EOF) {
         if ($data_sql != 0) {
             $data = date('d-m-Y',strtotime($data_sql));
         } else {
-            $data = "s/d";
+            $data = "";
         }
 
         if ($data_defesa_sql != 0) {
             $data_defesa = date('d-m-Y',strtotime($data_defesa_sql));
         } else {
-            $data_defesa = "s/d";
+            $data_defesa = "";
         }
         
         $resposta->MoveNext();

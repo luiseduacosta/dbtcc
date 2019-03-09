@@ -2,5 +2,5 @@ Banco de dados de Trabalhos de Conclusão de Curso de Escola de Serviço Social 
 
 Foi objeto de um ataque de spam no ano de 2012. Agora foi restaurado e está sendo migrado para utilizar a plataforma Cakephp.
 
-O Banco de Dados está instalado aqui: http://www.ess.ufrj.br
+Está instalado aqui: http://www.ess.ufrj.br
 

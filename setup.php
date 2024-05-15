@@ -29,7 +29,7 @@ require_once(ADODB.'adodb.inc.php');
 $tipo       = "mysql";
 $host       = "localhost";
 $usuario    = "ess";
-$senha      = "ess123";
+$senha      = "ess";
 $bancodados = "ess";
 
 $db = NewADOConnection($tipo);
